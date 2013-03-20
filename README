@@ -1,0 +1,27 @@
+Fortgeschrittene objektorientierte Programmierung
+TU Wien, SS 2013
+=================================================
+
+Requirements
+------------
+
+You will need a couple of programs in order to work on this assignment:
+
+* Qt 4, a somewhat current version is recommended (4.8.4 is the most recent
+  one)
+* CMake
+* git
+* astyle 2 or higher
+
+If you're looking for a good IDE, QtCreator is the best choice.
+
+Setup
+-----
+
+After cloning the git repository, run the following command from the repository
+root:
+
+    cp misc/pre-commit .git/hooks/pre-commit
+
+Do not forget about this step! It will help ensure we all use the same coding
+style and prevent headaches for all of us.
