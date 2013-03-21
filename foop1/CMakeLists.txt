@@ -18,5 +18,6 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 endif()
 
 add_subdirectory(client)
+add_subdirectory(common)
 
 # vim:set ts=4 sw=4 et:
