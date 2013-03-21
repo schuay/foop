@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(onQuit()));
     connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(onNewGame()));
+
+    ui->graphicsView->setScene(&scene);
 }
 
 void MainWindow::onNewGame()

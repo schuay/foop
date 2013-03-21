@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "scene.h"
+
 namespace Ui
 {
 class MainWindow;
@@ -22,6 +24,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    Scene scene;
 };
 
 #endif // MAINWINDOW_H

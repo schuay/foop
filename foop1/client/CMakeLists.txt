@@ -1,10 +1,12 @@
 set(foop1_client_SRCS
     main.cpp
     mainwindow.cpp
+    scene.cpp
 )
 
 qt4_wrap_cpp(foop1_client_MOC
     mainwindow.h
+    scene.h
 )
 
 qt4_wrap_ui(foop1_client_UI
