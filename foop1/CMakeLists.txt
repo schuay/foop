@@ -17,6 +17,6 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu++11")
 endif()
 
-add_subdirectory(src)
+add_subdirectory(client)
 
 # vim:set ts=4 sw=4 et:
