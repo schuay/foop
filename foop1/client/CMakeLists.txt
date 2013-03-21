@@ -1,4 +1,5 @@
 set(foop1_client_SRCS
+    griditem.cpp
     main.cpp
     mainwindow.cpp
     scene.cpp

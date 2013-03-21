@@ -10,7 +10,7 @@ if [ ! -x $(which astyle) ]; then
     exit 1
 fi
 
-ASTYLE_PARAMETERS="--style=kr -p -H -U -W3 -k3 -c -s -C -K -j -z2"
+ASTYLE_PARAMETERS="--style=kr -p -H -U -W3 -k3 -c -s -K -j -z2"
 FILE_PATTERN="\.(c|cpp|h)$"
 IGNORE_PATTERN="^doc/"
 
