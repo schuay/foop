@@ -19,11 +19,13 @@ add_executable(foop1_client
 
 target_link_libraries(foop1_client
     ${QT_LIBRARIES}
+    ${COMMON_LIBRARIES}
 )
 
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${QT_INCLUDES}
+    ${COMMON_INCLUDES}
 )
 
 # vim:set ts=4 sw=4 et:

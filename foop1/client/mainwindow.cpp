@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "QsLog.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -13,11 +15,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::onNewGame()
 {
-
+    QLOG_TRACE() << __PRETTY_FUNCTION__;
 }
 
 void MainWindow::onQuit()
 {
+    QLOG_TRACE() << __PRETTY_FUNCTION__;
+
     close();
 }
 
