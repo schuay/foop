@@ -1,9 +1,11 @@
 set(foop1_server_SRCS
+    clientconnection.cpp
     main.cpp
     server.cpp
 )
 
 qt4_wrap_cpp(foop1_server_MOC
+    clientconnection.h
     server.h
 )
 
