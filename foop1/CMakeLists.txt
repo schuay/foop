@@ -8,6 +8,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 find_package(Qt4 REQUIRED)
+find_package(QJSON REQUIRED)
 
 include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
