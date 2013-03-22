@@ -9,6 +9,7 @@ You will need a couple of programs in order to work on this assignment:
 
 * Qt 4, a somewhat current version is recommended (4.8.4 is the most recent
   one)
+* QJson
 * CMake
 * git
 * astyle 2 or higher
