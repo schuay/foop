@@ -16,7 +16,7 @@ void Server::incomingConnection(int socketDescriptor)
 
     QThread *thread = new QThread();
 
-    ClientConnection *connection = new ClientConnection();
+    ClientConnection *connection = new ClientConnection(socketDescriptor);
     connection->moveToThread(thread);
 
     connect(thread, SIGNAL(started()), connection, SLOT(process()));
