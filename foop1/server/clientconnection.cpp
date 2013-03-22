@@ -1,5 +1,6 @@
 #include "clientconnection.h"
 
+#include <qjson/parser.h>
 
 #include "QsLog.h"
 
@@ -21,12 +22,32 @@ void ClientConnection::process()
 
     connect(tcpSocket.data(), SIGNAL(readyRead()), this, SLOT(read()));
     connect(tcpSocket.data(), SIGNAL(readChannelFinished()), this, SIGNAL(finished()));
+
+    parser.reset(new QJson::Parser());
 }
 
 void ClientConnection::read()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    QByteArray data = tcpSocket->readAll();
-    QLOG_TRACE() << "Received:" << data;
+    buffer.append(tcpSocket->readAll().trimmed());
+
+    bool ok;
+    QVariant result = parser->parse(buffer, &ok);
+
+    if (!ok) {
+        /* The QJson implementation does not seem to recover well from
+         * errors, forcing us to use a new instance for each failed attempt.
+         * Alternatively, we could count braces ourselves and only attempt to
+         * parse once we have a complete JSON snippet.
+         */
+        parser.reset(new QJson::Parser());
+        return;
+    }
+
+    /* Parsed a JSON object successfully; clear the buffer and handle
+     * the incoming data. */
+
+    QLOG_INFO() << "Received JSON:" << result;
+    buffer.clear();
 }

@@ -17,12 +17,14 @@ add_executable(foop1_server
 target_link_libraries(foop1_server
     ${QT_LIBRARIES}
     ${QT_QTNETWORK_LIBRARY}
+    ${QJSON_LIBRARIES}
     ${COMMON_LIBRARIES}
 )
 
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${QT_INCLUDES}
+    ${QJSON_INCLUDE_DIR}
     ${COMMON_INCLUDES}
 )
 

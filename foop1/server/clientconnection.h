@@ -1,6 +1,7 @@
 #ifndef CLIENTCONNECTION_H
 #define CLIENTCONNECTION_H
 
+#include <qjson/parser.h>
 #include <QObject>
 #include <QTcpSocket>
 #include <QScopedPointer>
@@ -24,6 +25,9 @@ private:
     const int socketDescriptor;
     QScopedPointer<QTcpSocket> tcpSocket;
 
+    QByteArray buffer;
+
+    QScopedPointer<QJson::Parser> parser;
 };
 
 #endif // CLIENTCONNECTION_H
