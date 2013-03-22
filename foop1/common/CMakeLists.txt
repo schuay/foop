@@ -1,4 +1,6 @@
 set(foop1_common_SRCS
+    board.cpp
+    snake.cpp
     QsDebugOutput.cpp
     QsLog.cpp
     QsLogDest.cpp
@@ -10,11 +12,13 @@ add_library(foop1_common
 
 target_link_libraries(foop1_common
     ${QT_LIBRARIES}
+    ${QJSON_LIBRARIES}
 )
 
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
     ${QT_INCLUDES}
+    ${QJSON_INCLUDE_DIR}
 )
 
 # vim:set ts=4 sw=4 et:
