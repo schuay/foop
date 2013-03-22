@@ -23,5 +23,6 @@ endif()
 
 add_subdirectory(client)
 add_subdirectory(common)
+add_subdirectory(server)
 
 # vim:set ts=4 sw=4 et:
