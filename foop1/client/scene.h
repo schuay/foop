@@ -9,6 +9,9 @@ class Scene : public QGraphicsScene
 
 public:
     Scene(QObject *parent = 0);
+
+protected:
+    void keyPressEvent(QKeyEvent *keyEvent);
 };
 
 #endif // SCENE_H
