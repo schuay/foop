@@ -5,9 +5,13 @@
 #include "clientconnection.h"
 #include "QsLog.h"
 
+#define WIDTH (32)
+#define HEIGHT (32)
+
 Server::Server(QObject *parent)
     : QTcpServer(parent)
 {
+    game.reset(new Game(WIDTH, HEIGHT));
 }
 
 void Server::incomingConnection(int socketDescriptor)
@@ -16,7 +20,7 @@ void Server::incomingConnection(int socketDescriptor)
 
     QThread *thread = new QThread();
 
-    ClientConnection *connection = new ClientConnection(socketDescriptor);
+    ClientConnection *connection = new ClientConnection(socketDescriptor, game->getBoard());
     connection->moveToThread(thread);
 
     connect(thread, SIGNAL(started()), connection, SLOT(process()));

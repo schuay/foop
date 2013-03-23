@@ -5,12 +5,15 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <QScopedPointer>
+#include <QSharedPointer>
+
+#include "board.h"
 
 class ClientConnection : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClientConnection(int socketDescriptor, QObject *parent = 0);
+    explicit ClientConnection(int socketDescriptor, QSharedPointer<Board> board, QObject *parent = 0);
 
 signals:
     void finished();
@@ -28,6 +31,8 @@ private:
     QByteArray buffer;
 
     QScopedPointer<QJson::Parser> parser;
+
+    QSharedPointer<Board> board;
 };
 
 #endif // CLIENTCONNECTION_H

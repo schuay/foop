@@ -4,8 +4,10 @@
 
 #include "QsLog.h"
 
-ClientConnection::ClientConnection(int socketDescriptor, QObject *parent) :
-    QObject(parent), socketDescriptor(socketDescriptor)
+ClientConnection::ClientConnection(int socketDescriptor, QSharedPointer<Board> board, QObject *parent) :
+    QObject(parent),
+    socketDescriptor(socketDescriptor),
+    board(board)
 {
 }
 
