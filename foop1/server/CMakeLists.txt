@@ -1,11 +1,13 @@
 set(foop1_server_SRCS
     clientconnection.cpp
+    game.cpp
     main.cpp
     server.cpp
 )
 
 qt4_wrap_cpp(foop1_server_MOC
     clientconnection.h
+    game.h
     server.h
 )
 
