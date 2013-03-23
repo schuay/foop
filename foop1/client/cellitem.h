@@ -3,10 +3,10 @@
 
 #include <QGraphicsRectItem>
 
-class GridItem : public QGraphicsRectItem
+class CellItem : public QGraphicsRectItem
 {
 public:
-    GridItem(QGraphicsItem *parent = 0);
+    CellItem(QGraphicsItem *parent = 0);
 };
 
 #endif // GRIDITEM_H
