@@ -1,7 +1,5 @@
 #include "clientconnection.h"
 
-#include <qjson/parser.h>
-
 #include "QsLog.h"
 
 ClientConnection::ClientConnection(int socketDescriptor, QSharedPointer<Board> board, QObject *parent) :
@@ -26,6 +24,15 @@ void ClientConnection::process()
     connect(tcpSocket.data(), SIGNAL(readChannelFinished()), this, SIGNAL(finished()));
 
     parser.reset(new QJson::Parser());
+    serializer.reset(new QJson::Serializer());
+}
+
+void ClientConnection::newTurn()
+{
+    QLOG_TRACE() << __PRETTY_FUNCTION__;
+
+    QByteArray data = serializer->serialize(board->toVariant());
+    tcpSocket->write(data);
 }
 
 void ClientConnection::read()

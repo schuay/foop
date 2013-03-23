@@ -2,6 +2,7 @@
 #define CLIENTCONNECTION_H
 
 #include <qjson/parser.h>
+#include <qjson/serializer.h>
 #include <QObject>
 #include <QTcpSocket>
 #include <QScopedPointer>
@@ -20,6 +21,7 @@ signals:
 
 public slots:
     void process();
+    void newTurn();
 
 private slots:
     void read();
@@ -31,6 +33,7 @@ private:
     QByteArray buffer;
 
     QScopedPointer<QJson::Parser> parser;
+    QScopedPointer<QJson::Serializer> serializer;
 
     QSharedPointer<Board> board;
 };

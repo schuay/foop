@@ -23,6 +23,8 @@ void Server::incomingConnection(int socketDescriptor)
     ClientConnection *connection = new ClientConnection(socketDescriptor, game->getBoard());
     connection->moveToThread(thread);
 
+    connect(game.data(), SIGNAL(newTurn()), connection, SLOT(newTurn()));
+
     connect(thread, SIGNAL(started()), connection, SLOT(process()));
     connect(connection, SIGNAL(finished()), thread, SLOT(quit()));
     connect(connection, SIGNAL(finished()), connection, SLOT(deleteLater()));

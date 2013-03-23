@@ -20,4 +20,6 @@ QSharedPointer<Board> Game::getBoard() const
 void Game::processNewTurn()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
+
+    emit newTurn();
 }
