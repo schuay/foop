@@ -21,6 +21,7 @@
 #include <QGraphicsScene>
 #include <QScopedPointer>
 
+#include "board.h"
 #include "cellitem.h"
 
 class Scene : public QGraphicsScene
@@ -40,6 +41,8 @@ private:
     /* Note: Use scoped pointers for objects which are not
      * shared (its pointer is only stored in a single location),
      * and QSharedPointer<> for shared objects. */
+    QScopedPointer<Board> board;
+
     QList<CellItem *> cells;
 };
 
