@@ -1,14 +1,12 @@
 #ifndef CLIENTCONNECTION_H
 #define CLIENTCONNECTION_H
 
-#include <qjson/parser.h>
-#include <qjson/serializer.h>
 #include <QObject>
-#include <QTcpSocket>
 #include <QScopedPointer>
 #include <QSharedPointer>
 
 #include "board.h"
+#include "jsonsocket.h"
 
 class ClientConnection : public QObject
 {
@@ -24,16 +22,14 @@ public slots:
     void newTurn();
 
 private slots:
-    void read();
+    void onReadyRead();
 
 private:
     const int socketDescriptor;
-    QScopedPointer<QTcpSocket> tcpSocket;
 
-    QByteArray buffer;
-
-    QScopedPointer<QJson::Parser> parser;
-    QScopedPointer<QJson::Serializer> serializer;
+    /* This needs to be a scoped pointer (instead of just an object instance)
+     * since we need to defer initialization until the object is running in its target thread. */
+    QScopedPointer<JsonSocket> jsonSocket;
 
     QSharedPointer<Board> board;
 };
