@@ -1,13 +1,19 @@
 set(foop1_common_SRCS
     board.cpp
+    jsonsocket.cpp
     snake.cpp
     QsDebugOutput.cpp
     QsLog.cpp
     QsLogDest.cpp
 )
 
+qt4_wrap_cpp(foop1_common_MOC
+    jsonsocket.h
+)
+
 add_library(foop1_common
     ${foop1_common_SRCS}
+    ${foop1_common_MOC}
 )
 
 target_link_libraries(foop1_common
