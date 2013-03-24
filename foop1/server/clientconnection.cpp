@@ -1,5 +1,6 @@
 #include "clientconnection.h"
 
+#include "jsonvariantsocket.h"
 #include "QsLog.h"
 
 ClientConnection::ClientConnection(int socketDescriptor, QSharedPointer<Board> board, QObject *parent) :
@@ -13,23 +14,23 @@ void ClientConnection::run()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    jsonSocket.reset(new JsonSocket(socketDescriptor));
+    variantSocket.reset(new JsonVariantSocket(socketDescriptor));
 
-    connect(jsonSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
-    connect(jsonSocket.data(), SIGNAL(readChannelFinished()), this, SIGNAL(finished()));
+    connect(variantSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+    connect(variantSocket.data(), SIGNAL(readChannelFinished()), this, SIGNAL(finished()));
 }
 
 void ClientConnection::newTurn()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    jsonSocket->write(board->toVariant());
+    variantSocket->write(board->toVariant());
 }
 
 void ClientConnection::onReadyRead()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    QVariant data = jsonSocket->read();
+    QVariant data = variantSocket->read();
     QLOG_INFO() << "Doing complicated things with received variant:" << data;
 }

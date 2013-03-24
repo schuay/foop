@@ -1,8 +1,8 @@
-#include "jsonsocket.h"
+#include "jsonvariantsocket.h"
 
 #include "QsLog.h"
 
-JsonSocket::JsonSocket(int socketDescriptor)
+JsonVariantSocket::JsonVariantSocket(int socketDescriptor)
 {
     tcpSocket.setSocketDescriptor(socketDescriptor);
 
@@ -13,7 +13,7 @@ JsonSocket::JsonSocket(int socketDescriptor)
     connect(&tcpSocket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 }
 
-QVariant JsonSocket::read()
+QVariant JsonVariantSocket::read()
 {
     if (readQueue.isEmpty()) {
         return QVariant();
@@ -22,7 +22,7 @@ QVariant JsonSocket::read()
     return readQueue.dequeue();
 }
 
-void JsonSocket::write(const QVariant &data)
+void JsonVariantSocket::write(const QVariant &data)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << data;
 
@@ -37,7 +37,7 @@ void JsonSocket::write(const QVariant &data)
     tcpSocket.write(bytes);
 }
 
-void JsonSocket::onReadyRead()
+void JsonVariantSocket::onReadyRead()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
@@ -67,7 +67,7 @@ void JsonSocket::onReadyRead()
     emit readyRead();
 }
 
-void JsonSocket::onReadChannelFinished()
+void JsonVariantSocket::onReadChannelFinished()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 

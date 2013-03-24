@@ -6,7 +6,7 @@
 #include <QSharedPointer>
 
 #include "board.h"
-#include "jsonsocket.h"
+#include "abstractvariantsocket.h"
 
 class ClientConnection : public QObject
 {
@@ -29,7 +29,7 @@ private:
 
     /* This needs to be a scoped pointer (instead of just an object instance)
      * since we need to defer initialization until the object is running in its target thread. */
-    QScopedPointer<JsonSocket> jsonSocket;
+    QScopedPointer<AbstractVariantSocket> variantSocket;
 
     QSharedPointer<Board> board;
 };

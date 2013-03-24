@@ -1,6 +1,6 @@
 set(foop1_common_SRCS
     board.cpp
-    jsonsocket.cpp
+    jsonvariantsocket.cpp
     snake.cpp
     QsDebugOutput.cpp
     QsLog.cpp
@@ -8,7 +8,8 @@ set(foop1_common_SRCS
 )
 
 qt4_wrap_cpp(foop1_common_MOC
-    jsonsocket.h
+    abstractvariantsocket.h
+    jsonvariantsocket.h
 )
 
 add_library(foop1_common
