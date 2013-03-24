@@ -18,7 +18,7 @@ signals:
     void finished();
 
 public slots:
-    void process();
+    void run();
     void newTurn();
 
 private slots:

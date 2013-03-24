@@ -9,7 +9,7 @@ ClientConnection::ClientConnection(int socketDescriptor, QSharedPointer<Board> b
 {
 }
 
-void ClientConnection::process()
+void ClientConnection::run()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 

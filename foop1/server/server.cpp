@@ -25,7 +25,7 @@ void Server::incomingConnection(int socketDescriptor)
 
     connect(game.data(), SIGNAL(newTurn()), connection, SLOT(newTurn()));
 
-    connect(thread, SIGNAL(started()), connection, SLOT(process()));
+    connect(thread, SIGNAL(started()), connection, SLOT(run()));
     connect(connection, SIGNAL(finished()), thread, SLOT(quit()));
     connect(connection, SIGNAL(finished()), connection, SLOT(deleteLater()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
