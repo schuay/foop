@@ -3,11 +3,13 @@ set(foop1_client_SRCS
     main.cpp
     mainwindow.cpp
     scene.cpp
+    serverconnection.cpp
 )
 
 qt4_wrap_cpp(foop1_client_MOC
     mainwindow.h
     scene.h
+    serverconnection.h
 )
 
 qt4_wrap_ui(foop1_client_UI
