@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QsLogging::Logger &logger = QsLogging::Logger::instance();
-    logger.setLoggingLevel(QsLogging::TraceLevel);
+    logger.setLoggingLevel(QsLogging::DebugLevel);
 
     QsLogging::DestinationPtr debugDestination(
         QsLogging::DestinationFactory::MakeDebugOutputDestination());

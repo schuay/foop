@@ -60,7 +60,7 @@ void JsonVariantSocket::onReadyRead()
     /* Parsed a JSON object successfully; clear the buffer and handle
      * the incoming data. */
 
-    QLOG_INFO() << "Received JSON:" << result;
+    QLOG_TRACE() << "Received JSON:" << result;
     parseBuffer.clear();
 
     readQueue.append(result);
