@@ -29,9 +29,14 @@ Scene::Scene(QObject *parent)
     }
 }
 
-void Scene::onDirectionPress(int dx, int dy)
+void Scene::onDirectionPress(Snake::Direction direction)
 {
-    QLOG_TRACE() << __PRETTY_FUNCTION__ << dx << dy;
+    QLOG_TRACE() << __PRETTY_FUNCTION__ << direction;
+
+    if (direction != this->direction) {
+        this->direction = direction;
+        emit directionChange(direction);
+    }
 }
 
 void Scene::keyPressEvent(QKeyEvent *keyEvent)
@@ -40,16 +45,16 @@ void Scene::keyPressEvent(QKeyEvent *keyEvent)
 
     switch (keyEvent->key()) {
     case Qt::Key_Left:
-        onDirectionPress(-1, 0);
+        onDirectionPress(Snake::DIR_LEFT);
         break;
     case Qt::Key_Right:
-        onDirectionPress(1, 0);
+        onDirectionPress(Snake::DIR_RIGHT);
         break;
     case Qt::Key_Up:
-        onDirectionPress(0, -1);
+        onDirectionPress(Snake::DIR_UP);
         break;
     case Qt::Key_Down:
-        onDirectionPress(0, 1);
+        onDirectionPress(Snake::DIR_DOWN);
         break;
     default:
         break;

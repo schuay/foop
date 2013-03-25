@@ -31,11 +31,14 @@ class Scene : public QGraphicsScene
 public:
     Scene(QObject *parent = 0);
 
+signals:
+    void directionChange(Snake::Direction direction);
+
 protected:
     void keyPressEvent(QKeyEvent *keyEvent);
 
 private:
-    void onDirectionPress(int dx, int dy);
+    void onDirectionPress(Snake::Direction direction);
 
 private:
     /* Note: Use scoped pointers for objects which are not
@@ -44,6 +47,8 @@ private:
     QScopedPointer<Board> board;
 
     QList<CellItem *> cells;
+
+    Snake::Direction direction;
 };
 
 #endif // SCENE_H
