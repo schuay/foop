@@ -1,10 +1,11 @@
 set(foop1_common_SRCS
     board.cpp
     jsonvariantsocket.cpp
-    snake.cpp
     QsDebugOutput.cpp
     QsLog.cpp
     QsLogDest.cpp
+    snake.cpp
+    statemessage.cpp
 )
 
 qt4_wrap_cpp(foop1_common_MOC
