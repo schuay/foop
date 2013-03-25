@@ -26,3 +26,16 @@ void ServerConnection::run()
 
     variantSocket.reset(new JsonVariantSocket(tcpSocket));
 }
+
+void ServerConnection::onDirectionChange(Snake::Direction direction)
+{
+    QLOG_TRACE() << __PRETTY_FUNCTION__ << direction;
+
+    /* TODO: Extract this into an object. */
+
+    QVariantMap v;
+    v.insert("type", "direction");
+    v.insert("direction", direction);
+
+    variantSocket->write(v);
+}

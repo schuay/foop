@@ -5,6 +5,7 @@
 #include <QScopedPointer>
 
 #include "abstractvariantsocket.h"
+#include "snake.h"
 
 class ServerConnection : public QObject
 {
@@ -18,6 +19,7 @@ signals:
 
 public slots:
     void run();
+    void onDirectionChange(Snake::Direction direction);
 
 private:
     const QString host;

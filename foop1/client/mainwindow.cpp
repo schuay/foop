@@ -28,6 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ServerConnection *connection = new ServerConnection(HOST, PORT);
     connection->moveToThread(thread);
 
+    qRegisterMetaType<Snake::Direction>("Snake::Direction");
+    connect(&scene, SIGNAL(directionChange(Snake::Direction)),
+            connection, SLOT(onDirectionChange(Snake::Direction)));
+
     connect(thread, SIGNAL(started()), connection, SLOT(run()));
     connect(connection, SIGNAL(finished()), thread, SLOT(quit()));
     connect(connection, SIGNAL(finished()), connection, SLOT(deleteLater()));
