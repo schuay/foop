@@ -3,11 +3,11 @@
 
 #include <QList>
 #include <QSharedPointer>
-#include <QVariant>
 
+#include "serializable.h"
 #include "snake.h"
 
-class Board
+class Board : public Serializable
 {
 public:
     Board(int width, int height);

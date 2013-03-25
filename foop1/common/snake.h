@@ -3,9 +3,10 @@
 
 #include <QPoint>
 #include <QQueue>
-#include <QVariant>
 
-class Snake
+#include "serializable.h"
+
+class Snake : public Serializable
 {
 public:
     enum Priority {
