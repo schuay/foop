@@ -24,6 +24,7 @@ add_executable(foop1_client
 
 target_link_libraries(foop1_client
     ${QT_LIBRARIES}
+    ${QT_QTNETWORK_LIBRARY}
     ${COMMON_LIBRARIES}
 )
 
