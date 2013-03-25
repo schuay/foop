@@ -4,6 +4,7 @@
 #include <qjson/parser.h>
 #include <qjson/serializer.h>
 #include <QQueue>
+#include <QSharedPointer>
 #include <QScopedPointer>
 #include <QTcpSocket>
 
@@ -13,7 +14,7 @@ class JsonVariantSocket : public AbstractVariantSocket
 {
     Q_OBJECT
 public:
-    JsonVariantSocket(int socketDescriptor);
+    JsonVariantSocket(QSharedPointer<QTcpSocket> tcpSocket, QObject *parent = 0);
 
     QVariant read();
     void write(const QVariant &data);
@@ -28,7 +29,7 @@ private:
 
     QByteArray parseBuffer;
 
-    QTcpSocket tcpSocket;
+    QSharedPointer<QTcpSocket> tcpSocket;
 
     QQueue<QVariant> readQueue;
 };

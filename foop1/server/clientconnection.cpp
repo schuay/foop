@@ -14,7 +14,10 @@ void ClientConnection::run()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    variantSocket.reset(new JsonVariantSocket(socketDescriptor));
+    QSharedPointer<QTcpSocket> tcpSocket(new QTcpSocket(this));
+    tcpSocket->setSocketDescriptor(socketDescriptor);
+
+    variantSocket.reset(new JsonVariantSocket(tcpSocket));
 
     connect(variantSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     connect(variantSocket.data(), SIGNAL(readChannelFinished()), this, SIGNAL(finished()));

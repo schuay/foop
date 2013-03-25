@@ -2,15 +2,14 @@
 
 #include "QsLog.h"
 
-JsonVariantSocket::JsonVariantSocket(int socketDescriptor)
+JsonVariantSocket::JsonVariantSocket(QSharedPointer<QTcpSocket> tcpSocket, QObject *parent) :
+    tcpSocket(tcpSocket)
 {
-    tcpSocket.setSocketDescriptor(socketDescriptor);
-
     parser.reset(new QJson::Parser());
     serializer.reset(new QJson::Serializer());
 
-    connect(&tcpSocket, SIGNAL(readChannelFinished()), this, SLOT(onReadChannelFinished()));
-    connect(&tcpSocket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+    connect(tcpSocket.data(), SIGNAL(readChannelFinished()), this, SLOT(onReadChannelFinished()));
+    connect(tcpSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 }
 
 QVariant JsonVariantSocket::read()
@@ -34,14 +33,14 @@ void JsonVariantSocket::write(const QVariant &data)
         return;
     }
 
-    tcpSocket.write(bytes);
+    tcpSocket->write(bytes);
 }
 
 void JsonVariantSocket::onReadyRead()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    parseBuffer.append(tcpSocket.readAll());
+    parseBuffer.append(tcpSocket->readAll());
 
     bool ok;
     QVariant result = parser->parse(parseBuffer, &ok);
