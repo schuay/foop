@@ -16,9 +16,20 @@ feature {NONE} -- Initialization
 
 	make
 			-- Run application.
+		local
+			p: PERSON
+			a: ACCOUNT
 		do
-			--| Add your code here
-			print ("Hello Eiffel World!%N")
+			print("Hello Eiffel World!%N")
+
+			create p.make ("Jane Doe")
+			print ("Person: " + p.to_string + "%N")
+
+			create a.make (p)
+			print ("Account: " + a.to_string + "%N")
+			
+			a.deposit (20.0)
+			print ("Account: " + a.to_string + "%N")
 		end
 
 end
