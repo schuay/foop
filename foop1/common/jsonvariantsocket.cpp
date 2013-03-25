@@ -3,6 +3,7 @@
 #include "QsLog.h"
 
 JsonVariantSocket::JsonVariantSocket(QSharedPointer<QTcpSocket> tcpSocket, QObject *parent) :
+    AbstractVariantSocket(parent),
     tcpSocket(tcpSocket)
 {
     parser.reset(new QJson::Parser());

@@ -8,6 +8,9 @@ class AbstractVariantSocket : public QObject
 {
     Q_OBJECT
 public:
+    AbstractVariantSocket(QObject *parent = 0) : QObject(parent) { }
+    virtual ~AbstractVariantSocket() { }
+
     virtual QVariant read() = 0;
     virtual void write(const QVariant &data) = 0;
 
