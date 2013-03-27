@@ -17,19 +17,24 @@ feature {NONE} -- Initialization
 	make
 			-- Run application.
 		local
-			p: PERSON
-			a: ACCOUNT
+			person: PERSON
+			student: STUDENT
+			senior: SENIOR
+
+			account: ACCOUNT
+			student_account: STUDENT_ACCOUNT
+			senior_account: SENIOR_ACCOUNT
 		do
 			print("Hello Eiffel World!%N")
 
-			create {STUDENT}p.make ("Jane Doe")
-			print ("Person: " + p.to_string + "%N")
+			create {STUDENT}person.make ("Jane Doe")
+			print ("Person: " + person.to_string + "%N")
 
-			create a.make (p)
-			print ("Account: " + a.to_string + "%N")
+			create account.make (person)
+			print ("Account: " + account.to_string + "%N")
 
-			a.deposit (20.0)
-			print ("Account: " + a.to_string + "%N")
+			account.deposit (20.0)
+			print ("Account: " + account.to_string + "%N")
 		end
 
 end
