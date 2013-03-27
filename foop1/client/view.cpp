@@ -8,3 +8,15 @@ View::View(QWidget *parent) :
     setFrameStyle(QFrame::NoFrame);
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
 }
+
+Scene *View::createScene()
+{
+    scene = new Scene(this);
+    setScene(scene);
+    return scene;
+}
+
+void View::resizeEvent(QResizeEvent *event)
+{
+    QGraphicsView::resizeEvent(event);
+}

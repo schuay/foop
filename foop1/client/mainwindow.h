@@ -25,7 +25,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    Scene scene;
+    Scene *scene;
     View *view;
 };
 

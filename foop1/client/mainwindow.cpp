@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(onNewGame()));
 
     view = new View(this);
-    view->setScene(&scene);
+    scene = view->createScene();
 
     setCentralWidget(view);
 
@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connection->moveToThread(thread);
 
     qRegisterMetaType<Snake::Direction>("Snake::Direction");
-    connect(&scene, SIGNAL(directionChange(Snake::Direction)),
+    connect(scene, SIGNAL(directionChange(Snake::Direction)),
             connection, SLOT(onDirectionChange(Snake::Direction)));
 
     connect(thread, SIGNAL(started()), connection, SLOT(run()));
