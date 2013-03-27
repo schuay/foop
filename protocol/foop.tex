@@ -9,7 +9,7 @@
 \definecolor{Gray}{gray}{0.5}
 
 \lstset{
-    language=Java,
+    language=Eiffel,
     basicstyle=\ttfamily,
     keywordstyle=\color{OliveGreen},
     commentstyle=\color{Gray},
@@ -40,6 +40,11 @@
 formulieren?}
 
 \vspace{3mm}
+
+Nachdem der Syntax sehr einfach gestaltet ist, ist der Aufwand vergleichbar mit 
+der Formulierung von Zusicherungen innerhalb Kommentaren. Es ist aber zu erwarten,
+dass der initiale Aufwand durch eine robustere Applikation und weniger Debugging
+belohnt wird.
 
 % ------------------------------------------------------------------------------
 
@@ -72,12 +77,38 @@ möglich diese Bedingungen zu umgehen? Wenn ja, wie?}
 
 \vspace{3mm}
 
+% TODO
+
+\vspace{3mm}
+
 % ------------------------------------------------------------------------------
 
 \emph{Eiffel erlaubt kovariante Eingangsparametertypen. Unter welchen Bedingungen 
 führt das zu Problemen, und wie äußern sich diese? Können Sie ein Programm 
 schreiben, in dem die Verwendung kovarianter Eingangsparametertypen zu einer 
 Exception führt?}
+
+\vspace{3mm}
+
+% TODO
+
+\begin{comment}
+See http://docs.eiffel.com/book/method/et-inheritance#Covariance.2C_anchored_declarations.2C_and_.22catcalls.22
+\end{comment}
+
+\begin{figure}
+\begin{lstlisting}
+local
+    account: ACCOUNT
+    person: PERSON
+do
+    create {STUDENT}person.make ("Joe")
+    create {SENIOR_ACCOUNT}account.make (person)
+    -- Exception
+end
+\end{lstlisting}
+\caption{Runtime Exception ausgel\"ost durch einen catcall}
+\end{figure}
 
 \vspace{3mm}
 
@@ -88,9 +119,10 @@ welchen Bedingungen ist das so?}
 
 \vspace{3mm}
 
+%TODO
+
 \begin{comment}
 Von OOP: Mehrfach dynamisches Binden, Multimethoden.
 \end{comment}
-
 
 \end{document}
