@@ -9,8 +9,18 @@ class
 
 inherit
 	PERSON
+		redefine
+			to_string
+		end
 
 create
 	make
+
+feature -- Status report
+
+	to_string: STRING
+		do
+			Result := "SENIOR: " + Precursor
+		end
 
 end

@@ -28,7 +28,7 @@ feature {NONE} -- Initialization
 			print("Hello Eiffel World!%N")
 
 			create {STUDENT}person.make ("Jane Doe")
-			print ("Person: " + person.to_string + "%N")
+			print (person.to_string)
 
 			create account.make (person)
 			print ("Account: " + account.to_string + "%N")
