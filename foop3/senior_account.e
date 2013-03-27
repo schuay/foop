@@ -10,6 +10,8 @@ class
 inherit
 	ACCOUNT
 		redefine
+			to_string,
+
 			owner,
 
 			min_transaction,
@@ -26,7 +28,16 @@ inherit
 create
 	make
 
-feature {NONE} -- Initialization
+feature -- Status report
+
+	to_string: STRING
+
+		local
+			str: STRING
+		do
+			str := "SENIOR_ACCOUNT%N"
+			Result := str + Precursor
+		end
 
 feature -- Access
 
