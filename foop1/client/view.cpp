@@ -1,5 +1,7 @@
 #include "view.h"
 
+#include <QResizeEvent>
+
 View::View(QWidget *parent) :
     QGraphicsView(parent)
 {
@@ -13,10 +15,14 @@ Scene *View::createScene()
 {
     scene = new Scene(this);
     setScene(scene);
+    scene->resize(size());
     return scene;
 }
 
 void View::resizeEvent(QResizeEvent *event)
 {
     QGraphicsView::resizeEvent(event);
+    if (scene != NULL) {
+        scene->resize(event->size());
+    }
 }

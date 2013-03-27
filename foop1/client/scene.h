@@ -31,6 +31,8 @@ class Scene : public QGraphicsScene
 public:
     Scene(QObject *parent = 0);
 
+    void resize(const QSize &size);
+
 signals:
     void directionChange(Snake::Direction direction);
 
