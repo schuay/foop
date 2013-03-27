@@ -1,7 +1,9 @@
 #include "scene.h"
 
+#include <QKeyEvent>
+
+#include "defaultcolorscheme.h"
 #include "QsLog.h"
-#include "QKeyEvent"
 
 /* Temporary settings until we actually have a board from the server. */
 #define WIDTH (32)
@@ -12,6 +14,7 @@
 Scene::Scene(QObject *parent)
     : QGraphicsScene(parent)
 {
+    colorScheme.reset(new DefaultColorScheme());
     board.reset(new Board(WIDTH, HEIGHT));
 
     group = new QGraphicsItemGroup();
@@ -61,6 +64,8 @@ void Scene::update()
     int bodyMassIndex = 0;
 
     foreach(QSharedPointer<Snake> snake, board->getSnakes()) {
+        QColor color = colorScheme->colorForPriority(snake->getPriority());
+
         foreach(const QPoint & p, snake->getBody()) {
             if (bodyMassIndex + 1 > snakecells.size()) {
                 growSnakeCells();
@@ -68,7 +73,7 @@ void Scene::update()
 
             CellItem *cellItem = snakecells.at(bodyMassIndex);
 
-            cellItem->setBrush(QBrush(Qt::red));
+            cellItem->setBrush(QBrush(color));
             cellItem->setBoardPosition(p.x(), p.y());
             cellItem->setVisible(true);
 

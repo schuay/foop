@@ -18,6 +18,11 @@ QQueue<QPoint> Snake::getBody() const
     return body;
 }
 
+Snake::Priority Snake::getPriority() const
+{
+    return priority;
+}
+
 QVariant Snake::toVariant() const
 {
     QVariantMap map;

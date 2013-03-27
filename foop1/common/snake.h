@@ -29,6 +29,7 @@ public:
     Snake();
 
     QQueue<QPoint> getBody() const;
+    Priority getPriority() const;
 
     QVariant toVariant() const;
 

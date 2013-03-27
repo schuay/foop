@@ -23,6 +23,7 @@
 
 #include "board.h"
 #include "cellitem.h"
+#include "colorscheme.h"
 
 class Scene : public QGraphicsScene
 {
@@ -72,6 +73,8 @@ private:
     /** The currently selected direction of the snake. Used to prevent sending
      *  unnecessary direction change messages to the server. */
     Snake::Direction direction;
+
+    QScopedPointer<ColorScheme> colorScheme;
 };
 
 #endif // SCENE_H
