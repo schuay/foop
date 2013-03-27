@@ -20,6 +20,7 @@ signals:
 public slots:
     void run();
     void onDirectionChange(Snake::Direction direction);
+    void onReadyRead();
 
 private:
     const QString host;

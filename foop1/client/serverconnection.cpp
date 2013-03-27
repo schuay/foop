@@ -25,6 +25,9 @@ void ServerConnection::run()
     }
 
     variantSocket.reset(new JsonVariantSocket(tcpSocket));
+
+    connect(variantSocket.data(), SIGNAL(readChannelFinished()), this, SIGNAL(finished()));
+    connect(variantSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 }
 
 void ServerConnection::onDirectionChange(Snake::Direction direction)
@@ -38,4 +41,15 @@ void ServerConnection::onDirectionChange(Snake::Direction direction)
     v.insert("direction", direction);
 
     variantSocket->write(v);
+}
+
+void ServerConnection::onReadyRead()
+{
+    QVariant v = variantSocket->read();
+
+    if (v.isNull()) {
+        return;
+    }
+
+    /* TODO: Deserialize the message and emit the appropriate signal. */
 }
