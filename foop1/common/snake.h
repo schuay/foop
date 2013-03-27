@@ -28,6 +28,8 @@ public:
 
     Snake();
 
+    QQueue<QPoint> getBody() const;
+
     QVariant toVariant() const;
 
 private:

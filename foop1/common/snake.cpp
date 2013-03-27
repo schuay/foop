@@ -13,6 +13,11 @@ Snake::Snake()
     body.enqueue(QPoint(11, 18));
 }
 
+QQueue<QPoint> Snake::getBody() const
+{
+    return body;
+}
+
 QVariant Snake::toVariant() const
 {
     QVariantMap map;

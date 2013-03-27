@@ -17,6 +17,8 @@ public:
 
     QVariant toVariant() const;
 
+    QList<QSharedPointer<Snake> > getSnakes() const;
+
 private:
     const int width, height;
     QList<QSharedPointer<Snake> > snakes;

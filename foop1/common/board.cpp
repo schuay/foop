@@ -22,6 +22,11 @@ int Board::getHeight() const
     return height;
 }
 
+QList<QSharedPointer<Snake> > Board::getSnakes() const
+{
+    return snakes;
+}
+
 QVariant Board::toVariant() const
 {
     QVariantMap map;
