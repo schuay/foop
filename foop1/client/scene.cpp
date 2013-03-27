@@ -20,10 +20,13 @@ Scene::Scene(QObject *parent)
     for (int x = 0; x < board->getWidth(); x++) {
         for (int y = 0; y < board->getHeight(); y++) {
             CellItem *cellItem = new CellItem();
+            cellItem->setBoardPosition(x, y);
             gridcells.append(cellItem);
             group->addToGroup(cellItem);
         }
     }
+
+    update();
 }
 
 void Scene::resize(const QSize &size)
@@ -32,29 +35,22 @@ void Scene::resize(const QSize &size)
 
     setSceneRect(QRectF(0, 0, size.width(), size.height()));
 
-    /* TODO: Move the following logic into CellItem as appropriate.
-     * The game area should be in an item group, which can then be
-     * moved to the correct offset. */
-
     const int maxXCellsize = size.width() / board->getWidth();
     const int maxYCellsize = size.height() / board->getHeight();
     const int cellsize = qMin(maxXCellsize, maxYCellsize);
+
+    foreach(CellItem * cellItem, gridcells) {
+        cellItem->setCellSize(cellsize);
+    }
+
+    foreach(CellItem * cellItem, snakecells) {
+        cellItem->setCellSize(cellsize);
+    }
 
     const int xOffset = (size.width() - board->getWidth() * cellsize) / 2;
     const int yOffset = (size.height() - board->getHeight() * cellsize) / 2;
 
     group->setPos(xOffset, yOffset);
-
-    for (int i = 0; i < board->getWidth() * board->getHeight(); i++) {
-        const int x = i / board->getWidth();
-        const int y = i % board->getWidth();
-
-        CellItem *cellItem = gridcells.at(i);
-        cellItem->setRect(0, 0, cellsize - CELL_SEPARATOR, cellsize - CELL_SEPARATOR);
-        cellItem->setPos(x * cellsize, y * cellsize);
-    }
-
-    update();
 }
 
 void Scene::update()
@@ -73,8 +69,7 @@ void Scene::update()
             CellItem *cellItem = snakecells.at(bodyMassIndex);
 
             cellItem->setBrush(QBrush(Qt::red));
-            cellItem->setPos(p.x() * 16 /* TODO */, p.y() * 16);
-            cellItem->setRect(0, 0, 16, 16);
+            cellItem->setBoardPosition(p.x(), p.y());
             cellItem->setVisible(true);
 
             bodyMassIndex++;
