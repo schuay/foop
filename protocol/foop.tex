@@ -1,0 +1,96 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{comment}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{Gray}{gray}{0.5}
+
+\lstset{
+    language=Java,
+    basicstyle=\ttfamily,
+    keywordstyle=\color{OliveGreen},
+    commentstyle=\color{Gray},
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+    showspaces=false,
+    showtabs=false,
+    numbers=left,
+}
+
+\title{VU Fortgeschrittene Objektorientierte Programmierung \\
+       SS 2013}
+\author{Jakob Gruber,
+        Michael Osl,
+        Patrick Kohlmayr,
+        Martin Lackner}
+
+\begin{document}
+
+\maketitle
+
+\section{Aufgabe 3: Eiffel}
+
+% ------------------------------------------------------------------------------
+
+\emph{Wie hoch ist der Aufwand in Eiffel, um Zusicherungen im Programmcode zu 
+formulieren?}
+
+\vspace{3mm}
+
+% ------------------------------------------------------------------------------
+
+\emph{Wie stark wirkt sich die Überprüfung von Zusicherungen auf die Laufzeit aus?}
+
+\vspace{3mm}
+
+Die \"Uberpr\"ufung kann zur Laufzeit beliebig eingestellt werden. M\"ogliche Optionen sind
+
+\begin{itemize}
+\item no: kein Laufzeiteffekt,
+\item require: nur Preconditions,
+\item ensure: zus\"atzlich Postconditions,
+\item invariant: zus\"atzlich Invariants, und
+\item all: Pre-, Postconditions, Invariants, Check instructions, loop (in)variants.
+\end{itemize}
+
+Man kann also je nach Bedarf die Zusicherungs\"uberpr\"ufung anpassen. Empfohlen werden
+\emph{no} und \emph{require}, aber die beste Einstellung ist abh\"angig von dem am besten
+geeigneten Trade-off zwischen Effizienz und Sicherheit.
+
+\vspace{3mm}
+
+% ------------------------------------------------------------------------------
+
+\emph{Vorbedingungen dürfen im Untertyp nicht stärker und Nachbedingungen nicht 
+schwächer werden um Ersetzbarkeit zu garantieren. Der Eiffel-Compiler überprüft 
+diese Bedingungen. Ist es (trotz eingeschalteter Überprüfung von Zusicherungen) 
+möglich diese Bedingungen zu umgehen? Wenn ja, wie?}
+
+\vspace{3mm}
+
+% ------------------------------------------------------------------------------
+
+\emph{Eiffel erlaubt kovariante Eingangsparametertypen. Unter welchen Bedingungen 
+führt das zu Problemen, und wie äußern sich diese? Können Sie ein Programm 
+schreiben, in dem die Verwendung kovarianter Eingangsparametertypen zu einer 
+Exception führt?}
+
+\vspace{3mm}
+
+% ------------------------------------------------------------------------------
+
+\emph{Vereinfachen kovariante Eingangsparametertypen die Programmierung? Unter 
+welchen Bedingungen ist das so?}
+
+\vspace{3mm}
+
+\begin{comment}
+Von OOP: Mehrfach dynamisches Binden, Multimethoden.
+\end{comment}
+
+
+\end{document}
