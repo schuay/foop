@@ -119,15 +119,15 @@ feature -- Basic operations
 
 feature -- Public constants
 
-	min_transaction: DOUBLE is 2.00
+	min_transaction: DOUBLE once Result := 2.0 end
 
-	min_interest: DOUBLE is 0.00
-	max_interest: DOUBLE is 0.20
+	min_interest: DOUBLE once Result := 0.0 end
+	max_interest: DOUBLE once Result := 0.20 end
 
-	min_overdraft_interest: DOUBLE is 0.00
-	max_overdraft_interest: DOUBLE is 0.80
+	min_overdraft_interest: DOUBLE once Result := 0.00 end
+	max_overdraft_interest: DOUBLE once Result := 0.80 end
 
-	min_balance: DOUBLE is -2000.00
+	min_balance: DOUBLE once Result := -2000.00 end
 
 feature {NONE} -- Implementation
 
