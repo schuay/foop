@@ -42,6 +42,12 @@ protected:
 private:
     void onDirectionPress(Snake::Direction direction);
 
+    /** Updates the displayed items to reflect the current board state.
+     *  The board size is assumed to be constant. */
+    void update();
+
+    void growSnakeCells();
+
 private:
     /* Note: Use scoped pointers for objects which are not
      * shared (its pointer is only stored in a single location),
@@ -55,6 +61,10 @@ private:
 
     /** Grid cells are placed once and then only touched if the screen is resized. */
     QList<CellItem *> gridcells;
+
+    /** Snake cells are reusable items which make up the snake bodies. This list
+     *  can grow or shrink dynamically. */
+    QList<CellItem *> snakecells;
 
     /** The currently selected direction of the snake. Used to prevent sending
      *  unnecessary direction change messages to the server. */

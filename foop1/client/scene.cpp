@@ -29,6 +29,10 @@ void Scene::resize(const QSize &size)
 
     setSceneRect(QRectF(0, 0, size.width(), size.height()));
 
+    /* TODO: Move the following logic into CellItem as appropriate.
+     * The game area should be in an item group, which can then be
+     * moved to the correct offset. */
+
     const int maxXCellsize = size.width() / board->getWidth();
     const int maxYCellsize = size.height() / board->getHeight();
     const int cellsize = qMin(maxXCellsize, maxYCellsize);
@@ -40,10 +44,48 @@ void Scene::resize(const QSize &size)
         const int x = i / board->getWidth();
         const int y = i % board->getWidth();
 
-        CellItem *cellItem = cells.at(i);
+        CellItem *cellItem = gridcells.at(i);
         cellItem->setRect(0, 0, cellsize - CELL_SEPARATOR, cellsize - CELL_SEPARATOR);
         cellItem->setPos(xOffset + x * cellsize, yOffset + y * cellsize);
     }
+
+    update();
+}
+
+void Scene::update()
+{
+    QLOG_TRACE() << __PRETTY_FUNCTION__;
+
+    /* How many snake cells do we need in total? */
+    int bodyMassIndex = 0;
+
+    foreach(QSharedPointer<Snake> snake, board->getSnakes()) {
+        foreach(const QPoint & p, snake->getBody()) {
+            if (bodyMassIndex + 1 > snakecells.size()) {
+                growSnakeCells();
+            }
+
+            CellItem *cellItem = snakecells.at(bodyMassIndex);
+
+            cellItem->setBrush(QBrush(Qt::red));
+            cellItem->setPos(p.x() * 16 /* TODO */, p.y() * 16);
+            cellItem->setRect(0, 0, 16, 16);
+            cellItem->setVisible(true);
+
+            bodyMassIndex++;
+        }
+    }
+
+    for (; bodyMassIndex < snakecells.size(); bodyMassIndex++) {
+        snakecells.at(bodyMassIndex)->setVisible(false);
+    }
+}
+
+void Scene::growSnakeCells()
+{
+    CellItem *cellItem = new CellItem();
+    snakecells.append(cellItem);
+    addItem(cellItem);
 }
 
 void Scene::onDirectionPress(Snake::Direction direction)
