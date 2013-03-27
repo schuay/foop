@@ -17,7 +17,7 @@ Scene::Scene(QObject *parent)
     for (int x = 0; x < board->getWidth(); x++) {
         for (int y = 0; y < board->getHeight(); y++) {
             CellItem *cellItem = new CellItem();
-            cells.append(cellItem);
+            gridcells.append(cellItem);
             addItem(cellItem);
         }
     }

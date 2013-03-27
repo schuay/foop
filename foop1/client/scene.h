@@ -48,8 +48,16 @@ private:
      * and QSharedPointer<> for shared objects. */
     QScopedPointer<Board> board;
 
-    QList<CellItem *> cells;
+    /* The cell items which make up the main game area. Note that these do
+     * *not* need to be freed, because a scene deletes all of its items
+     * in its destructor.
+     */
 
+    /** Grid cells are placed once and then only touched if the screen is resized. */
+    QList<CellItem *> gridcells;
+
+    /** The currently selected direction of the snake. Used to prevent sending
+     *  unnecessary direction change messages to the server. */
     Snake::Direction direction;
 };
 
