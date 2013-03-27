@@ -22,14 +22,3 @@ Snake::Priority Snake::getPriority() const
 {
     return priority;
 }
-
-QVariant Snake::toVariant() const
-{
-    QVariantMap map;
-    map.insert("priority", priority);
-    map.insert("direction", direction);
-
-    /* TODO: Body. */
-
-    return map;
-}

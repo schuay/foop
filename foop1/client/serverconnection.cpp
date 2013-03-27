@@ -3,6 +3,7 @@
 #include <QTcpSocket>
 
 #include "jsonvariantsocket.h"
+#include "messagefactory.h"
 #include "QsLog.h"
 
 ServerConnection::ServerConnection(QString host, int port, QObject *parent) :
@@ -52,4 +53,10 @@ void ServerConnection::onReadyRead()
     }
 
     /* TODO: Deserialize the message and emit the appropriate signal. */
+
+    QSharedPointer<Message> message = MessageFactory::createMessage(v);
+
+    if (message.isNull()) {
+        return;
+    }
 }

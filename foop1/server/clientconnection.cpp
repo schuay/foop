@@ -2,6 +2,7 @@
 
 #include "jsonvariantsocket.h"
 #include "QsLog.h"
+#include "statemessage.h"
 
 ClientConnection::ClientConnection(int socketDescriptor, QSharedPointer<Board> board, QObject *parent) :
     QObject(parent),
@@ -27,7 +28,8 @@ void ClientConnection::newTurn()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    variantSocket->write(board->toVariant());
+    StateMessage stateMessage(board);
+    variantSocket->write(stateMessage.toVariant());
 }
 
 void ClientConnection::onReadyRead()

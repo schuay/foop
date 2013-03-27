@@ -4,10 +4,9 @@
 #include <QList>
 #include <QSharedPointer>
 
-#include "serializable.h"
 #include "snake.h"
 
-class Board : public Serializable
+class Board
 {
     friend class StateMessage;
 public:
@@ -15,8 +14,6 @@ public:
 
     int getWidth() const;
     int getHeight() const;
-
-    QVariant toVariant() const;
 
     QList<QSharedPointer<Snake> > getSnakes() const;
 

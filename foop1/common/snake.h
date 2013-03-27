@@ -4,9 +4,7 @@
 #include <QPoint>
 #include <QQueue>
 
-#include "serializable.h"
-
-class Snake : public Serializable
+class Snake
 {
     friend class StateMessage;
 public:
@@ -31,8 +29,6 @@ public:
 
     QQueue<QPoint> getBody() const;
     Priority getPriority() const;
-
-    QVariant toVariant() const;
 
 private:
     Priority priority;
