@@ -29,7 +29,7 @@ feature -- Status report
 	to_string: STRING
 
 		do
-			Result := "Name: " + name + "%N"
+			Result := "PERSON: Name: " + name + "%N"
 		end
 
 invariant

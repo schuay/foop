@@ -69,8 +69,7 @@ feature -- Status report
 		local
 			str: STRING
 		do
-			str := "Owner: " + owner.to_string + "%N"
-
+			str := "ACCOUNT: Owner: " + owner.name + "%N"
 			str := str + "Balance: "
 			str.append_double (balance)
 			str := str + "%N"
