@@ -27,14 +27,24 @@ feature {NONE} -- Initialization
 		do
 			print("Hello Eiffel World!%N")
 
-			create {STUDENT}person.make ("Jane Doe")
-			print (person.to_string)
+			-- Legal construction
+
+			create person.make ("Jane Doe")
+			create student.make ("Joe Doe")
+			create senior.make ("Joe Doe, Sr.")
 
 			create account.make (person)
-			print ("Account: " + account.to_string + "%N")
+			create student_account.make (student)
+			create senior_account.make (senior)
 
-			account.deposit (20.0)
-			print ("Account: " + account.to_string + "%N")
+			print (person.to_string)
+			print (student.to_string)
+			print (senior.to_string)
+
+			print (account.to_string)
+			print (student_account.to_string)
+			print (senior_account.to_string)
 		end
+
 
 end
