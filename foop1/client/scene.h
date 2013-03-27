@@ -54,6 +54,9 @@ private:
      * and QSharedPointer<> for shared objects. */
     QScopedPointer<Board> board;
 
+    /** Contains all elements of the actual playing field. */
+    QGraphicsItemGroup *group;
+
     /* The cell items which make up the main game area. Note that these do
      * *not* need to be freed, because a scene deletes all of its items
      * in its destructor.

@@ -14,11 +14,14 @@ Scene::Scene(QObject *parent)
 {
     board.reset(new Board(WIDTH, HEIGHT));
 
+    group = new QGraphicsItemGroup();
+    addItem(group);
+
     for (int x = 0; x < board->getWidth(); x++) {
         for (int y = 0; y < board->getHeight(); y++) {
             CellItem *cellItem = new CellItem();
             gridcells.append(cellItem);
-            addItem(cellItem);
+            group->addToGroup(cellItem);
         }
     }
 }
@@ -40,13 +43,15 @@ void Scene::resize(const QSize &size)
     const int xOffset = (size.width() - board->getWidth() * cellsize) / 2;
     const int yOffset = (size.height() - board->getHeight() * cellsize) / 2;
 
+    group->setPos(xOffset, yOffset);
+
     for (int i = 0; i < board->getWidth() * board->getHeight(); i++) {
         const int x = i / board->getWidth();
         const int y = i % board->getWidth();
 
         CellItem *cellItem = gridcells.at(i);
         cellItem->setRect(0, 0, cellsize - CELL_SEPARATOR, cellsize - CELL_SEPARATOR);
-        cellItem->setPos(xOffset + x * cellsize, yOffset + y * cellsize);
+        cellItem->setPos(x * cellsize, y * cellsize);
     }
 
     update();
@@ -85,7 +90,7 @@ void Scene::growSnakeCells()
 {
     CellItem *cellItem = new CellItem();
     snakecells.append(cellItem);
-    addItem(cellItem);
+    group->addToGroup(cellItem);
 }
 
 void Scene::onDirectionPress(Snake::Direction direction)
