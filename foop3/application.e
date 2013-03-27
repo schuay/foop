@@ -22,12 +22,12 @@ feature {NONE} -- Initialization
 		do
 			print("Hello Eiffel World!%N")
 
-			create p.make ("Jane Doe")
+			create {STUDENT}p.make ("Jane Doe")
 			print ("Person: " + p.to_string + "%N")
 
 			create a.make (p)
 			print ("Account: " + a.to_string + "%N")
-			
+
 			a.deposit (20.0)
 			print ("Account: " + a.to_string + "%N")
 		end
