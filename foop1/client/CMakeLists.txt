@@ -1,5 +1,6 @@
 set(foop1_client_SRCS
     cellitem.cpp
+    defaultcolorscheme.cpp
     main.cpp
     mainwindow.cpp
     scene.cpp
