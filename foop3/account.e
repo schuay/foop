@@ -12,8 +12,10 @@ create
 
 feature {NONE} -- Initialization
 
-	make (the_owner: PERSON)
-			-- Initialization for `Current'.
+	make (the_owner: like owner)
+			-- Initialization for `Current'. Note that the expected type of the_owner
+			-- depends on owner. For subclasses with covariant types, all we need
+			-- to do is redefine owner.
 		require
 			the_owner /= Void
 		do
@@ -34,7 +36,7 @@ feature -- Access
 	overdraft_interest: DOUBLE
 		-- Interest charge on negative balances.
 
-	set_owner (the_owner: PERSON)
+	set_owner (the_owner: like owner)
 
 		require
 			the_owner /= Void
