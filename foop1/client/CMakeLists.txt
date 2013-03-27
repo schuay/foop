@@ -4,6 +4,7 @@ set(foop1_client_SRCS
     mainwindow.cpp
     scene.cpp
     serverconnection.cpp
+    view.cpp
 )
 
 qt4_wrap_cpp(foop1_client_MOC

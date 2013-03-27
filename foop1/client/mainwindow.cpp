@@ -18,7 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(onQuit()));
     connect(ui->actionNew, SIGNAL(triggered()), this, SLOT(onNewGame()));
 
-    ui->graphicsView->setScene(&scene);
+    view = new View(this);
+    view->setScene(&scene);
+
+    setCentralWidget(view);
 
     /* Start the server connection thread. This will be moved to
      * the 'New Game...' menu a little later. We will also need to

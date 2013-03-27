@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "scene.h"
+#include "view.h"
 
 namespace Ui
 {
@@ -25,6 +26,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     Scene scene;
+    View *view;
 };
 
 #endif // MAINWINDOW_H
