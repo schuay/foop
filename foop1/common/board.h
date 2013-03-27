@@ -9,6 +9,7 @@
 
 class Board : public Serializable
 {
+    friend class StateMessage;
 public:
     Board(int width, int height);
 

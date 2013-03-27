@@ -8,6 +8,7 @@
 
 class Snake : public Serializable
 {
+    friend class StateMessage;
 public:
     enum Priority {
         PRI_LOWEST,

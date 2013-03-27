@@ -10,6 +10,7 @@ class StateMessage : public Message
 {
 public:
     StateMessage(QSharedPointer<Board> board);
+    StateMessage(const QVariant &variant);
 
     int getType() const;
     QVariant toVariant() const;

@@ -1,6 +1,7 @@
 set(foop1_common_SRCS
     board.cpp
     jsonvariantsocket.cpp
+    messagefactory.cpp
     QsDebugOutput.cpp
     QsLog.cpp
     QsLogDest.cpp
