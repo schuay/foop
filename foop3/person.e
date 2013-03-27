@@ -12,55 +12,27 @@ create
 
 feature {NONE} -- Initialization
 
-	make (account_nr: STRING)
+	make (the_name: STRING)
 			-- Initialization for `Current'.
 		require
-			account_nr /= Void
+			the_name /= Void
 		do
-			account_number := account_nr
+			name := the_name
 		end
 
 feature -- Access
 
-feature -- Measurement
+	name: STRING
 
 feature -- Status report
 
 	to_string: STRING
 
 		do
-			Result := account_number
+			Result := name
 		end
 
-feature -- Status setting
-
-feature -- Cursor movement
-
-feature -- Element change
-
-feature -- Removal
-
-feature -- Resizing
-
-feature -- Transformation
-
-feature -- Conversion
-
-feature -- Duplication
-
-feature -- Miscellaneous
-
-feature -- Basic operations
-
-feature -- Obsolete
-
-feature -- Inapplicable
-
-feature {NONE} -- Implementation
-
-	account_number: STRING
-
 invariant
-	account_number_not_void: account_number /= Void
+	account_number_not_void: name /= Void
 
 end
