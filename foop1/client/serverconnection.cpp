@@ -5,6 +5,7 @@
 #include "jsonvariantsocket.h"
 #include "messagefactory.h"
 #include "QsLog.h"
+#include "directionmessage.h"
 
 ServerConnection::ServerConnection(QString host, int port, QObject *parent) :
     QObject(parent),
@@ -35,13 +36,8 @@ void ServerConnection::onDirectionChange(Snake::Direction direction)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << direction;
 
-    /* TODO: Extract this into an object. */
-
-    QVariantMap v;
-    v.insert("type", "direction");
-    v.insert("direction", direction);
-
-    variantSocket->write(v);
+    DirectionMessage directionMessage(direction);
+    variantSocket->write(directionMessage.toVariant());
 }
 
 void ServerConnection::onReadyRead()

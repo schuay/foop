@@ -7,6 +7,7 @@ set(foop1_common_SRCS
     QsLogDest.cpp
     snake.cpp
     statemessage.cpp
+    directionmessage.cpp
 )
 
 qt4_wrap_cpp(foop1_common_MOC
