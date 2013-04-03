@@ -1,0 +1,13 @@
+For this task we will use:
+
+Squeak VM: http://squeakvm.org/
+Squeak 4.1: http://ftp.squeak.org/4.1/Squeak4.1.zip
+
+Extract Squeak4.1.zip into a folder, and then start squeakvm with an
+argument pointing to the extracted .image file.
+
+The monticello/ folder is a folder monticello repository. It can be added to
+monticello by clicking on '+Repository'. We need to take care not to make
+concurrent changes to this repo; ensure you always have the latest version of
+the monticello repository before adding new changesets, and don't leave changes
+on your disc without pushing them.
