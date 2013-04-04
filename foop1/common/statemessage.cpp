@@ -3,6 +3,7 @@
 #define KEY_BOARD ("board")
 #define KEY_DIRECTION ("direction")
 #define KEY_HEIGHT ("height")
+#define KEY_ID ("id")
 #define KEY_PRIORITY ("priority")
 #define KEY_SNAKES ("snakes")
 #define KEY_WIDTH ("width")
@@ -25,7 +26,7 @@ StateMessage::StateMessage(const QVariant &variant)
     foreach(const QVariant & snakeVariant, snakesVariant) {
         QMap<QString, QVariant> snakeMapVariant = snakeVariant.toMap();
 
-        QSharedPointer<Snake> snake(new Snake());
+        QSharedPointer<Snake> snake(new Snake(snakeMapVariant.value(KEY_ID).toInt()));
         snake->priority = (Snake::Priority)snakeMapVariant.value(KEY_PRIORITY).toInt();
         snake->direction = (Snake::Direction)snakeMapVariant.value(KEY_DIRECTION).toInt();
 
@@ -50,6 +51,7 @@ QVariant StateMessage::toVariant() const
     QVariantList snakesVariant;
     foreach(QSharedPointer<Snake> snake, board->snakes) {
         QVariantMap snakeVariant;
+        snakeVariant.insert(KEY_ID, snake->id);
         snakeVariant.insert(KEY_PRIORITY, snake->priority);
         snakeVariant.insert(KEY_DIRECTION, snake->direction);
 

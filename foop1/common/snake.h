@@ -25,12 +25,13 @@ public:
         DIR_RIGHT
     };
 
-    Snake();
+    Snake(int id);
 
     QQueue<QPoint> getBody() const;
     Priority getPriority() const;
 
 private:
+    const int id;
     Priority priority;
     Direction direction;
     QQueue<QPoint> body;

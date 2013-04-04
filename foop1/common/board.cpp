@@ -6,9 +6,9 @@ Board::Board(int width, int height) :
 {
     /* TODO: Temp. */
 
-    snakes.append(QSharedPointer<Snake>(new Snake()));
-    snakes.append(QSharedPointer<Snake>(new Snake()));
-    snakes.append(QSharedPointer<Snake>(new Snake()));
+    snakes.append(QSharedPointer<Snake>(new Snake(0)));
+    snakes.append(QSharedPointer<Snake>(new Snake(1)));
+    snakes.append(QSharedPointer<Snake>(new Snake(2)));
 }
 
 int Board::getWidth() const

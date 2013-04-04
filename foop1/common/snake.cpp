@@ -1,6 +1,7 @@
 #include "snake.h"
 
-Snake::Snake()
+Snake::Snake(int id) :
+    id(id)
 {
     /* TODO: Temp. */
 
