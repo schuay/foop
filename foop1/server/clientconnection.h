@@ -32,6 +32,7 @@ private:
     QScopedPointer<AbstractVariantSocket> variantSocket;
 
     QSharedPointer<Board> board;
+    QSharedPointer<Snake> snake;
 };
 
 #endif // CLIENTCONNECTION_H

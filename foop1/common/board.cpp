@@ -21,6 +21,13 @@ int Board::getHeight() const
     return height;
 }
 
+QSharedPointer<Snake> Board::addSnake(int id)
+{
+    QSharedPointer<Snake> snake(new Snake(id));
+    snakes.append(snake);
+    return snake;
+}
+
 QList<QSharedPointer<Snake> > Board::getSnakes() const
 {
     return snakes;

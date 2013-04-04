@@ -10,6 +10,7 @@ ClientConnection::ClientConnection(int socketDescriptor, QSharedPointer<Board> b
     socketDescriptor(socketDescriptor),
     board(board)
 {
+    snake = QSharedPointer<Snake>(board->addSnake(socketDescriptor));
 }
 
 void ClientConnection::run()

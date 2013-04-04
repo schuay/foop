@@ -15,6 +15,7 @@ public:
     int getWidth() const;
     int getHeight() const;
 
+    QSharedPointer<Snake> addSnake(int id);
     QList<QSharedPointer<Snake> > getSnakes() const;
 
 private:
