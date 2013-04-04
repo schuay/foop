@@ -23,6 +23,7 @@ add_library(foop1_common
 target_link_libraries(foop1_common
     ${QT_LIBRARIES}
     ${QJSON_LIBRARIES}
+    ${qjson_LIBRARIES}
 )
 
 include_directories(

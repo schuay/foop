@@ -20,6 +20,7 @@ target_link_libraries(foop1_server
     ${QT_LIBRARIES}
     ${QT_QTNETWORK_LIBRARY}
     ${QJSON_LIBRARIES}
+    ${qjson_LIBRARIES}
     ${COMMON_LIBRARIES}
 )
 
