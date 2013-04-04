@@ -23,7 +23,7 @@ void ClientConnection::run()
     variantSocket.reset(new JsonVariantSocket(tcpSocket));
 
     connect(variantSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
-    connect(variantSocket.data(), SIGNAL(readChannelFinished()), this, SIGNAL(finished()));
+    connect(variantSocket.data(), SIGNAL(readChannelFinished()), this, SLOT(onReadChannelFinished()));
 }
 
 void ClientConnection::newTurn()
@@ -49,4 +49,12 @@ void ClientConnection::onReadyRead()
 
 
     QLOG_INFO() << "Doing complicated things with received variant:" << data;
+}
+
+void ClientConnection::onReadChannelFinished()
+{
+    QLOG_DEBUG() << __PRETTY_FUNCTION__;
+
+    board->removeSnake(snake);
+    emit finished();
 }

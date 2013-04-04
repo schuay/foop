@@ -23,6 +23,7 @@ public slots:
 
 private slots:
     void onReadyRead();
+    void onReadChannelFinished();
 
 private:
     const int socketDescriptor;

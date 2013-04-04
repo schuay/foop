@@ -28,6 +28,11 @@ QSharedPointer<Snake> Board::addSnake(int id)
     return snake;
 }
 
+void Board::removeSnake(const QSharedPointer<Snake> &snake)
+{
+    snakes.removeAll(snake);
+}
+
 QList<QSharedPointer<Snake> > Board::getSnakes() const
 {
     return snakes;
