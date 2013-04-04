@@ -26,13 +26,7 @@ void JsonVariantSocket::write(const QVariant &data)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << data;
 
-    bool ok;
-    QByteArray bytes = serializer->serialize(data, &ok);
-
-    if (!ok) {
-        QLOG_ERROR() << serializer->errorMessage();
-        return;
-    }
+    QByteArray bytes = serializer->serialize(data);
 
     tcpSocket->write(bytes);
 }
@@ -43,17 +37,14 @@ void JsonVariantSocket::onReadyRead()
 
     parseBuffer.append(tcpSocket->readAll());
 
+    if (!isJsonOk(parseBuffer)) {
+        return;
+    }
+
     bool ok;
     QVariant result = parser->parse(parseBuffer, &ok);
 
     if (!ok) {
-        /* The QJson implementation does not seem to recover well from
-         * errors, forcing us to use a new instance for each failed attempt.
-         * Alternatively, we could count braces ourselves and only attempt to
-         * parse once we have a complete JSON snippet. However, that would
-         * also mean accounting for special cases such as escaped braces.
-         */
-        parser.reset(new QJson::Parser());
         return;
     }
 
@@ -72,4 +63,34 @@ void JsonVariantSocket::onReadChannelFinished()
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
     emit readChannelFinished();
+}
+
+bool JsonVariantSocket::isJsonOk(const QByteArray &qbyteArray) const
+{
+
+    if (qbyteArray.length() < 2) {
+        return false;
+    }
+
+    int squareBracketOpen = 0;
+    int curlyBracketOpen = 0;
+
+    for (int i = 0; i < qbyteArray.length(); i++) {
+        switch (qbyteArray.at(i)) {
+        case '{':
+            curlyBracketOpen++;
+            break;
+        case '}':
+            curlyBracketOpen--;
+            break;
+        case '[':
+            squareBracketOpen++;
+            break;
+        case ']':
+            squareBracketOpen--;
+            break;
+        }
+    }
+
+    return curlyBracketOpen == 0 && squareBracketOpen == 0;
 }

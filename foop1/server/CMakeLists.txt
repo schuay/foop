@@ -19,9 +19,9 @@ add_executable(foop1_server
 target_link_libraries(foop1_server
     ${QT_LIBRARIES}
     ${QT_QTNETWORK_LIBRARY}
+    ${COMMON_LIBRARIES}
     ${QJSON_LIBRARIES}
     ${qjson_LIBRARIES}
-    ${COMMON_LIBRARIES}
 )
 
 include_directories(
