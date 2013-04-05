@@ -8,14 +8,17 @@
 #define KEY_SNAKES ("snakes")
 #define KEY_WIDTH ("width")
 
-StateMessage::StateMessage(QSharedPointer<Board> board) :
-    board(board)
+StateMessage::StateMessage(QSharedPointer<Board> board, int id) :
+    board(board), id(id)
 {
 }
 
 StateMessage::StateMessage(const QVariant &variant)
 {
     QMap<QString, QVariant> mapVariant = variant.toMap();
+
+    id = mapVariant.value(KEY_ID).toInt();
+
     QMap<QString, QVariant> boardVariant = mapVariant.value(KEY_BOARD).toMap();
 
     const int width = boardVariant.value(KEY_WIDTH).toInt();
@@ -40,10 +43,16 @@ int StateMessage::getType() const
     return MSG_STATE;
 }
 
+int StateMessage::getId() const
+{
+    return id;
+}
+
 QVariant StateMessage::toVariant() const
 {
     QVariantMap v;
     v.insert(KEY_TYPE, getType());
+    v.insert(KEY_ID, id);
 
     QVariantMap boardVariant;
     boardVariant.insert(KEY_WIDTH, board->width);

@@ -31,7 +31,7 @@ void ClientConnection::newTurn()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    StateMessage stateMessage(board);
+    StateMessage stateMessage(board, socketDescriptor);
     variantSocket->write(stateMessage.toVariant());
 }
 

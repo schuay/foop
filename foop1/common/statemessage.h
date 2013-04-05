@@ -9,13 +9,15 @@
 class StateMessage : public Message
 {
 public:
-    StateMessage(QSharedPointer<Board> board);
+    StateMessage(QSharedPointer<Board> board, int id);
     StateMessage(const QVariant &variant);
 
     int getType() const;
+    int getId() const;
     QVariant toVariant() const;
 
 private:
+    int id; /**< The ID of the owner's snake. */
     QSharedPointer<Board> board;
 };
 
