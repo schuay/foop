@@ -16,13 +16,14 @@ StateMessage::StateMessage(QSharedPointer<Board> board) :
 StateMessage::StateMessage(const QVariant &variant)
 {
     QMap<QString, QVariant> mapVariant = variant.toMap();
+    QMap<QString, QVariant> boardVariant = mapVariant.value(KEY_BOARD).toMap();
 
-    const int width = mapVariant.value(KEY_WIDTH).toInt();
-    const int height = mapVariant.value(KEY_HEIGHT).toInt();
+    const int width = boardVariant.value(KEY_WIDTH).toInt();
+    const int height = boardVariant.value(KEY_HEIGHT).toInt();
 
     board = QSharedPointer<Board>(new Board(width, height));
 
-    QList<QVariant> snakesVariant = mapVariant.value(KEY_SNAKES).toList();
+    QList<QVariant> snakesVariant = boardVariant.value(KEY_SNAKES).toList();
     foreach(const QVariant & snakeVariant, snakesVariant) {
         QMap<QString, QVariant> snakeMapVariant = snakeVariant.toMap();
 
