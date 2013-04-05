@@ -8,6 +8,7 @@ set(foop1_common_SRCS
     snake.cpp
     statemessage.cpp
     directionmessage.cpp
+    gameovermessage.cpp
 )
 
 qt4_wrap_cpp(foop1_common_MOC
