@@ -23,3 +23,15 @@ Snake::Priority Snake::getPriority() const
 {
     return priority;
 }
+
+Snake::Direction Snake::getDirection() const
+{
+    return direction;
+}
+
+void Snake::setDirection(Direction direction)
+{
+    /* TODO: Validate the direction. At any time, only three
+     * directions are valid (unless the snake consists only of its head). */
+    this->direction = direction;
+}

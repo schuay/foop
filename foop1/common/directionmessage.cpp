@@ -26,3 +26,8 @@ int DirectionMessage::getType() const
 {
     return MSG_STATE;
 }
+
+Snake::Direction DirectionMessage::getDirection() const
+{
+    return direction;
+}

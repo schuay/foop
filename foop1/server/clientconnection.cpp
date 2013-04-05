@@ -2,6 +2,7 @@
 
 #include "jsonvariantsocket.h"
 #include "QsLog.h"
+#include "directionmessage.h"
 #include "statemessage.h"
 #include "messagefactory.h"
 
@@ -45,10 +46,14 @@ void ClientConnection::onReadyRead()
         QLOG_ERROR() << "The received message cannot be created." << data;
         return;
     }
-    /*TODO: check type of received message and act accordingly */
 
+    if (message->getType() != Message::MSG_DIRECTION) {
+        QLOG_ERROR() << "The received message has an invalid type:" << message->getType();
+        return;
+    }
 
-    QLOG_INFO() << "Doing complicated things with received variant:" << data;
+    QSharedPointer<DirectionMessage> dirMessage = qSharedPointerCast<DirectionMessage>(message);
+    snake->setDirection(dirMessage->getDirection());
 }
 
 void ClientConnection::onReadChannelFinished()

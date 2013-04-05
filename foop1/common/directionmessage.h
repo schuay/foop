@@ -11,6 +11,8 @@ public:
     DirectionMessage(const QVariant &variant);
 
     int getType() const;
+    Snake::Direction getDirection() const;
+
     QVariant toVariant() const;
 
 private:

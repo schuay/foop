@@ -30,6 +30,9 @@ public:
     QQueue<QPoint> getBody() const;
     Priority getPriority() const;
 
+    Direction getDirection() const;
+    void setDirection(Direction direction);
+
 private:
     const int id;
     Priority priority;
