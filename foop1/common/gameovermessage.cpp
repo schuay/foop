@@ -32,3 +32,7 @@ int GameoverMessage::getType() const
     return MSG_GAMEOVER;
 }
 
+bool GameoverMessage::getWon() const
+{
+    return won;
+}

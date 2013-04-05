@@ -5,6 +5,7 @@
 #include <QScopedPointer>
 
 #include "abstractvariantsocket.h"
+#include "board.h"
 #include "snake.h"
 
 class ServerConnection : public QObject
@@ -15,7 +16,8 @@ public:
 
 signals:
     void finished();
-    void newTurn();
+    void newTurn(int id, BoardPtr board);
+    void gameOver(bool won);
 
 public slots:
     void run();

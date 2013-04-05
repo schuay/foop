@@ -10,6 +10,8 @@ public:
     GameoverMessage(const QVariant &variant);
 
     int getType() const;
+    bool getWon() const;
+
     QVariant toVariant() const;
 
 private:

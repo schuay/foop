@@ -6,6 +6,9 @@
 
 #include "snake.h"
 
+class Board;
+typedef QSharedPointer<Board> BoardPtr;
+
 class Board
 {
     friend class StateMessage;

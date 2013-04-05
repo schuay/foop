@@ -14,6 +14,8 @@ public:
 
     int getType() const;
     int getId() const;
+    QSharedPointer<Board> getBoard() const;
+
     QVariant toVariant() const;
 
 private:

@@ -48,6 +48,11 @@ int StateMessage::getId() const
     return id;
 }
 
+QSharedPointer<Board> StateMessage::getBoard() const
+{
+    return board;
+}
+
 QVariant StateMessage::toVariant() const
 {
     QVariantMap v;

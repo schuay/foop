@@ -2,16 +2,20 @@
 
 #include <QTcpSocket>
 
+#include "directionmessage.h"
+#include "gameovermessage.h"
 #include "jsonvariantsocket.h"
+#include "message.h"
 #include "messagefactory.h"
 #include "QsLog.h"
-#include "directionmessage.h"
+#include "statemessage.h"
 
 ServerConnection::ServerConnection(QString host, int port, QObject *parent) :
     QObject(parent),
     host(host),
     port(port)
 {
+    qRegisterMetaType<BoardPtr>("BoardPtr");
 }
 
 void ServerConnection::run()
@@ -48,11 +52,30 @@ void ServerConnection::onReadyRead()
         return;
     }
 
-    /* TODO: Deserialize the message and emit the appropriate signal. */
+    /* Deserialize the message and emit the appropriate signal. */
 
     QSharedPointer<Message> message = MessageFactory::createMessage(v);
 
     if (message.isNull()) {
+        QLOG_ERROR() << "Received message is null.";
         return;
     }
+
+    switch (message->getType()) {
+    case Message::MSG_GAMEOVER: {
+            QSharedPointer<GameoverMessage> gameOverMessage = qSharedPointerCast<GameoverMessage>(message);
+            emit gameOver(gameOverMessage->getWon());
+            break;
+        }
+    case Message::MSG_STATE: {
+            QSharedPointer<StateMessage> stateMessage = qSharedPointerCast<StateMessage>(message);
+            emit newTurn(stateMessage->getId(), stateMessage->getBoard());
+            break;
+        }
+    default:
+        QLOG_ERROR() << "The received message type is unknown:" << message->getType();
+        return;
+    }
+
+
 }
