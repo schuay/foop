@@ -63,6 +63,7 @@ void JsonVariantSocket::onReadyRead()
 
     if (!ok) {
         QLOG_ERROR() << "Failed to parse incoming message:" << msgBuffer;
+        parser.reset(new QJson::Parser());
         return;
     }
 
