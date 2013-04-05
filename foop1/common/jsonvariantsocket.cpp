@@ -81,33 +81,3 @@ void JsonVariantSocket::onReadChannelFinished()
 
     emit readChannelFinished();
 }
-
-bool JsonVariantSocket::isJsonOk(const QByteArray &qbyteArray) const
-{
-
-    if (qbyteArray.length() < 2) {
-        return false;
-    }
-
-    int squareBracketOpen = 0;
-    int curlyBracketOpen = 0;
-
-    for (int i = 0; i < qbyteArray.length(); i++) {
-        switch (qbyteArray.at(i)) {
-        case '{':
-            curlyBracketOpen++;
-            break;
-        case '}':
-            curlyBracketOpen--;
-            break;
-        case '[':
-            squareBracketOpen++;
-            break;
-        case ']':
-            squareBracketOpen--;
-            break;
-        }
-    }
-
-    return curlyBracketOpen == 0 && squareBracketOpen == 0;
-}

@@ -4,8 +4,3 @@
 #include <QtTest/QSignalSpy>
 
 QTEST_MAIN(JsonVariantSocketTests)
-
-void JsonVariantSocketTests::testIsJsonOk()
-{
-    QCOMPARE(1, 1);
-}

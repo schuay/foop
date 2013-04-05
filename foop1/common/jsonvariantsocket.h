@@ -24,9 +24,6 @@ private slots:
     void onReadChannelFinished();
 
 private:
-    bool isJsonOk(const QByteArray &qbyteArray) const;
-
-private:
     QScopedPointer<QJson::Parser> parser;
     QScopedPointer<QJson::Serializer> serializer;
 

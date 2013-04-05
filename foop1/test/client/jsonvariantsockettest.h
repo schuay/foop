@@ -5,7 +5,6 @@ class JsonVariantSocketTests : public QObject
     Q_OBJECT
 
 private slots:
-
-    void testIsJsonOk();
+    /* Empty test suite to show how it's done. */
 
 };
