@@ -35,6 +35,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(scene, SIGNAL(directionChange(Snake::Direction)),
             connection, SLOT(onDirectionChange(Snake::Direction)));
 
+    connect(connection, SIGNAL(newTurn(int, BoardPtr)),
+            scene, SLOT(onNewTurn(int, BoardPtr)));
+    connect(connection, SIGNAL(gameOver(bool)),
+            scene, SLOT(onGameOver(bool)));
+
     connect(thread, SIGNAL(started()), connection, SLOT(run()));
     connect(connection, SIGNAL(finished()), thread, SLOT(quit()));
     connect(connection, SIGNAL(finished()), connection, SLOT(deleteLater()));

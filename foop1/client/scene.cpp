@@ -124,3 +124,13 @@ void Scene::keyPressEvent(QKeyEvent *keyEvent)
         break;
     }
 }
+
+void Scene::onNewTurn(int id, BoardPtr board)
+{
+    QLOG_TRACE() << __PRETTY_FUNCTION__ << id;
+}
+
+void Scene::onGameOver(bool won)
+{
+    QLOG_TRACE() << __PRETTY_FUNCTION__ << won;
+}

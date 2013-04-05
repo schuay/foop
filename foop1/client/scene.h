@@ -37,6 +37,10 @@ public:
 signals:
     void directionChange(Snake::Direction direction);
 
+public slots:
+    void onNewTurn(int id, BoardPtr board);
+    void onGameOver(bool won);
+
 protected:
     void keyPressEvent(QKeyEvent *keyEvent);
 
