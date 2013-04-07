@@ -16,6 +16,9 @@ You will need a couple of programs in order to work on this assignment:
 
 If you're looking for a good IDE, QtCreator is the best choice.
 
+To install all necessary packages under Ubuntu, run `apt-get install qtcreator cmake libqjson-dev`
+
+
 Setup
 -----
 
