@@ -20,6 +20,7 @@
 
 #include <QGraphicsScene>
 #include <QScopedPointer>
+#include <QSharedPointer>
 
 #include "board.h"
 #include "cellitem.h"
@@ -54,10 +55,7 @@ private:
     void growSnakeCells();
 
 private:
-    /* Note: Use scoped pointers for objects which are not
-     * shared (its pointer is only stored in a single location),
-     * and QSharedPointer<> for shared objects. */
-    QScopedPointer<Board> board;
+    QSharedPointer<Board> board;
 
     /** Contains all elements of the actual playing field. */
     QGraphicsItemGroup *group;

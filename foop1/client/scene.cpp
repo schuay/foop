@@ -15,7 +15,7 @@ Scene::Scene(QObject *parent)
     : QGraphicsScene(parent)
 {
     colorScheme.reset(new DefaultColorScheme());
-    board.reset(new Board(WIDTH, HEIGHT));
+    board = QSharedPointer<Board>(new Board(WIDTH, HEIGHT));
 
     group = new QGraphicsItemGroup();
     addItem(group);
@@ -128,6 +128,9 @@ void Scene::keyPressEvent(QKeyEvent *keyEvent)
 void Scene::onNewTurn(int id, BoardPtr board)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << id;
+
+    this->board = board;
+    update();
 }
 
 void Scene::onGameOver(bool won)
