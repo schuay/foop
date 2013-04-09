@@ -27,6 +27,12 @@ public:
 
     Snake(int id);
 
+    /**
+     * Moves the snake one step with the currently specified direction.
+     * The snake also grows if necessary.
+     */
+    void move();
+
     QQueue<QPoint> getBody() const;
     Priority getPriority() const;
 
