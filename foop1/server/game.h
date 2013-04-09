@@ -1,10 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <QList>
 #include <QSharedPointer>
 #include <QTimer>
 
 #include "board.h"
+#include "gametransformer.h"
 
 class Game : public QObject
 {
@@ -36,6 +38,11 @@ private:
      * and collision handling.
      */
     QTimer timer;
+
+    /**
+     * All game transformers are called in order at the end of each turn.
+     */
+    QList<QSharedPointer<GameTransformer> > gameTransformers;
 };
 
 #endif // GAME_H

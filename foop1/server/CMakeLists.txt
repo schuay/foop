@@ -2,6 +2,7 @@ set(foop1_server_SRCS
     clientconnection.cpp
     game.cpp
     main.cpp
+    movetransformer.cpp
     server.cpp
 )
 
