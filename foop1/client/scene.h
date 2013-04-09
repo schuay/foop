@@ -50,7 +50,7 @@ private:
 
     /** Updates the displayed items to reflect the current board state.
      *  The board size is assumed to be constant. */
-    void update();
+    void updateScene();
 
     void growSnakeCells();
 

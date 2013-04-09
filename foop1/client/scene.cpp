@@ -29,7 +29,7 @@ Scene::Scene(QObject *parent)
         }
     }
 
-    update();
+    updateScene();
 }
 
 void Scene::resize(const QSize &size)
@@ -56,7 +56,7 @@ void Scene::resize(const QSize &size)
     group->setPos(xOffset, yOffset);
 }
 
-void Scene::update()
+void Scene::updateScene()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
@@ -130,7 +130,7 @@ void Scene::onNewTurn(int id, BoardPtr board)
     QLOG_TRACE() << __PRETTY_FUNCTION__ << id;
 
     this->board = board;
-    update();
+    updateScene();
 }
 
 void Scene::onGameOver(bool won)
