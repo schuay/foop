@@ -3,6 +3,7 @@
 #define KEY_BOARD ("board")
 #define KEY_BODY ("body")
 #define KEY_DIRECTION ("direction")
+#define KEY_GROWTH ("growth")
 #define KEY_HEIGHT ("height")
 #define KEY_ID ("id")
 #define KEY_PRIORITY ("priority")
@@ -34,6 +35,7 @@ StateMessage::StateMessage(const QVariant &variant)
         QSharedPointer<Snake> snake(new Snake(snakeMapVariant.value(KEY_ID).toInt()));
         snake->priority = (Snake::Priority)snakeMapVariant.value(KEY_PRIORITY).toInt();
         snake->direction = (Snake::Direction)snakeMapVariant.value(KEY_DIRECTION).toInt();
+        snake->pendingGrowth = snakeMapVariant.value(KEY_GROWTH).toInt();
 
         QList<QVariant> bodyListVariant = snakeMapVariant.value(KEY_BODY).toList();
         for (int i = 0; i < bodyListVariant.size(); i += 2) {
@@ -76,6 +78,7 @@ QVariant StateMessage::toVariant() const
         snakeVariant.insert(KEY_ID, snake->id);
         snakeVariant.insert(KEY_PRIORITY, snake->priority);
         snakeVariant.insert(KEY_DIRECTION, snake->direction);
+        snakeVariant.insert(KEY_GROWTH, snake->pendingGrowth);
 
         /* We'll take the easy way out for now and transmit each body point.
          * This can be optimized later on as necessary. */

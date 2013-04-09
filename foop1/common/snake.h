@@ -47,6 +47,7 @@ private:
     Priority priority;
     Direction direction;
     QQueue<QPoint> body;
+    int pendingGrowth;
 };
 
 #endif // SNAKE_H

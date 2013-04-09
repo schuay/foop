@@ -1,7 +1,7 @@
 #include "snake.h"
 
 Snake::Snake(int id, const QPoint &head) :
-    id(id)
+    id(id), pendingGrowth(6)
 {
     priority = PRI_HIGHEST;
     direction = DIR_RIGHT;
@@ -62,7 +62,11 @@ void Snake::move()
 
     body.enqueue(head);
 
-    /* TODO: Growth. */
+    /* Growth. */
 
-    (void)body.dequeue();
+    if (pendingGrowth > 0) {
+        pendingGrowth--;
+    } else {
+        (void)body.dequeue();
+    }
 }
