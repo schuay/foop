@@ -25,7 +25,7 @@ public:
         DIR_RIGHT
     };
 
-    Snake(int id);
+    Snake(int id, const QPoint &head);
 
     /**
      * Moves the snake one step with the currently specified direction.
@@ -38,6 +38,9 @@ public:
 
     Direction getDirection() const;
     void setDirection(Direction direction);
+
+private:
+    Snake(int id); /**< For deserialization. */
 
 private:
     const int id;

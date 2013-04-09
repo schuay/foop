@@ -18,7 +18,9 @@ int Board::getHeight() const
 
 QSharedPointer<Snake> Board::addSnake(int id)
 {
-    QSharedPointer<Snake> snake(new Snake(id));
+    /* TODO: Figure out an unused cell to place the new snake. */
+
+    QSharedPointer<Snake> snake(new Snake(id, QPoint(0, 0)));
     snakes.append(snake);
     return snake;
 }

@@ -1,13 +1,17 @@
 #include "snake.h"
 
+Snake::Snake(int id, const QPoint &head) :
+    id(id)
+{
+    priority = PRI_HIGHEST;
+    direction = DIR_RIGHT;
+
+    body.enqueue(head);
+}
+
 Snake::Snake(int id) :
     id(id)
 {
-    /* TODO: Temp. */
-
-    priority = PRI_HIGHEST;
-    direction = DIR_UP;
-
 }
 
 QQueue<QPoint> Snake::getBody() const
