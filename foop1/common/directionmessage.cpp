@@ -24,7 +24,7 @@ QVariant DirectionMessage::toVariant() const
 
 int DirectionMessage::getType() const
 {
-    return MSG_STATE;
+    return MSG_DIRECTION;
 }
 
 Snake::Direction DirectionMessage::getDirection() const
