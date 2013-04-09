@@ -1,3 +1,5 @@
+#include <QTime>
+
 #include "board.h"
 
 Board::Board(int width, int height) :
@@ -18,9 +20,24 @@ int Board::getHeight() const
 
 QSharedPointer<Snake> Board::addSnake(int id)
 {
-    /* TODO: Figure out an unused cell to place the new snake. */
+    int randomX, randomY;
 
-    QSharedPointer<Snake> snake(new Snake(id, QPoint(0, 0)));
+    qsrand(QTime::currentTime().msec());
+
+    while (true) {
+        randomX = qrand() % getWidth();
+        randomY = qrand() % getHeight();
+
+        foreach(const QSharedPointer<Snake> &snake, this->getSnakes()) {
+            QQueue<QPoint> body = snake->getBody();
+            if (body.contains(QPoint(randomX, randomY))) {
+                continue;
+            }
+        }
+        break;
+    }
+
+    QSharedPointer<Snake> snake(new Snake(id, QPoint(randomX, randomY)));
     snakes.append(snake);
     return snake;
 }
