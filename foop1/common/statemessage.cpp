@@ -1,6 +1,7 @@
 #include "statemessage.h"
 
 #define KEY_BOARD ("board")
+#define KEY_BODY ("body")
 #define KEY_DIRECTION ("direction")
 #define KEY_HEIGHT ("height")
 #define KEY_ID ("id")
@@ -33,6 +34,12 @@ StateMessage::StateMessage(const QVariant &variant)
         QSharedPointer<Snake> snake(new Snake(snakeMapVariant.value(KEY_ID).toInt()));
         snake->priority = (Snake::Priority)snakeMapVariant.value(KEY_PRIORITY).toInt();
         snake->direction = (Snake::Direction)snakeMapVariant.value(KEY_DIRECTION).toInt();
+
+        QList<QVariant> bodyListVariant = snakeMapVariant.value(KEY_BODY).toList();
+        for (int i = 0; i < bodyListVariant.size(); i += 2) {
+            QPoint p(bodyListVariant.at(i).toInt(), bodyListVariant.at(i + 1).toInt());
+            snake->body.append(p);
+        }
 
         board->snakes.append(snake);
     }
@@ -70,7 +77,16 @@ QVariant StateMessage::toVariant() const
         snakeVariant.insert(KEY_PRIORITY, snake->priority);
         snakeVariant.insert(KEY_DIRECTION, snake->direction);
 
-        /* TODO: Body. */
+        /* We'll take the easy way out for now and transmit each body point.
+         * This can be optimized later on as necessary. */
+
+        QVariantList bodyVariant;
+        foreach(const QPoint & point, snake->getBody()) {
+            /* QJson can't handle QPoints. */
+            bodyVariant.append(point.x());
+            bodyVariant.append(point.y());
+        }
+        snakeVariant.insert(KEY_BODY, bodyVariant);
 
         snakesVariant.append(snakeVariant);
     }
