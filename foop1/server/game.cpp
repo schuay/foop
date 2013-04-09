@@ -2,8 +2,9 @@
 
 #include "movetransformer.h"
 #include "QsLog.h"
+#include "walltransformer.h"
 
-#define TURN_INTERVAL_MS (500)
+#define TURN_INTERVAL_MS (300)
 
 Game::Game(int width, int height)
 {
@@ -12,6 +13,7 @@ Game::Game(int width, int height)
     /* Transformers will be executed in insertion order. */
 
     gameTransformers.append(QSharedPointer<GameTransformer>(new MoveTransformer()));
+    gameTransformers.append(QSharedPointer<GameTransformer>(new WallTransformer()));
 
     connect(&timer, SIGNAL(timeout()), this, SLOT(processNewTurn()));
     timer.start(TURN_INTERVAL_MS);

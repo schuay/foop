@@ -4,6 +4,7 @@ set(foop1_server_SRCS
     main.cpp
     movetransformer.cpp
     server.cpp
+    walltransformer.cpp
 )
 
 qt4_wrap_cpp(foop1_server_MOC
