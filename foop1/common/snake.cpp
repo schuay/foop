@@ -19,6 +19,11 @@ QQueue<QPoint> Snake::getBody() const
     return body;
 }
 
+void Snake::setBody(QQueue<QPoint> body)
+{
+    this->body = body;
+}
+
 Snake::Priority Snake::getPriority() const
 {
     return priority;
@@ -36,37 +41,12 @@ void Snake::setDirection(Direction direction)
     this->direction = direction;
 }
 
-void Snake::move()
+int Snake::getPendingGrowth() const
 {
-    /* TODO: We need to handle board edges somewhere.
-     * In a collision transformer? */
+    return pendingGrowth;
+}
 
-    /* TODO: Movement transactions. */
-
-    QPoint head = body.last();
-
-    switch (direction) {
-    case DIR_UP:
-        head.setY(head.y() - 1);
-        break;
-    case DIR_DOWN:
-        head.setY(head.y() + 1);
-        break;
-    case DIR_LEFT:
-        head.setX(head.x() - 1);
-        break;
-    case DIR_RIGHT:
-        head.setX(head.x() + 1);
-        break;
-    }
-
-    body.enqueue(head);
-
-    /* Growth. */
-
-    if (pendingGrowth > 0) {
-        pendingGrowth--;
-    } else {
-        (void)body.dequeue();
-    }
+void Snake::setPendingGrowth(int pendingGrowth)
+{
+    this->pendingGrowth = pendingGrowth;
 }
