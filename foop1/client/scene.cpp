@@ -40,7 +40,7 @@ void Scene::resize(const QSize &size)
 
     const int maxXCellsize = size.width() / board->getWidth();
     const int maxYCellsize = size.height() / board->getHeight();
-    const int cellsize = qMin(maxXCellsize, maxYCellsize);
+    cellsize = qMin(maxXCellsize, maxYCellsize);
 
     foreach(CellItem * cellItem, gridcells) {
         cellItem->setCellSize(cellsize);
@@ -89,6 +89,7 @@ void Scene::updateScene()
 void Scene::growSnakeCells()
 {
     CellItem *cellItem = new CellItem();
+    cellItem->setCellSize(cellsize);
     snakecells.append(cellItem);
     group->addToGroup(cellItem);
 }
