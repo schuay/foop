@@ -3,6 +3,8 @@
 #include <QBrush>
 #include <QPen>
 
+#include <stdio.h>
+
 /** How many pixels between two cells. */
 #define CELL_SEPARATOR (1)
 
@@ -30,6 +32,7 @@ void CellItem::setCellSize(int cellSize)
 
 void CellItem::layout()
 {
+    //printf("Offset: %d %d\n", offset.x(), offset.y());
     setRect(0, 0, cellSize - CELL_SEPARATOR, cellSize - CELL_SEPARATOR);
     setPos(x * cellSize, y * cellSize);
 }

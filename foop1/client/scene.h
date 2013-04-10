@@ -22,9 +22,12 @@
 #include <QScopedPointer>
 #include <QSharedPointer>
 
+
+#include "gameinfo.h"
 #include "board.h"
 #include "cellitem.h"
 #include "colorscheme.h"
+#include "gameinfo.h"
 
 class Scene : public QGraphicsScene
 {
@@ -75,11 +78,16 @@ private:
      *  can grow or shrink dynamically. */
     QList<CellItem *> snakecells;
 
+    QGraphicsItemGroup *gip;
+
     /** The currently selected direction of the snake. Used to prevent sending
      *  unnecessary direction change messages to the server. */
     Snake::Direction direction;
 
     QScopedPointer<ColorScheme> colorScheme;
+
+    GameInfo *gameInfo;
+
 };
 
 #endif // SCENE_H
