@@ -1,5 +1,6 @@
 set(foop1_server_SRCS
     clientconnection.cpp
+    collisiontransformer.cpp
     game.cpp
     main.cpp
     movetransformer.cpp
