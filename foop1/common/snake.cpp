@@ -24,6 +24,11 @@ void Snake::setBody(QQueue<QPoint> body)
     this->body = body;
 }
 
+void Snake::setPriority(Priority priority)
+{
+    this->priority = priority;
+}
+
 Snake::Priority Snake::getPriority() const
 {
     return priority;

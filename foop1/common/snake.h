@@ -15,7 +15,8 @@ public:
         PRI_2,
         PRI_3,
         PRI_4,
-        PRI_HIGHEST = 4
+        PRI_HIGHEST = 4,
+        PRI_COUNT
     };
 
     enum Direction {
@@ -29,6 +30,8 @@ public:
 
     QQueue<QPoint> getBody() const;
     void setBody(QQueue<QPoint> body);
+
+    void setPriority(Priority priority);
     Priority getPriority() const;
 
     Direction getDirection() const;

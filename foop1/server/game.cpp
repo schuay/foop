@@ -1,6 +1,7 @@
 #include "game.h"
 
 #include "movetransformer.h"
+#include "prioritytransformer.h"
 #include "QsLog.h"
 #include "walltransformer.h"
 
@@ -14,6 +15,7 @@ Game::Game(int width, int height)
 
     gameTransformers.append(QSharedPointer<GameTransformer>(new MoveTransformer()));
     gameTransformers.append(QSharedPointer<GameTransformer>(new WallTransformer()));
+    gameTransformers.append(QSharedPointer<GameTransformer>(new PriorityTransformer()));
 
     connect(&timer, SIGNAL(timeout()), this, SLOT(processNewTurn()));
     timer.start(TURN_INTERVAL_MS);

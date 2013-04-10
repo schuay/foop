@@ -3,6 +3,7 @@ set(foop1_server_SRCS
     game.cpp
     main.cpp
     movetransformer.cpp
+    prioritytransformer.cpp
     server.cpp
     walltransformer.cpp
 )
