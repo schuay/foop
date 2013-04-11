@@ -22,8 +22,6 @@
 #include <QScopedPointer>
 #include <QSharedPointer>
 
-
-#include "gameinfo.h"
 #include "board.h"
 #include "cellitem.h"
 #include "colorscheme.h"

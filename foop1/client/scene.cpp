@@ -9,23 +9,17 @@
 #define WIDTH (32)
 #define HEIGHT (32)
 
+#define INFO_REL_HEIGHT (0.15)
+
 #define CELL_SEPARATOR (1)
 
 Scene::Scene(QObject *parent)
     : QGraphicsScene(parent)
 {
-    QGraphicsItemGroup *gip = new QGraphicsItemGroup();
-    gameInfo = new GameInfo();
-
-    gip->addToGroup(gameInfo);
-
-    addItem(gip);
-
     colorScheme.reset(new DefaultColorScheme());
     board = QSharedPointer<Board>(new Board(WIDTH, HEIGHT));
 
     gameInfo = new GameInfo();
-    gameInfo->setHeight(30);
     gameInfo->setPadding(QPoint(10, 10));
     addItem(gameInfo);
 
@@ -50,11 +44,14 @@ void Scene::resize(const QSize &size)
 
     setSceneRect(QRectF(0, 0, size.width(), size.height()));
 
+    const int infoHeight = size.height() * INFO_REL_HEIGHT;
+    const int gameHeight = size.height() - gameInfo->getHeight();
+
     gameInfo->setWidth(size.width());
-    gameInfo->setHeight(size.height() * 0.15);
+    gameInfo->setHeight(infoHeight);
 
     const int maxXCellsize = size.width() / board->getWidth();
-    const int maxYCellsize = (size.height() - gameInfo->getHeight()) / board->getHeight();
+    const int maxYCellsize = gameHeight / board->getHeight();
 
     cellsize = qMin(maxXCellsize, maxYCellsize);
 
@@ -67,14 +64,9 @@ void Scene::resize(const QSize &size)
     }
 
     const int xOffset = (size.width() - board->getWidth() * cellsize) / 2;
-
-    int remainingSize = (size.height() - board->getHeight() * cellsize) - gameInfo->getHeight();
-
-    const int yOffset = gameInfo->getHeight() + remainingSize / 2;
+    const int yOffset = infoHeight + (gameHeight - board->getHeight() * cellsize) / 2;
 
     group->setPos(xOffset, yOffset);
-
-
 }
 
 void Scene::updateScene()
@@ -106,7 +98,6 @@ void Scene::updateScene()
     }
 
     gameInfo->layout();
-
 }
 
 void Scene::growSnakeCells()
