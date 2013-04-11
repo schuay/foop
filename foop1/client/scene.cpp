@@ -4,7 +4,7 @@
 
 #include "cellitem.h"
 #include "defaultcolorscheme.h"
-#include "gameinfo.h"
+#include "gameinfoitem.h"
 #include "QsLog.h"
 
 /* Temporary settings until we actually have a board from the server. */
@@ -21,7 +21,7 @@ Scene::Scene(QObject *parent)
     colorScheme.reset(new DefaultColorScheme());
     board = QSharedPointer<Board>(new Board(WIDTH, HEIGHT));
 
-    gameInfo = new GameInfo();
+    gameInfo = new GameInfoItem();
     gameInfo->setPadding(QPoint(10, 10));
     addItem(gameInfo);
 

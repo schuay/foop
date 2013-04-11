@@ -1,7 +1,7 @@
 set(foop1_client_SRCS
     cellitem.cpp
     defaultcolorscheme.cpp
-    gameinfo.cpp
+    gameinfoitem.cpp
     main.cpp
     mainwindow.cpp
     scene.cpp

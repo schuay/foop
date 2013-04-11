@@ -1,16 +1,16 @@
-#ifndef GAMEINFO_H
-#define GAMEINFO_H
+#ifndef GAMEINFOITEM_H
+#define GAMEINFOITEM_H
 
-#include <snake.h>
+#include <QGraphicsItemGroup>
+
 #include "defaultcolorscheme.h"
+#include "snake.h"
 
-#include <QGraphicsRectItem>
-
-class GameInfo : public QGraphicsItemGroup
+class GameInfoItem : public QGraphicsItemGroup
 {
 
 public:
-    GameInfo();
+    GameInfoItem();
     void layout();
     void setWidth(int width);
     void setHeight(int height);
@@ -31,4 +31,4 @@ private:
 private:
 };
 
-#endif // GAMEINFO_H
+#endif // GAMEINFOITEM_H

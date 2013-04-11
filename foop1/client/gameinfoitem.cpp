@@ -1,13 +1,11 @@
-#include "gameinfo.h"
+#include "gameinfoitem.h"
 
 #include <QBrush>
-#include <QPen>
-#include <QPainter>
 #include <QMap>
+#include <QPainter>
+#include <QPen>
 
-#include <stdio.h>
-
-GameInfo::GameInfo()
+GameInfoItem::GameInfoItem()
     : QGraphicsItemGroup()
 {
     points = new QGraphicsSimpleTextItem();
@@ -40,39 +38,39 @@ GameInfo::GameInfo()
 
 }
 
-void GameInfo::setWidth(int width)
+void GameInfoItem::setWidth(int width)
 {
     this->width = width;
     layout();
 }
 
-void GameInfo::setHeight(int height)
+void GameInfoItem::setHeight(int height)
 {
     this->height = height;
     layout();
 }
 
-int GameInfo::getHeight()
+int GameInfoItem::getHeight()
 {
     return height;
 }
 
-void GameInfo::setPadding(QPoint padding)
+void GameInfoItem::setPadding(QPoint padding)
 {
     this->padding = padding;
 }
 
-QPoint GameInfo::getPadding()
+QPoint GameInfoItem::getPadding()
 {
     return padding;
 }
 
-void GameInfo::setPoints(QString points)
+void GameInfoItem::setPoints(QString points)
 {
     this->points->setText(points);
 }
 
-void GameInfo::layout()
+void GameInfoItem::layout()
 {
     /* TODO: Refactor this. It's a mixture of setting up the layout (placement) and the content, plus
      * there's a memory leak. */

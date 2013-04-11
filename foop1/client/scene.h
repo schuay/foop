@@ -26,7 +26,7 @@
 #include "colorscheme.h"
 
 class CellItem;
-class GameInfo;
+class GameInfoItem;
 class QGraphicsItemGroup;
 
 class Scene : public QGraphicsScene
@@ -64,7 +64,7 @@ private:
     QGraphicsItemGroup *group;
 
     /** Contains the information area. */
-    GameInfo *gameInfo;
+    GameInfoItem *gameInfo;
 
     /** The current side length of a cell. */
     int cellsize;
