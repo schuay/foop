@@ -75,7 +75,8 @@ void GameInfo::setPoints(QString points)
 
 void GameInfo::layout()
 {
-
+    /* TODO: Refactor this. It's a mixture of setting up the layout (placement) and the content, plus
+     * there's a memory leak. */
     rect->setRect(0, 0, width, height);
 
     for (int i = Snake::PRI_LOWEST; i <= Snake::PRI_HIGHEST; ++i) {
