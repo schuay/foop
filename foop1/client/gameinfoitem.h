@@ -13,11 +13,12 @@ class GameInfoItem : public QGraphicsItemGroup
 public:
     GameInfoItem();
 
-    void layout();
-
     void setWidth(int width);
 
     void setPoints(QString points);
+
+private:
+    void layout();
 
 private:
     int width;

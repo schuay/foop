@@ -95,8 +95,6 @@ void Scene::updateScene()
     for (; bodyMassIndex < snakecells.size(); bodyMassIndex++) {
         snakecells.at(bodyMassIndex)->setVisible(false);
     }
-
-    gameInfo->layout();
 }
 
 void Scene::growSnakeCells()
