@@ -2,7 +2,9 @@
 
 #include <QKeyEvent>
 
+#include "cellitem.h"
 #include "defaultcolorscheme.h"
+#include "gameinfo.h"
 #include "QsLog.h"
 
 /* Temporary settings until we actually have a board from the server. */

@@ -23,9 +23,11 @@
 #include <QSharedPointer>
 
 #include "board.h"
-#include "cellitem.h"
 #include "colorscheme.h"
-#include "gameinfo.h"
+
+class CellItem;
+class GameInfo;
+class QGraphicsItemGroup;
 
 class Scene : public QGraphicsScene
 {
