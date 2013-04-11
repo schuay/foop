@@ -21,7 +21,7 @@ Scene::Scene(QObject *parent)
     colorScheme.reset(new DefaultColorScheme());
     board = QSharedPointer<Board>(new Board(WIDTH, HEIGHT));
 
-    gameInfo = new GameInfoItem();
+    gameInfo = new GameInfoItem(colorScheme.data());
     addItem(gameInfo);
 
     group = new QGraphicsItemGroup();

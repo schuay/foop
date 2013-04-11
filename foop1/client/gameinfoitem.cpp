@@ -9,7 +9,7 @@
 #define PRIORITY_SIZE (32)
 #define FONT_SIZE (24)
 
-GameInfoItem::GameInfoItem()
+GameInfoItem::GameInfoItem(const ColorScheme *colorScheme)
     : QGraphicsItemGroup()
 {
     font.setPixelSize(FONT_SIZE);
@@ -19,17 +19,13 @@ GameInfoItem::GameInfoItem()
     points->setText("0");
     addToGroup(points);
 
-    colorScheme.reset(new DefaultColorScheme());
-
-    for (int i = Snake::PRI_LOWEST; i <= Snake::PRI_HIGHEST; ++i) {
+    for (int i = 0; i < Snake::PRI_COUNT; i++) {
         QGraphicsRectItem *rect = new QGraphicsRectItem();
-
-        Snake::Priority prio = (Snake::Priority)i;
-
-        rect->setBrush(QBrush(colorScheme->colorForPriority(prio)));
+        rect->setRect(0, 0, PRIORITY_SIZE, PRIORITY_SIZE);
+        rect->setBrush(QBrush(colorScheme->colorForPriority((Snake::Priority)i)));
         rect->setPen(QPen(Qt::NoPen));
 
-        prioMap[(Snake::Priority)i] = rect;
+        priorityRects.append(rect);
 
         addToGroup(rect);
     }
@@ -48,12 +44,9 @@ void GameInfoItem::setPoints(QString points)
 
 void GameInfoItem::layout()
 {
-    /* TODO: Refactor this. It's a mixture of setting up the layout (placement) and the content, plus
-     * there's a memory leak. */
-    for (int i = 0; i < Snake::PRI_COUNT; ++i) {
-        prioMap.value((Snake::Priority)i)->setRect(0, 0, PRIORITY_SIZE, PRIORITY_SIZE);
-        prioMap.value((Snake::Priority)i)->setPos((width - Snake::PRI_HIGHEST * GAME_INFO_HEIGHT) +
-                i * GAME_INFO_HEIGHT + PADDING, PADDING);
+    for (int i = 0; i < Snake::PRI_COUNT; i++) {
+        priorityRects.at(i)->setPos((width - Snake::PRI_HIGHEST * GAME_INFO_HEIGHT) +
+                                    i * GAME_INFO_HEIGHT + PADDING, PADDING);
     }
     points->setPos(PADDING, PADDING);
 }

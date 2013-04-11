@@ -4,7 +4,7 @@
 #include <QFont>
 #include <QGraphicsItemGroup>
 
-#include "defaultcolorscheme.h"
+#include "colorscheme.h"
 #include "snake.h"
 
 #define GAME_INFO_HEIGHT (64)
@@ -12,7 +12,7 @@
 class GameInfoItem : public QGraphicsItemGroup
 {
 public:
-    GameInfoItem();
+    GameInfoItem(const ColorScheme *colorScheme);
 
     void setWidth(int width);
 
@@ -26,9 +26,7 @@ private:
 
     QFont font;
     QGraphicsSimpleTextItem *points;
-    QMap<Snake::Priority, QGraphicsRectItem *> prioMap;
-
-    QScopedPointer<ColorScheme> colorScheme;
+    QList<QGraphicsRectItem *> priorityRects;
 };
 
 #endif // GAMEINFOITEM_H
