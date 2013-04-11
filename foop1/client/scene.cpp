@@ -95,6 +95,9 @@ void Scene::updateScene()
     for (; bodyMassIndex < snakecells.size(); bodyMassIndex++) {
         snakecells.at(bodyMassIndex)->setVisible(false);
     }
+
+    /* TODO: Figure out which snake we are, and set points accordingly. */
+    gameInfo->setPoints(42);
 }
 
 void Scene::growSnakeCells()

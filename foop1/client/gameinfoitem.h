@@ -15,8 +15,7 @@ public:
     GameInfoItem(const ColorScheme *colorScheme);
 
     void setWidth(int width);
-
-    void setPoints(QString points);
+    void setPoints(int points);
 
 private:
     void layout();

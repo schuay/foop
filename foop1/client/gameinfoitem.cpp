@@ -16,7 +16,6 @@ GameInfoItem::GameInfoItem(const ColorScheme *colorScheme)
 
     points = new QGraphicsSimpleTextItem();
     points->setFont(font);
-    points->setText("0");
     addToGroup(points);
 
     for (int i = 0; i < Snake::PRI_COUNT; i++) {
@@ -37,9 +36,9 @@ void GameInfoItem::setWidth(int width)
     layout();
 }
 
-void GameInfoItem::setPoints(QString points)
+void GameInfoItem::setPoints(int points)
 {
-    this->points->setText(points);
+    this->points->setText(QString::number(points));
 }
 
 void GameInfoItem::layout()
