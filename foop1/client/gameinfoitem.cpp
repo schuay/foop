@@ -44,9 +44,11 @@ void GameInfoItem::setPoints(QString points)
 
 void GameInfoItem::layout()
 {
+    const int priorityWidth = PRIORITY_SIZE + PADDING;
+    const int prioritySectionWidth = Snake::PRI_COUNT * priorityWidth;
     for (int i = 0; i < Snake::PRI_COUNT; i++) {
-        priorityRects.at(i)->setPos((width - Snake::PRI_HIGHEST * GAME_INFO_HEIGHT) +
-                                    i * GAME_INFO_HEIGHT + PADDING, PADDING);
+        priorityRects.at(i)->setPos(width - prioritySectionWidth + i * priorityWidth, PADDING);
     }
+
     points->setPos(PADDING, PADDING);
 }
