@@ -24,7 +24,6 @@ private:
     QPoint padding;
 
     QGraphicsSimpleTextItem *points;
-    QGraphicsRectItem *rect;
     QMap<Snake::Priority, QGraphicsRectItem *> prioMap;
 
     QScopedPointer<ColorScheme> colorScheme;

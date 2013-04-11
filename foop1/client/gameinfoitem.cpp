@@ -13,12 +13,6 @@ GameInfoItem::GameInfoItem()
     colorScheme.reset(new DefaultColorScheme());
     setPadding(QPoint(0, 0));
 
-    rect = new QGraphicsRectItem();
-    rect->setPos(0, 0);
-    rect->setBrush(QBrush(Qt::white));
-    rect->setPen(QPen(Qt::NoPen));
-    addToGroup(rect);
-
     for (int i = Snake::PRI_LOWEST; i <= Snake::PRI_HIGHEST; ++i) {
         QGraphicsRectItem *rect = new QGraphicsRectItem();
 
@@ -63,8 +57,6 @@ void GameInfoItem::layout()
 {
     /* TODO: Refactor this. It's a mixture of setting up the layout (placement) and the content, plus
      * there's a memory leak. */
-    rect->setRect(0, 0, width, height);
-
     for (int i = Snake::PRI_LOWEST; i <= Snake::PRI_HIGHEST; ++i) {
         prioMap.value((Snake::Priority)i)->setRect(0, 0, height - padding.x() * 2, height - padding.y() * 2);
         prioMap.value((Snake::Priority)i)->setPos((width - Snake::PRI_HIGHEST * height) + i * height + padding.x(), padding.y());
