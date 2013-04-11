@@ -47,7 +47,7 @@ void Scene::resize(const QSize &size)
     setSceneRect(QRectF(0, 0, size.width(), size.height()));
 
     const int infoHeight = size.height() * INFO_REL_HEIGHT;
-    const int gameHeight = size.height() - gameInfo->getHeight();
+    const int gameHeight = size.height() - infoHeight;
 
     gameInfo->setWidth(size.width());
     gameInfo->setHeight(infoHeight);

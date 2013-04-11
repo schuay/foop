@@ -35,7 +35,6 @@ GameInfoItem::GameInfoItem()
 
     points->setText("0");
     addToGroup(points);
-
 }
 
 void GameInfoItem::setWidth(int width)
@@ -50,19 +49,9 @@ void GameInfoItem::setHeight(int height)
     layout();
 }
 
-int GameInfoItem::getHeight()
-{
-    return height;
-}
-
 void GameInfoItem::setPadding(QPoint padding)
 {
     this->padding = padding;
-}
-
-QPoint GameInfoItem::getPadding()
-{
-    return padding;
 }
 
 void GameInfoItem::setPoints(QString points)
@@ -81,7 +70,7 @@ void GameInfoItem::layout()
         prioMap.value((Snake::Priority)i)->setPos((width - Snake::PRI_HIGHEST * height) + i * height + padding.x(), padding.y());
     }
     QFont *newFont = new QFont();
-    newFont->setPixelSize(getHeight() - padding.y() * 2);
+    newFont->setPixelSize(height - padding.y() * 2);
     points->setFont(*newFont);
     points->setPos(padding.x(), padding.y());
 }
