@@ -22,7 +22,6 @@ GameInfo::GameInfo()
     addToGroup(rect);
 
     for (int i = Snake::PRI_LOWEST; i <= Snake::PRI_HIGHEST; ++i) {
-
         QGraphicsRectItem *rect = new QGraphicsRectItem();
 
         Snake::Priority prio = (Snake::Priority)i;

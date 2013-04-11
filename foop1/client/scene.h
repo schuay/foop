@@ -61,6 +61,9 @@ private:
     /** Contains all elements of the actual playing field. */
     QGraphicsItemGroup *group;
 
+    /** Contains the information area. */
+    GameInfo *gameInfo;
+
     /** The current side length of a cell. */
     int cellsize;
 
@@ -76,16 +79,11 @@ private:
      *  can grow or shrink dynamically. */
     QList<CellItem *> snakecells;
 
-    QGraphicsItemGroup *gip;
-
     /** The currently selected direction of the snake. Used to prevent sending
      *  unnecessary direction change messages to the server. */
     Snake::Direction direction;
 
     QScopedPointer<ColorScheme> colorScheme;
-
-    GameInfo *gameInfo;
-
 };
 
 #endif // SCENE_H
