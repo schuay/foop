@@ -12,7 +12,10 @@
 GameInfoItem::GameInfoItem()
     : QGraphicsItemGroup()
 {
+    font.setPixelSize(FONT_SIZE);
+
     points = new QGraphicsSimpleTextItem();
+    points->setFont(font);
     points->setText("0");
     addToGroup(points);
 
@@ -52,8 +55,5 @@ void GameInfoItem::layout()
         prioMap.value((Snake::Priority)i)->setPos((width - Snake::PRI_HIGHEST * GAME_INFO_HEIGHT) +
                 i * GAME_INFO_HEIGHT + PADDING, PADDING);
     }
-    QFont *newFont = new QFont();
-    newFont->setPixelSize(FONT_SIZE);
-    points->setFont(*newFont);
     points->setPos(PADDING, PADDING);
 }

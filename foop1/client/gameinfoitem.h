@@ -1,6 +1,7 @@
 #ifndef GAMEINFOITEM_H
 #define GAMEINFOITEM_H
 
+#include <QFont>
 #include <QGraphicsItemGroup>
 
 #include "defaultcolorscheme.h"
@@ -23,6 +24,7 @@ private:
 private:
     int width;
 
+    QFont font;
     QGraphicsSimpleTextItem *points;
     QMap<Snake::Priority, QGraphicsRectItem *> prioMap;
 
