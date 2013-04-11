@@ -1,8 +1,6 @@
 #include "gameinfoitem.h"
 
 #include <QBrush>
-#include <QMap>
-#include <QPainter>
 #include <QPen>
 
 #define PADDING (20)
