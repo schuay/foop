@@ -6,6 +6,8 @@
 #include "defaultcolorscheme.h"
 #include "snake.h"
 
+#define GAME_INFO_HEIGHT (64)
+
 class GameInfoItem : public QGraphicsItemGroup
 {
 public:
@@ -13,20 +15,17 @@ public:
 
     void layout();
 
-    void setHeight(int height);
     void setWidth(int width);
 
     void setPoints(QString points);
 
 private:
-    int width, height;
+    int width;
 
     QGraphicsSimpleTextItem *points;
     QMap<Snake::Priority, QGraphicsRectItem *> prioMap;
 
     QScopedPointer<ColorScheme> colorScheme;
-
-private:
 };
 
 #endif // GAMEINFOITEM_H

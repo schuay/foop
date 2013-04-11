@@ -38,12 +38,6 @@ void GameInfoItem::setWidth(int width)
     layout();
 }
 
-void GameInfoItem::setHeight(int height)
-{
-    this->height = height;
-    layout();
-}
-
 void GameInfoItem::setPoints(QString points)
 {
     this->points->setText(points);
@@ -55,8 +49,8 @@ void GameInfoItem::layout()
      * there's a memory leak. */
     for (int i = 0; i < Snake::PRI_COUNT; ++i) {
         prioMap.value((Snake::Priority)i)->setRect(0, 0, PRIORITY_SIZE, PRIORITY_SIZE);
-        prioMap.value((Snake::Priority)i)->setPos((width - Snake::PRI_HIGHEST * height) +
-                i * height + PADDING, PADDING);
+        prioMap.value((Snake::Priority)i)->setPos((width - Snake::PRI_HIGHEST * GAME_INFO_HEIGHT) +
+                i * GAME_INFO_HEIGHT + PADDING, PADDING);
     }
     QFont *newFont = new QFont();
     newFont->setPixelSize(FONT_SIZE);

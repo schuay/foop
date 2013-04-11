@@ -45,11 +45,9 @@ void Scene::resize(const QSize &size)
 
     setSceneRect(QRectF(0, 0, size.width(), size.height()));
 
-    const int infoHeight = size.height() * INFO_REL_HEIGHT;
-    const int gameHeight = size.height() - infoHeight;
+    const int gameHeight = size.height() - GAME_INFO_HEIGHT;
 
     gameInfo->setWidth(size.width());
-    gameInfo->setHeight(infoHeight);
 
     const int maxXCellsize = size.width() / board->getWidth();
     const int maxYCellsize = gameHeight / board->getHeight();
@@ -65,7 +63,7 @@ void Scene::resize(const QSize &size)
     }
 
     const int xOffset = (size.width() - board->getWidth() * cellsize) / 2;
-    const int yOffset = infoHeight + (gameHeight - board->getHeight() * cellsize) / 2;
+    const int yOffset = GAME_INFO_HEIGHT + (gameHeight - board->getHeight() * cellsize) / 2;
 
     group->setPos(xOffset, yOffset);
 }
