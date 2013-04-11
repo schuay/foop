@@ -22,7 +22,6 @@ Scene::Scene(QObject *parent)
     board = QSharedPointer<Board>(new Board(WIDTH, HEIGHT));
 
     gameInfo = new GameInfoItem();
-    gameInfo->setPadding(QPoint(10, 10));
     addItem(gameInfo);
 
     group = new QGraphicsItemGroup();

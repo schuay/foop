@@ -17,11 +17,9 @@ public:
     void setWidth(int width);
 
     void setPoints(QString points);
-    void setPadding(QPoint);
 
 private:
     int width, height;
-    QPoint padding;
 
     QGraphicsSimpleTextItem *points;
     QMap<Snake::Priority, QGraphicsRectItem *> prioMap;

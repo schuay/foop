@@ -5,13 +5,18 @@
 #include <QPainter>
 #include <QPen>
 
+#define PADDING (20)
+#define PRIORITY_SIZE (32)
+#define FONT_SIZE (24)
+
 GameInfoItem::GameInfoItem()
     : QGraphicsItemGroup()
 {
     points = new QGraphicsSimpleTextItem();
+    points->setText("0");
+    addToGroup(points);
 
     colorScheme.reset(new DefaultColorScheme());
-    setPadding(QPoint(0, 0));
 
     for (int i = Snake::PRI_LOWEST; i <= Snake::PRI_HIGHEST; ++i) {
         QGraphicsRectItem *rect = new QGraphicsRectItem();
@@ -24,11 +29,7 @@ GameInfoItem::GameInfoItem()
         prioMap[(Snake::Priority)i] = rect;
 
         addToGroup(rect);
-
     }
-
-    points->setText("0");
-    addToGroup(points);
 }
 
 void GameInfoItem::setWidth(int width)
@@ -43,11 +44,6 @@ void GameInfoItem::setHeight(int height)
     layout();
 }
 
-void GameInfoItem::setPadding(QPoint padding)
-{
-    this->padding = padding;
-}
-
 void GameInfoItem::setPoints(QString points)
 {
     this->points->setText(points);
@@ -57,12 +53,13 @@ void GameInfoItem::layout()
 {
     /* TODO: Refactor this. It's a mixture of setting up the layout (placement) and the content, plus
      * there's a memory leak. */
-    for (int i = Snake::PRI_LOWEST; i <= Snake::PRI_HIGHEST; ++i) {
-        prioMap.value((Snake::Priority)i)->setRect(0, 0, height - padding.x() * 2, height - padding.y() * 2);
-        prioMap.value((Snake::Priority)i)->setPos((width - Snake::PRI_HIGHEST * height) + i * height + padding.x(), padding.y());
+    for (int i = 0; i < Snake::PRI_COUNT; ++i) {
+        prioMap.value((Snake::Priority)i)->setRect(0, 0, PRIORITY_SIZE, PRIORITY_SIZE);
+        prioMap.value((Snake::Priority)i)->setPos((width - Snake::PRI_HIGHEST * height) +
+                i * height + PADDING, PADDING);
     }
     QFont *newFont = new QFont();
-    newFont->setPixelSize(height - padding.y() * 2);
+    newFont->setPixelSize(FONT_SIZE);
     points->setFont(*newFont);
-    points->setPos(padding.x(), padding.y());
+    points->setPos(PADDING, PADDING);
 }
