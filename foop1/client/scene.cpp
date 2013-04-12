@@ -96,8 +96,9 @@ void Scene::updateScene()
         snakecells.at(bodyMassIndex)->setVisible(false);
     }
 
-    /* TODO: Figure out which snake we are, and set points accordingly. */
+    /* TODO: Figure out which snake we are, and set points and priority accordingly. */
     gameInfo->setPoints(42);
+    gameInfo->setCurrentPriority(Snake::PRI_1);
 }
 
 void Scene::growSnakeCells()

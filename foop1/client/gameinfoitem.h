@@ -16,14 +16,16 @@ public:
 
     void setWidth(int width);
     void setPoints(int points);
+    void setCurrentPriority(Snake::Priority priority);
 
 private:
     void layout();
 
 private:
-    int width;
+    int width, currentPriority;
 
     QGraphicsSimpleTextItem *points, *pointsLabel, *priorityLabel;
+    QGraphicsRectItem *currentPriorityRect;
     QList<QGraphicsRectItem *> priorityRects;
 };
 
