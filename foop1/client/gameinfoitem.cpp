@@ -4,7 +4,8 @@
 #include <QPen>
 
 #define PADDING (20)
-#define PRIORITY_SIZE (32)
+#define PRIORITY_SIZE (16)
+#define PRIORITY_PADDING (8)
 #define FONT_SIZE (24)
 #define FONT_SIZE_LABEL (16)
 
@@ -57,7 +58,7 @@ void GameInfoItem::setPoints(int points)
 
 void GameInfoItem::layout()
 {
-    const int priorityWidth = PRIORITY_SIZE + PADDING;
+    const int priorityWidth = PRIORITY_SIZE + PRIORITY_PADDING;
     const int prioritySectionWidth = Snake::PRI_COUNT * priorityWidth;
     priorityLabel->setPos(width - prioritySectionWidth, PADDING - FONT_SIZE_LABEL);
     for (int i = 0; i < Snake::PRI_COUNT; i++) {
