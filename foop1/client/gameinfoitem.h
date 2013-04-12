@@ -23,8 +23,7 @@ private:
 private:
     int width;
 
-    QFont font;
-    QGraphicsSimpleTextItem *points;
+    QGraphicsSimpleTextItem *points, *pointsLabel, *priorityLabel;
     QList<QGraphicsRectItem *> priorityRects;
 };
 
