@@ -23,6 +23,11 @@ public:
     QList<QSharedPointer<Snake> > getSnakes() const;
 
 private:
+    QPoint getRandomPosition();
+    Snake::Priority getLeastAssignedPriority();
+
+
+private:
     const int width, height;
     QList<QSharedPointer<Snake> > snakes;
 };
