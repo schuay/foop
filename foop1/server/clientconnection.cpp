@@ -5,6 +5,7 @@
 #include "directionmessage.h"
 #include "statemessage.h"
 #include "messagefactory.h"
+#include "identifymessage.h"
 
 ClientConnection::ClientConnection(int socketDescriptor, QSharedPointer<Board> board, QObject *parent) :
     QObject(parent),
@@ -22,6 +23,10 @@ void ClientConnection::run()
     tcpSocket->setSocketDescriptor(socketDescriptor);
 
     variantSocket.reset(new JsonVariantSocket(tcpSocket));
+
+    // tell the client which snake belongs to him/her
+    IdentifyMessage identifyMessage(snake->getId());
+    variantSocket->write(identifyMessage.toVariant());
 
     connect(variantSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     connect(variantSocket.data(), SIGNAL(readChannelFinished()), this, SLOT(onReadChannelFinished()));

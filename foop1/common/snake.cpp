@@ -39,6 +39,11 @@ Snake::Direction Snake::getDirection() const
     return direction;
 }
 
+int Snake::getId() const
+{
+    return id;
+}
+
 void Snake::setDirection(Direction direction)
 {
     /* TODO: Validate the direction. At any time, only three
@@ -54,4 +59,14 @@ int Snake::getPendingGrowth() const
 void Snake::setPendingGrowth(int pendingGrowth)
 {
     this->pendingGrowth = pendingGrowth;
+}
+
+void Snake::setPoints(int points)
+{
+    this->points = points;
+}
+
+int Snake::getPoints() const
+{
+    return points;
 }

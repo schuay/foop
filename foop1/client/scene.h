@@ -44,6 +44,7 @@ signals:
 public slots:
     void onNewTurn(int id, BoardPtr board);
     void onGameOver(bool won);
+    void setSnakeId(int id);
 
 protected:
     void keyPressEvent(QKeyEvent *keyEvent);
@@ -68,6 +69,9 @@ private:
 
     /** The current side length of a cell. */
     int cellsize;
+
+    /** the snake that belongs to me. */
+    int snakeId;
 
     /* The cell items which make up the main game area. Note that these do
      * *not* need to be freed, because a scene deletes all of its items

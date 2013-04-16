@@ -9,6 +9,7 @@
 #include "messagefactory.h"
 #include "QsLog.h"
 #include "statemessage.h"
+#include "identifymessage.h"
 
 ServerConnection::ServerConnection(QString host, int port, QObject *parent) :
     QObject(parent),
@@ -70,6 +71,11 @@ void ServerConnection::onReadyRead()
     case Message::MSG_STATE: {
             QSharedPointer<StateMessage> stateMessage = qSharedPointerCast<StateMessage>(message);
             emit newTurn(stateMessage->getId(), stateMessage->getBoard());
+            break;
+        }
+    case Message::MSG_IDENTIFY: {
+            QSharedPointer<IdentifyMessage> identifyMessage = qSharedPointerCast<IdentifyMessage>(message);
+            emit setSnakeId(identifyMessage->getId());
             break;
         }
     default:

@@ -74,6 +74,7 @@ void Scene::updateScene()
 
     /* How many snake cells do we need in total? */
     int bodyMassIndex = 0;
+    QSharedPointer<Snake> mySnake;
 
     foreach(QSharedPointer<Snake> snake, board->getSnakes()) {
         QColor color = colorScheme->colorForPriority(snake->getPriority());
@@ -90,15 +91,21 @@ void Scene::updateScene()
 
             bodyMassIndex++;
         }
+
+        if (snake->getId() == snakeId) {
+            mySnake = snake;
+        }
+
     }
 
     for (; bodyMassIndex < snakecells.size(); bodyMassIndex++) {
         snakecells.at(bodyMassIndex)->setVisible(false);
     }
 
-    /* TODO: Figure out which snake we are, and set points and priority accordingly. */
-    gameInfo->setPoints(42);
-    gameInfo->setCurrentPriority(Snake::PRI_1);
+    if (!mySnake.isNull()) {
+        gameInfo->setPoints(mySnake->getPoints());
+        gameInfo->setCurrentPriority(mySnake->getPriority());
+    }
 }
 
 void Scene::growSnakeCells()
@@ -152,4 +159,9 @@ void Scene::onNewTurn(int id, BoardPtr board)
 void Scene::onGameOver(bool won)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << won;
+}
+
+void Scene::setSnakeId(int id)
+{
+    snakeId = id;
 }

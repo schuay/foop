@@ -18,6 +18,7 @@ signals:
     void finished();
     void newTurn(int id, BoardPtr board);
     void gameOver(bool won);
+    void setSnakeId(int);
 
 public slots:
     void run();

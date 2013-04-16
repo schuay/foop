@@ -4,6 +4,7 @@
 #include "statemessage.h"
 #include "directionmessage.h"
 #include "gameovermessage.h"
+#include "identifymessage.h"
 
 QSharedPointer<Message> MessageFactory::createMessage(const QVariant &variant)
 {
@@ -22,6 +23,8 @@ QSharedPointer<Message> MessageFactory::createMessage(const QVariant &variant)
         return QSharedPointer<Message>(new DirectionMessage(variant));
     case Message::MSG_GAMEOVER:
         return QSharedPointer<Message>(new GameoverMessage(variant));
+    case Message::MSG_IDENTIFY:
+        return QSharedPointer<Message>(new IdentifyMessage(variant));
     default:
         QLOG_ERROR() << "The received variant has an unknown type:" << type;
         return QSharedPointer<Message>();

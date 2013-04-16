@@ -39,6 +39,9 @@ public:
 
     int getPendingGrowth() const;
     void setPendingGrowth(int pendingGrowth);
+    int getId() const;
+
+    int getPoints() const;
 
 private:
     Snake(int id); /**< For deserialization. */
@@ -49,6 +52,7 @@ private:
     Direction direction;
     QQueue<QPoint> body;
     int pendingGrowth;
+    int points;
 };
 
 #endif // SNAKE_H

@@ -11,7 +11,8 @@ public:
     enum {
         MSG_DIRECTION,
         MSG_STATE,
-        MSG_GAMEOVER
+        MSG_GAMEOVER,
+        MSG_IDENTIFY
     };
 
     virtual int getType() const = 0;

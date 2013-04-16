@@ -62,11 +62,13 @@ void GameInfoItem::setWidth(int width)
 void GameInfoItem::setPoints(int points)
 {
     this->points->setText(QString::number(points));
+    layout();
 }
 
 void GameInfoItem::setCurrentPriority(Snake::Priority priority)
 {
     this->currentPriority = priority;
+    layout();
 }
 
 void GameInfoItem::layout()

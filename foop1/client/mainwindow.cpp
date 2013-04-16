@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
             scene, SLOT(onNewTurn(int, BoardPtr)));
     connect(connection, SIGNAL(gameOver(bool)),
             scene, SLOT(onGameOver(bool)));
+    connect(connection, SIGNAL(setSnakeId(int)),
+            scene, SLOT(setSnakeId(int)));
 
     connect(thread, SIGNAL(started()), connection, SLOT(run()));
     connect(connection, SIGNAL(finished()), thread, SLOT(quit()));

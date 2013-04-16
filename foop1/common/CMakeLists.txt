@@ -9,6 +9,7 @@ set(foop1_common_SRCS
     statemessage.cpp
     directionmessage.cpp
     gameovermessage.cpp
+    identifymessage.cpp
 )
 
 qt4_wrap_cpp(foop1_common_MOC
