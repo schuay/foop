@@ -6,6 +6,11 @@
 #include "game.h"
 #include "QsLog.h"
 
+struct PartialRemoval {
+    QSharedPointer<Snake> snake;
+    int collisionIndex;
+};
+
 CollisionTransformer::CollisionTransformer()
 {
     qsrand(QTime::currentTime().msec());
@@ -20,6 +25,7 @@ void CollisionTransformer::transform(Game *game)
      * and remove them all after finishing collision handling. */
 
     QList<QSharedPointer<Snake> > toRemove;
+    QList<PartialRemoval> toPartialRemove;
 
     QSharedPointer<Board> board = game->getBoard();
     foreach(const QSharedPointer<Snake> &snake, board->getSnakes()) {
@@ -77,19 +83,43 @@ void CollisionTransformer::transform(Game *game)
 
                 /* TODO: Send game over message. */
 
-                break;
+                continue;
             }
 
             /* If it collides with another snake's body, the other snake is
              * *partially* eaten. */
 
-            foreach(const QPoint & p, otherBody) {
-                if (p == head) {
-                    QLOG_DEBUG() << "Detected collision with other body";
-                    /* TODO: Cut off other's body, increment own length, game over message. */
+            for (int i = 0; i < otherBody.size(); i++) {
+                QPoint p = otherBody[i];
+
+                if (p != head) {
+                    continue;
                 }
+
+                QLOG_DEBUG() << "Detected collision with other body";
+
+                PartialRemoval partialRemoval;
+                partialRemoval.snake = otherSnake;
+                partialRemoval.collisionIndex = i + 1; /* Plus one because we've removed head. */
+
+                int removedElements = otherBody.size() - i;
+                snake->setPendingGrowth(snake->getPendingGrowth() + removedElements);
+
+                toPartialRemove.append(partialRemoval);
+
+                /* TODO: Game over message. */
             }
         }
+    }
+
+    foreach(const PartialRemoval & partialRemoval, toPartialRemove) {
+        QList<QPoint> body = partialRemoval.snake->getBody().mid(partialRemoval.collisionIndex);
+        QQueue<QPoint> newBody;
+        foreach(const QPoint & p, body) {
+            newBody.append(p);
+        }
+        partialRemoval.snake->setBody(newBody);
+        partialRemoval.snake->setPendingGrowth(0);
     }
 
     foreach(const QSharedPointer<Snake> &snake, toRemove) {
