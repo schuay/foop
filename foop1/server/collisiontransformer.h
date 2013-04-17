@@ -6,6 +6,8 @@
 class CollisionTransformer : public GameTransformer
 {
 public:
+    CollisionTransformer();
+
     void transform(Game *game);
 };
 
