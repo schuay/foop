@@ -32,9 +32,39 @@ void handleCollisionWithSelf(const QSharedPointer<Snake> &snake,
     }
 }
 
-void handleCollisionWithOtherHead(const QSharedPointer<Snake> &snake,
+/*
+ * Returns the position of the snakes head before the move
+*/
+QPoint getPreviousHeadPosition(const QSharedPointer<Snake> &snake,
+                               QPoint head, int boardWidth, int boardHeight)
+{
+    QPoint previousHeadPosition;
+    switch (snake->getDirection()) {
+    case Snake::DIR_DOWN:
+        previousHeadPosition = QPoint(head.x(), head.y() - 1 % boardHeight);
+        break;
+    case Snake::DIR_LEFT:
+        previousHeadPosition = QPoint(head.x() + 1 % boardWidth, head.y());
+        break;
+    case Snake::DIR_RIGHT:
+        previousHeadPosition = QPoint(head.x() - 1 % boardWidth, head.y());
+        break;
+    case Snake::DIR_UP:
+        previousHeadPosition = QPoint(head.x(), head.y() + 1 % boardHeight);
+        break;
+
+    }
+    return previousHeadPosition;
+}
+
+/*
+ * Returns true if there was a head collission with the other snake,
+ * otherwise false
+*/
+bool handleCollisionWithOtherHead(const QSharedPointer<Snake> &snake,
                                   const QSharedPointer<Snake> &otherSnake,
-                                  QList<QSharedPointer<Snake> > &toRemove)
+                                  QList<QSharedPointer<Snake> > &toRemove,
+                                  int boardWidth, int boardHeight)
 {
     QPoint head = snake->getBody().last();
 
@@ -46,7 +76,8 @@ void handleCollisionWithOtherHead(const QSharedPointer<Snake> &snake,
      * higher priority wins. If priorities are equal, each snake
      * has a 50% chance to win. */
 
-    if (head == otherHead) {
+    if (head == otherHead ||
+            (((snake->getDirection() % 2) == (otherSnake->getDirection() % 2)) && getPreviousHeadPosition(snake, head, boardWidth, boardHeight) == otherHead)) {
         QLOG_DEBUG() << "Detected collision with other head";
 
         QSharedPointer<Snake> winner, loser;
@@ -67,7 +98,10 @@ void handleCollisionWithOtherHead(const QSharedPointer<Snake> &snake,
         toRemove.append(loser);
 
         /* TODO: Send game over message. */
+
+        return true;
     }
+    return false;
 }
 
 void handleCollisionWithOtherBody(const QSharedPointer<Snake> &snake,
@@ -133,8 +167,10 @@ void CollisionTransformer::transform(Game *game)
                 continue;
             }
 
-            handleCollisionWithOtherHead(snake, otherSnake, toRemove);
-            handleCollisionWithOtherBody(snake, otherSnake, toPartialRemove);
+            if (!handleCollisionWithOtherHead(snake, otherSnake, toRemove, board->getWidth(), board->getHeight())) {
+                /* handle collision with body only if there was no head collission */
+                handleCollisionWithOtherBody(snake, otherSnake, toPartialRemove);
+            }
 
             /* TODO: There is a special case in which both snakes can collide head on
              * without triggering head collision handling: at t1, s1:(1,0) and s2:(2,0).
