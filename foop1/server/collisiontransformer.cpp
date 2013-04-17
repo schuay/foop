@@ -8,7 +8,7 @@
 
 struct PartialRemoval {
     QSharedPointer<Snake> snake;
-    int collisionIndex;
+    QPoint point;
 };
 
 void handleCollisionWithSelf(const QSharedPointer<Snake> &snake,
@@ -91,9 +91,9 @@ void handleCollisionWithOtherBody(const QSharedPointer<Snake> &snake,
 
         PartialRemoval partialRemoval;
         partialRemoval.snake = otherSnake;
-        partialRemoval.collisionIndex = i + 1; /* Plus one because we've removed head. */
+        partialRemoval.point = p;
 
-        int removedElements = otherBody.size() - i;
+        int removedElements = i + 1;
         snake->setPendingGrowth(snake->getPendingGrowth() + removedElements);
 
         QLOG_DEBUG() << "Detected collision with other body; gained"
@@ -139,11 +139,14 @@ void CollisionTransformer::transform(Game *game)
     }
 
     foreach(const PartialRemoval & partialRemoval, toPartialRemove) {
-        QList<QPoint> body = partialRemoval.snake->getBody().mid(partialRemoval.collisionIndex);
+        QList<QPoint> body = partialRemoval.snake->getBody();
+        int indexOfCollision = body.indexOf(partialRemoval.point);
+
         QQueue<QPoint> newBody;
-        foreach(const QPoint & p, body) {
-            newBody.append(p);
+        for (int i = (indexOfCollision < 0) ? 0 : indexOfCollision; i < body.size(); i++) {
+            newBody.append(body.at(i));
         }
+
         partialRemoval.snake->setBody(newBody);
         partialRemoval.snake->setPendingGrowth(0);
     }
