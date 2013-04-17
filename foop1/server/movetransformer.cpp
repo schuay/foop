@@ -6,6 +6,8 @@ void MoveTransformer::transform(Game *game)
 {
     QSharedPointer<Board> board = game->getBoard();
     foreach(const QSharedPointer<Snake> &snake, board->getSnakes()) {
+        snake->setDirection(snake->getNextDirection());
+
         QQueue<QPoint> body = snake->getBody();
         QPoint head = body.last();
 

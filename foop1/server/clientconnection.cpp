@@ -58,7 +58,7 @@ void ClientConnection::onReadyRead()
     }
 
     QSharedPointer<DirectionMessage> dirMessage = qSharedPointerCast<DirectionMessage>(message);
-    snake->setDirection(dirMessage->getDirection());
+    snake->setNextDirection(dirMessage->getDirection());
 }
 
 void ClientConnection::onReadChannelFinished()
