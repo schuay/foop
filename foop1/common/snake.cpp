@@ -5,6 +5,7 @@ Snake::Snake(int id, const QPoint &head) :
 {
     priority = PRI_HIGHEST;
     direction = DIR_RIGHT;
+    nextDirection = DIR_RIGHT;
 
     body.enqueue(head);
 }
@@ -46,9 +47,23 @@ int Snake::getId() const
 
 void Snake::setDirection(Direction direction)
 {
-    /* TODO: Validate the direction. At any time, only three
-     * directions are valid (unless the snake consists only of its head). */
     this->direction = direction;
+}
+
+Snake::Direction Snake::getNextDirection() const
+{
+    return nextDirection;
+}
+
+void Snake::setNextDirection(Direction nextDirection)
+{
+    /* Validate the direction. At any time, only three
+     * directions are valid (unless the snake consists only of its head). */
+
+    bool isReverse = ((nextDirection + 2) % DIR_COUNT) == direction;
+    if (body.size() == 1 || !isReverse) {
+        this->nextDirection = nextDirection;
+    }
 }
 
 int Snake::getPendingGrowth() const

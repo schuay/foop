@@ -19,11 +19,13 @@ public:
         PRI_COUNT
     };
 
+    /* The order is significant! */
     enum Direction {
         DIR_UP,
-        DIR_DOWN,
         DIR_LEFT,
-        DIR_RIGHT
+        DIR_DOWN,
+        DIR_RIGHT,
+        DIR_COUNT
     };
 
     Snake(int id, const QPoint &head);
@@ -37,6 +39,9 @@ public:
     Direction getDirection() const;
     void setDirection(Direction direction);
 
+    Direction getNextDirection() const;
+    void setNextDirection(Direction nextDirection);
+
     int getPendingGrowth() const;
     void setPendingGrowth(int pendingGrowth);
     int getId() const;
@@ -49,7 +54,7 @@ private:
 private:
     const int id;
     Priority priority;
-    Direction direction;
+    Direction direction, nextDirection;
     QQueue<QPoint> body;
     int pendingGrowth;
 };
