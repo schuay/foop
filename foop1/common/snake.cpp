@@ -61,12 +61,7 @@ void Snake::setPendingGrowth(int pendingGrowth)
     this->pendingGrowth = pendingGrowth;
 }
 
-void Snake::setPoints(int points)
-{
-    this->points = points;
-}
-
 int Snake::getPoints() const
 {
-    return points;
+    return getBody().length() + getPendingGrowth();
 }

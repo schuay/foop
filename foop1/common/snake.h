@@ -52,7 +52,6 @@ private:
     Direction direction;
     QQueue<QPoint> body;
     int pendingGrowth;
-    int points;
 };
 
 #endif // SNAKE_H
