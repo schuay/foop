@@ -135,6 +135,10 @@ void CollisionTransformer::transform(Game *game)
 
             handleCollisionWithOtherHead(snake, otherSnake, toRemove);
             handleCollisionWithOtherBody(snake, otherSnake, toPartialRemove);
+
+            /* TODO: There is a special case in which both snakes can collide head on
+             * without triggering head collision handling: at t1, s1:(1,0) and s2:(2,0).
+             * At t2, s1:(2,0) and s2:(1,0). */
         }
     }
 
