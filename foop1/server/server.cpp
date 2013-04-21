@@ -1,6 +1,7 @@
 #include "server.h"
 
 #include <QThread>
+#include <QSignalMapper>
 
 #include "clientconnection.h"
 #include "QsLog.h"

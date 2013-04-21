@@ -6,6 +6,7 @@
 #include "statemessage.h"
 #include "messagefactory.h"
 #include "identifymessage.h"
+#include "gameovermessage.h"
 
 ClientConnection::ClientConnection(int socketDescriptor, QSharedPointer<Board> board, QObject *parent) :
     QObject(parent),
@@ -38,6 +39,12 @@ void ClientConnection::newTurn()
 
     StateMessage stateMessage(board, socketDescriptor);
     variantSocket->write(stateMessage.toVariant());
+}
+
+void ClientConnection::gameOver()
+{
+    GameoverMessage gameOverMessage(0, false);
+    variantSocket->write(gameOverMessage.toVariant());
 }
 
 void ClientConnection::onReadyRead()

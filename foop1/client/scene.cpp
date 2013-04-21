@@ -1,6 +1,7 @@
 #include "scene.h"
 
 #include <QKeyEvent>
+#include <QMessageBox>
 
 #include "cellitem.h"
 #include "defaultcolorscheme.h"
@@ -159,6 +160,15 @@ void Scene::onNewTurn(int id, BoardPtr board)
 void Scene::onGameOver(bool won)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << won;
+
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setText("Game Over.");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+
+
 }
 
 void Scene::setSnakeId(int id)

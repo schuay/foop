@@ -6,13 +6,9 @@
 #include "game.h"
 #include "QsLog.h"
 
-struct PartialRemoval {
-    QSharedPointer<Snake> snake;
-    QPoint point;
-};
 
-void handleCollisionWithSelf(const QSharedPointer<Snake> &snake,
-                             QList<QSharedPointer<Snake> > &toRemove)
+void CollisionTransformer::handleCollisionWithSelf(const QSharedPointer<Snake> &snake,
+        QList<QSharedPointer<Snake> > &toRemove)
 {
     QList<QPoint> body = snake->getBody();
     QPoint head = body.last();
@@ -26,8 +22,7 @@ void handleCollisionWithSelf(const QSharedPointer<Snake> &snake,
             QLOG_DEBUG() << "Detected collision with self";
 
             toRemove.append(snake);
-
-            /* TODO: Send game over message. */
+            game->getClientConnection(snake)->gameOver();
         }
     }
 }
@@ -61,10 +56,10 @@ QPoint getPreviousHeadPosition(const QSharedPointer<Snake> &snake,
  * Returns true if there was a head collission with the other snake,
  * otherwise false
 */
-bool handleCollisionWithOtherHead(const QSharedPointer<Snake> &snake,
-                                  const QSharedPointer<Snake> &otherSnake,
-                                  QList<QSharedPointer<Snake> > &toRemove,
-                                  int boardWidth, int boardHeight)
+bool CollisionTransformer::handleCollisionWithOtherHead(const QSharedPointer<Snake> &snake,
+        const QSharedPointer<Snake> &otherSnake,
+        QList<QSharedPointer<Snake> > &toRemove,
+        int boardWidth, int boardHeight)
 {
     QPoint head = snake->getBody().last();
 
@@ -97,16 +92,16 @@ bool handleCollisionWithOtherHead(const QSharedPointer<Snake> &snake,
         winner->setPendingGrowth(winner->getPendingGrowth() + loser->getBody().size());
         toRemove.append(loser);
 
-        /* TODO: Send game over message. */
+        game->getClientConnection(loser)->gameOver();
 
         return true;
     }
     return false;
 }
 
-void handleCollisionWithOtherBody(const QSharedPointer<Snake> &snake,
-                                  const QSharedPointer<Snake> &otherSnake,
-                                  QList<PartialRemoval> &toPartialRemove)
+void CollisionTransformer::handleCollisionWithOtherBody(const QSharedPointer<Snake> &snake,
+        const QSharedPointer<Snake> &otherSnake,
+        QList<PartialRemoval> &toPartialRemove)
 {
     QPoint head = snake->getBody().last();
 
@@ -154,9 +149,11 @@ void CollisionTransformer::transform(Game *game)
 
     QList<QSharedPointer<Snake> > toRemove;
     QList<PartialRemoval> toPartialRemove;
+    this->game = game;
 
     QSharedPointer<Board> board = game->getBoard();
     foreach(const QSharedPointer<Snake> &snake, board->getSnakes()) {
+
         handleCollisionWithSelf(snake, toRemove);
 
         QPoint head = snake->getBody().last();

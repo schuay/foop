@@ -23,6 +23,8 @@ Game::Game(int width, int height)
 
     connect(&timer, SIGNAL(timeout()), this, SLOT(processNewTurn()));
     timer.start(TURN_INTERVAL_MS);
+
+    //connect(board, SIGNAL(onSnakeRemove()), this, SLOT(onSnakeRemove()));
 }
 
 QSharedPointer<Board> Game::getBoard() const
@@ -45,4 +47,16 @@ void Game::processNewTurn()
 void Game::registerConnection(QSharedPointer<ClientConnection> clientConnection)
 {
     connections[clientConnection->getSnake()] = clientConnection;
+}
+
+QSharedPointer<ClientConnection> Game::getClientConnection(QSharedPointer<Snake> snake)
+{
+    return connections.value(snake);
+}
+
+void Game::onSnakeRemove()
+{
+
+    QLOG_DEBUG() << "unregister snake";
+
 }

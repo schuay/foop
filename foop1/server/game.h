@@ -19,6 +19,7 @@ public:
     QSharedPointer<Board> getBoard() const;
 
     void registerConnection(QSharedPointer<ClientConnection> clientConnection);
+    QSharedPointer<ClientConnection> getClientConnection(QSharedPointer<Snake> snake);
 
 signals:
     /**
@@ -26,6 +27,9 @@ signals:
      * (movement, collision detection and handling) has finished.
      */
     void newTurn();
+
+public slots:
+    void onSnakeRemove();
 
 private slots:
     void processNewTurn();
