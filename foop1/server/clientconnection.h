@@ -13,6 +13,7 @@ class ClientConnection : public QObject
     Q_OBJECT
 public:
     explicit ClientConnection(int socketDescriptor, QSharedPointer<Board> board, QObject *parent = 0);
+    QSharedPointer<Snake> getSnake();
 
 signals:
     void finished();

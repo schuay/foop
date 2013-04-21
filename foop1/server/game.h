@@ -4,9 +4,11 @@
 #include <QList>
 #include <QSharedPointer>
 #include <QTimer>
+#include <QMap>
 
 #include "board.h"
 #include "gametransformer.h"
+#include "clientconnection.h"
 
 class Game : public QObject
 {
@@ -15,6 +17,8 @@ public:
     Game(int width, int height);
 
     QSharedPointer<Board> getBoard() const;
+
+    void registerConnection(QSharedPointer<ClientConnection> clientConnection);
 
 signals:
     /**
@@ -43,6 +47,8 @@ private:
      * All game transformers are called in order at the end of each turn.
      */
     QList<QSharedPointer<GameTransformer> > gameTransformers;
+
+    QMap<QSharedPointer<Snake>, QSharedPointer<ClientConnection> > connections;
 };
 
 #endif // GAME_H

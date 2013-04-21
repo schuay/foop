@@ -21,6 +21,8 @@ void Server::incomingConnection(int socketDescriptor)
     QThread *thread = new QThread();
 
     ClientConnection *connection = new ClientConnection(socketDescriptor, game->getBoard());
+
+    game->registerConnection(QSharedPointer<ClientConnection>(connection));
     connection->moveToThread(thread);
 
     connect(game.data(), SIGNAL(newTurn()), connection, SLOT(newTurn()));

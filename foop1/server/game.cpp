@@ -1,5 +1,7 @@
 #include "game.h"
 
+#include <QSharedPointer>
+
 #include "collisiontransformer.h"
 #include "movetransformer.h"
 #include "prioritytransformer.h"
@@ -37,4 +39,10 @@ void Game::processNewTurn()
     }
 
     emit newTurn();
+}
+
+
+void Game::registerConnection(QSharedPointer<ClientConnection> clientConnection)
+{
+    connections[clientConnection->getSnake()] = clientConnection;
 }

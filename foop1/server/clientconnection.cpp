@@ -68,3 +68,8 @@ void ClientConnection::onReadChannelFinished()
     board->removeSnake(snake);
     emit finished();
 }
+
+QSharedPointer<Snake> ClientConnection::getSnake()
+{
+    return snake;
+}
