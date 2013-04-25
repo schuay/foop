@@ -2,9 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QThread>
 
 #include "scene.h"
 #include "view.h"
+#include "serverconnection.h"
 
 namespace Ui
 {
@@ -27,6 +29,8 @@ private:
     Ui::MainWindow *ui;
     Scene *scene;
     View *view;
+    QThread *thread;
+    ServerConnection *connection;
 };
 
 #endif // MAINWINDOW_H
