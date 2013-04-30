@@ -25,6 +25,9 @@ public slots:
     void onQuit();
     void onNewGame();
 
+private slots:
+    void onThreadFinished();
+
 private:
     Ui::MainWindow *ui;
     Scene *scene;

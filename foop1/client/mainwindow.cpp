@@ -75,9 +75,18 @@ void MainWindow::onNewGame()
         connect(connection, SIGNAL(finished()), thread, SLOT(quit()));
         connect(connection, SIGNAL(finished()), connection, SLOT(deleteLater()));
         connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+        connect(thread, SIGNAL(finished()), this, SLOT(onThreadFinished()));
 
         thread->start();
     }
+}
+
+void MainWindow::onThreadFinished()
+{
+    QLOG_TRACE() << __PRETTY_FUNCTION__;
+
+    thread = 0;
+    connection = 0;
 }
 
 void MainWindow::onQuit()
