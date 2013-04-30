@@ -1,5 +1,4 @@
 set(foop1_client_SRCS
-    connectionDialog.cpp
     cellitem.cpp
     defaultcolorscheme.cpp
     gameinfoitem.cpp
@@ -12,7 +11,6 @@ set(foop1_client_SRCS
 )
 
 qt4_wrap_cpp(foop1_client_MOC
-    connectionDialog.h
     mainwindow.h
     newgamedialog.h
     scene.h
