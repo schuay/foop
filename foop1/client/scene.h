@@ -85,10 +85,6 @@ private:
      *  can grow or shrink dynamically. */
     QList<CellItem *> snakecells;
 
-    /** The currently selected direction of the snake. Used to prevent sending
-     *  unnecessary direction change messages to the server. */
-    Snake::Direction direction;
-
     QScopedPointer<ColorScheme> colorScheme;
 };
 

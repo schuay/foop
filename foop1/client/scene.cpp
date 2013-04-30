@@ -121,10 +121,7 @@ void Scene::onDirectionPress(Snake::Direction direction)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << direction;
 
-    if (direction != this->direction) {
-        this->direction = direction;
-        emit directionChange(direction);
-    }
+    emit directionChange(direction);
 }
 
 void Scene::keyPressEvent(QKeyEvent *keyEvent)
