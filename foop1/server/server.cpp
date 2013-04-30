@@ -23,7 +23,7 @@ void Server::incomingConnection(int socketDescriptor)
 
     ClientConnection *connection = new ClientConnection(socketDescriptor, game->getBoard());
 
-    game->registerConnection(QSharedPointer<ClientConnection>(connection));
+    game->registerConnection(connection);
     connection->moveToThread(thread);
 
     connect(game.data(), SIGNAL(newTurn()), connection, SLOT(newTurn()));

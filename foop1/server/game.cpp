@@ -44,7 +44,7 @@ void Game::processNewTurn()
 }
 
 
-void Game::registerConnection(QSharedPointer<ClientConnection> clientConnection)
+void Game::registerConnection(ClientConnection *clientConnection)
 {
     connections[clientConnection->getSnake()] = clientConnection;
 }

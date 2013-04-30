@@ -18,7 +18,7 @@ public:
 
     QSharedPointer<Board> getBoard() const;
 
-    void registerConnection(QSharedPointer<ClientConnection> clientConnection);
+    void registerConnection(ClientConnection *clientConnection);
     QSharedPointer<ClientConnection> getClientConnection(QSharedPointer<Snake> snake);
 
 signals:
@@ -52,7 +52,7 @@ private:
      */
     QList<QSharedPointer<GameTransformer> > gameTransformers;
 
-    QMap<QSharedPointer<Snake>, QSharedPointer<ClientConnection> > connections;
+    QMap<QSharedPointer<Snake>, ClientConnection *> connections;
 };
 
 #endif // GAME_H
