@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QPointer>
+
+#include "newgamedialog.h"
 #include "QsLog.h"
-#include "connectionDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -27,7 +29,22 @@ void MainWindow::onNewGame()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    //if you want a newgame, the old will be destroyed
+    /* Start the connection dialog. */
+
+    QPointer<NewGameDialog> dialog(new NewGameDialog(this));
+    const int ret = dialog->exec();
+
+    const QString host = dialog->host();
+    const int port = dialog->port();
+
+    delete dialog;
+
+    if (ret != QDialog::Accepted) {
+        return;
+    }
+
+    /* Clean up the old connection. */
+
     if (thread != 0) {
         thread->disconnect();
         thread->exit();
@@ -38,47 +55,33 @@ void MainWindow::onNewGame()
         connection = 0;
     }
 
-    //exchange parameters with default values
-    QString strHost = "127.0.0.1";
-    QString strPort = "16384";
-    int iMode = -1;
+    /* Start the server connection thread. This will be moved to
+     * the 'New Game...' menu a little later. We will also need to
+     * terminate and clean up left over old connections. */
 
-    //Start Connection-Dialog
-    ConnectionDialog *conDialog = new ConnectionDialog(this, &strHost, &strPort, &iMode);
+    thread = new QThread();
 
-    if (conDialog->exec() == QDialog::Accepted) {
-        return;
-    }
+    connection = new ServerConnection(host, port);
+    connection->moveToThread(thread);
 
-    if (iMode == 1) {
-        /* Start the server connection thread. This will be moved to
-         * the 'New Game...' menu a little later. We will also need to
-         * terminate and clean up left over old connections. */
+    qRegisterMetaType<Snake::Direction>("Snake::Direction");
+    connect(scene, SIGNAL(directionChange(Snake::Direction)),
+            connection, SLOT(onDirectionChange(Snake::Direction)));
 
-        thread = new QThread();
+    connect(connection, SIGNAL(newTurn(int, BoardPtr)),
+            scene, SLOT(onNewTurn(int, BoardPtr)));
+    connect(connection, SIGNAL(gameOver(bool)),
+            scene, SLOT(onGameOver(bool)));
+    connect(connection, SIGNAL(setSnakeId(int)),
+            scene, SLOT(setSnakeId(int)));
 
-        connection = new ServerConnection(strHost, strPort.toInt());
-        connection->moveToThread(thread);
+    connect(thread, SIGNAL(started()), connection, SLOT(run()));
+    connect(connection, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(connection, SIGNAL(finished()), connection, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), this, SLOT(onThreadFinished()));
 
-        qRegisterMetaType<Snake::Direction>("Snake::Direction");
-        connect(scene, SIGNAL(directionChange(Snake::Direction)),
-                connection, SLOT(onDirectionChange(Snake::Direction)));
-
-        connect(connection, SIGNAL(newTurn(int, BoardPtr)),
-                scene, SLOT(onNewTurn(int, BoardPtr)));
-        connect(connection, SIGNAL(gameOver(bool)),
-                scene, SLOT(onGameOver(bool)));
-        connect(connection, SIGNAL(setSnakeId(int)),
-                scene, SLOT(setSnakeId(int)));
-
-        connect(thread, SIGNAL(started()), connection, SLOT(run()));
-        connect(connection, SIGNAL(finished()), thread, SLOT(quit()));
-        connect(connection, SIGNAL(finished()), connection, SLOT(deleteLater()));
-        connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
-        connect(thread, SIGNAL(finished()), this, SLOT(onThreadFinished()));
-
-        thread->start();
-    }
+    thread->start();
 }
 
 void MainWindow::onThreadFinished()

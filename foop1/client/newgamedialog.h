@@ -16,6 +16,9 @@ public:
     explicit NewGameDialog(QWidget *parent = 0);
     ~NewGameDialog();
 
+    QString host() const;
+    int port() const;
+
 private:
     Ui::NewGameDialog *ui;
 };

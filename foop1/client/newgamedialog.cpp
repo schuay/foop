@@ -12,3 +12,13 @@ NewGameDialog::~NewGameDialog()
 {
     delete ui;
 }
+
+QString NewGameDialog::host() const
+{
+    return ui->host->text();
+}
+
+int NewGameDialog::port() const
+{
+    return ui->port->value();
+}
