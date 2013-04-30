@@ -8,7 +8,7 @@
 #include "gameinfoitem.h"
 #include "QsLog.h"
 
-/* Temporary settings until we actually have a board from the server. */
+/* TODO: Temporary settings until we actually have a board from the server. */
 #define WIDTH (32)
 #define HEIGHT (32)
 
