@@ -49,14 +49,12 @@ void Game::registerConnection(ClientConnection *clientConnection)
     connections[clientConnection->getSnake()] = clientConnection;
 }
 
-QSharedPointer<ClientConnection> Game::getClientConnection(QSharedPointer<Snake> snake)
+ClientConnection *Game::getClientConnection(const QSharedPointer<Snake> &snake) const
 {
     return connections.value(snake);
 }
 
 void Game::onSnakeRemove()
 {
-
     QLOG_DEBUG() << "unregister snake";
-
 }

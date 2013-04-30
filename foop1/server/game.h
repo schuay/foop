@@ -19,7 +19,7 @@ public:
     QSharedPointer<Board> getBoard() const;
 
     void registerConnection(ClientConnection *clientConnection);
-    QSharedPointer<ClientConnection> getClientConnection(QSharedPointer<Snake> snake);
+    ClientConnection *getClientConnection(const QSharedPointer<Snake> &snake) const;
 
 signals:
     /**
