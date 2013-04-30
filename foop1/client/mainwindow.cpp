@@ -45,14 +45,14 @@ void MainWindow::onNewGame()
 
     /* Clean up the old connection. */
 
-    if (thread != 0) {
+    if (thread != NULL) {
         thread->disconnect();
         thread->exit();
         thread->terminate();
         connection->disconnect();
 
-        thread = 0;
-        connection = 0;
+        thread = NULL;
+        connection = NULL;
     }
 
     /* Start the server connection thread. This will be moved to
@@ -88,8 +88,8 @@ void MainWindow::onThreadFinished()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
-    thread = 0;
-    connection = 0;
+    thread = NULL;
+    connection = NULL;
 }
 
 void MainWindow::onQuit()
