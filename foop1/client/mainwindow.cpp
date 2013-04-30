@@ -55,9 +55,7 @@ void MainWindow::onNewGame()
         connection = NULL;
     }
 
-    /* Start the server connection thread. This will be moved to
-     * the 'New Game...' menu a little later. We will also need to
-     * terminate and clean up left over old connections. */
+    /* Create our new connection. */
 
     thread = new QThread();
 
