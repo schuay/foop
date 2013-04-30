@@ -160,12 +160,10 @@ void Scene::onGameOver(bool won)
 
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Information);
-    msgBox.setText("Game Over.");
+    msgBox.setText(QString("Game Over. You %1!").arg(won ? "WON" : "lost"));
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
-
-
 }
 
 void Scene::setSnakeId(int id)
