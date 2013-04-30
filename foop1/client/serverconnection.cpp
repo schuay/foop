@@ -66,6 +66,7 @@ void ServerConnection::onReadyRead()
     case Message::MSG_GAMEOVER: {
             QSharedPointer<GameoverMessage> gameOverMessage = qSharedPointerCast<GameoverMessage>(message);
             emit gameOver(gameOverMessage->getWon());
+            variantSocket->close();
             break;
         }
     case Message::MSG_STATE: {
