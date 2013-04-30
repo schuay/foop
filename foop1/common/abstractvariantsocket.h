@@ -14,6 +14,8 @@ public:
     virtual QVariant read() = 0;
     virtual void write(const QVariant &data) = 0;
 
+    virtual void close() = 0;
+
 signals:
     void readChannelFinished();
     void readyRead();

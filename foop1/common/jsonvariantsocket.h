@@ -19,6 +19,8 @@ public:
     QVariant read();
     void write(const QVariant &data);
 
+    void close();
+
 private slots:
     void onReadyRead();
     void onReadChannelFinished();

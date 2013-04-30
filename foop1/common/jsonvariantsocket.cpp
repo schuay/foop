@@ -34,6 +34,11 @@ void JsonVariantSocket::write(const QVariant &data)
     tcpSocket->write(EOM);
 }
 
+void JsonVariantSocket::close()
+{
+    tcpSocket->close();
+}
+
 void JsonVariantSocket::onReadyRead()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
