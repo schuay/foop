@@ -5,6 +5,7 @@ set(foop1_client_SRCS
     gameinfoitem.cpp
     main.cpp
     mainwindow.cpp
+    newgamedialog.cpp
     scene.cpp
     serverconnection.cpp
     view.cpp
@@ -13,12 +14,14 @@ set(foop1_client_SRCS
 qt4_wrap_cpp(foop1_client_MOC
     connectionDialog.h
     mainwindow.h
+    newgamedialog.h
     scene.h
     serverconnection.h
 )
 
 qt4_wrap_ui(foop1_client_UI
     mainwindow.ui
+    newgamedialog.ui
 )
 
 add_executable(foop1_client
