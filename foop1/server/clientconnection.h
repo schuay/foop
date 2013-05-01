@@ -8,6 +8,9 @@
 #include "board.h"
 #include "abstractvariantsocket.h"
 
+/**
+ * The ClientConnection to be able to communicate with a client via sockets
+ */
 class ClientConnection : public QObject
 {
     Q_OBJECT

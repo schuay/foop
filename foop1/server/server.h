@@ -6,12 +6,21 @@
 
 #include "game.h"
 
+/**
+ * The Server which handles the connections.
+*/
 class Server : public QTcpServer
 {
 public:
     Server(QObject *parent = 0);
 
 protected:
+    /**
+     * Handles incoming connection requests
+     *
+     * In:
+     *  int socketDescriptor: the socket descriptor
+    */
     void incomingConnection(int socketDescriptor);
 
 private:
