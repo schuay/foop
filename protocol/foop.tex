@@ -4,6 +4,7 @@
 \usepackage{comment}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
+\usepackage{url}
 
 \definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
 \definecolor{Gray}{gray}{0.5}
@@ -36,23 +37,62 @@
 
 % ------------------------------------------------------------------------------
 
-\emph{Wie hoch ist der Aufwand in Eiffel, um Zusicherungen im Programmcode zu 
+\subsection{Wie hoch ist der Aufwand in Eiffel, um Zusicherungen im Programmcode zu 
 formulieren?}
 
 \vspace{3mm}
 
-Nachdem der Syntax sehr einfach gestaltet ist, ist der Aufwand vergleichbar mit 
-der Formulierung von Zusicherungen innerhalb Kommentaren. Es ist aber zu erwarten,
-dass der initiale Aufwand durch eine robustere Applikation und weniger Debugging
-belohnt wird.
+Nachdem die Syntax sehr einfach gestaltet ist, ist der Aufwand vergleichbar mit der Formulierung von Zusicherungen innerhalb von Kommentaren. Man hat jedoch den Vorteil, dass die Zusicherungen vom Compiler und zur Laufzeit \"uberpr\"uft werden. Es ist aber zu erwarten, dass der initiale Aufwand durch eine robustere Applikation und weniger Debugging belohnt wird. Ein weiterer Vorteil ergibt sich aus der automatisierten Generierung von Dokumentation aus dem Code heraus.
+
+Es gibt folgende Arten von Zusicherungen:
+
+\begin{itemize}
+    \item Preconditions: \verb+require+ Keyword
+    \item Postconditions: \verb+ensure+ Keyword
+    \item Invariants: \verb+invariant+
+\end{itemize}
+
+\begin{figure}
+\begin{lstlisting}
+class
+    ASSERTIONS 
+
+feature
+    x : INTEGER
+    lets_loop (val_from : INTEGER; val_to : INTEGER)
+    require
+        positive_from : val_from >= 0
+        positive_to : val_to >= 0
+        from_lower_to : val_from < val_to
+    do
+        from
+            x := val_from
+        invariant
+            x <= val_to
+        until
+            x = val_to
+        loop
+            x := x + 1
+        end
+
+    ensure
+        x = val_to
+    end
+
+    invariant
+        positive_x : x > 0
+end
+\end{lstlisting}
+\label{lst:assertprog}
+\caption{Simple Klasse zur Demonstration von Zusicherungen}
+\end{figure}
+
 
 % ------------------------------------------------------------------------------
 
-\emph{Wie stark wirkt sich die Überprüfung von Zusicherungen auf die Laufzeit aus?}
+\subsection{Wie stark wirkt sich die Überprüfung von Zusicherungen auf die Laufzeit aus?}
 
-\vspace{3mm}
-
-Die \"Uberpr\"ufung kann zur Laufzeit beliebig eingestellt werden. M\"ogliche Optionen sind
+Die \"Uberpr\"ufung der Zusicherungen kann im Compiler beliebig eingestellt werden. M\"ogliche Optionen sind
 
 \begin{itemize}
 \item no: kein Laufzeiteffekt,
@@ -66,24 +106,26 @@ Man kann also je nach Bedarf die Zusicherungs\"uberpr\"ufung anpassen. Empfohlen
 \emph{no} und \emph{require}, aber die beste Einstellung ist abh\"angig von dem am besten
 geeigneten Trade-off zwischen Effizienz und Sicherheit.
 
-\vspace{3mm}
+Das Eiffel-Entwicklerhandbuch empfielt, Zusicherungen nur während der Entwicklungszeit zu aktivieren, da sie in erster Linie zum Aufdecken von Bugs gedacht sind\footnote{\url{http://docs.eiffel.com/book/method/et-design-contract-tm-assertions-and-exceptions#Run-time_assertion_monitoring}}. 
+
+Wir haben das Laufzeitverhalten von Zusicherungen anhand des Programmes aus Listing~\ref{lst:assertprog} getestet. Die Laufzeit hat sich bei einem Bereich von 1 bis 5000 bei 10000 Durchläufen nach Deaktivieren aller Zusicherungsprüfungen von 42.4 auf 26.5 Sekunden verringert. Ob man jedoch alle Zusicherungen oder nur vereinzelte überprüft, hat sich auf die Laufzeit nicht ausgewirkt.
 
 % ------------------------------------------------------------------------------
 
-\emph{Vorbedingungen dürfen im Untertyp nicht stärker und Nachbedingungen nicht 
+\subsection{Vorbedingungen dürfen im Untertyp nicht stärker und Nachbedingungen nicht 
 schwächer werden um Ersetzbarkeit zu garantieren. Der Eiffel-Compiler überprüft 
 diese Bedingungen. Ist es (trotz eingeschalteter Überprüfung von Zusicherungen) 
 möglich diese Bedingungen zu umgehen? Wenn ja, wie?}
 
-\vspace{3mm}
+
+Prinzipell ist es nicht möglich, Vorbedingungen zu Verstärken und Nachbedingungen zu schwächen. Dies wird in Eiffel dadurch sichergestellt, dass man beim Überschreiben von Methoden in Untertypen gezwungen ist, das Keyword \verb+require else+ für Vor- und \verb+ensure then+ für Nachbedingungen zu verwenden, da ansonsten der Compiler eine Fehlermeldung ausgibt.
+
+Das Keyword \verb+require else+ verknüpft die Vorbedingung des Übertyps mit der Vorbedingung des Untertyps anhand einer \textit{oder}-Bedingung.
 
 % TODO
-
-\vspace{3mm}
-
 % ------------------------------------------------------------------------------
 
-\emph{Eiffel erlaubt kovariante Eingangsparametertypen. Unter welchen Bedingungen 
+\subsection{Eiffel erlaubt kovariante Eingangsparametertypen. Unter welchen Bedingungen 
 führt das zu Problemen, und wie äußern sich diese? Können Sie ein Programm 
 schreiben, in dem die Verwendung kovarianter Eingangsparametertypen zu einer 
 Exception führt?}
@@ -114,10 +156,15 @@ end
 
 % ------------------------------------------------------------------------------
 
-\emph{Vereinfachen kovariante Eingangsparametertypen die Programmierung? Unter 
+\subsection{Vereinfachen kovariante Eingangsparametertypen die Programmierung? Unter 
 welchen Bedingungen ist das so?}
 
-\vspace{3mm}
+Es gibt Szenarien, in denen die Verwendung von kovarianten Eingangsparametertypen erwünscht sein kann, um Begebenheiten aus der tatsächlichen Umwelt zu modellieren. Dies wird in folgendem Beispiel verdeutlicht:
+
+Ein Lkw-Lenker ist ein Untertyp der Klasse Kfz-Lenker. Die Klasse Kfz-Lenker definiert eine Methode fahre(Fahrzeug), die als Eingangstype eine Klasse vom Typ Fahrzeug erwartet. Der Lkw-Lenker soll jedoch nur Fahzeuge vom Typ Lkw lenken, welche ein Untertyp der Klasse Fahrzeug ist. Definiert man nun eine Methode fahre(Lkw) im Typ Lkw-Lenker, dann verletzt man das Ersetzbarkeitsprinzip, weil ein Lkw-Lenker nicht jeden beliebigen anderen Kfz-Lenker ersetzen kann. Dennoch kann es in realistischen Umgebungsszenarien erforderlich sein, genau solche Umstände abzubilden.
+
+
+
 
 %TODO
 
