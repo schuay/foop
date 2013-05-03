@@ -22,6 +22,12 @@ feature {NONE} -- Initialization
 			owner := the_owner
 		end
 
+	double_min_abs: DOUBLE
+            -- the minimum deviation of two doubles to be equal
+        once
+            Result := 0.00000001
+        end
+
 feature -- Access
 
 	balance: DOUBLE
@@ -61,7 +67,7 @@ feature -- Access
 		ensure
 			overdraft_interest = the_overdraft_interest
 		end
-
+		
 feature -- Status report
 
 	to_string: STRING
@@ -87,7 +93,7 @@ feature -- Basic operations
 		do
 			balance := balance + delta
 		ensure
-			balance = old balance + delta
+			(balance - (old balance + delta)).abs <= double_min_abs
 		end
 
 	withdraw (delta: DOUBLE)
@@ -98,7 +104,7 @@ feature -- Basic operations
 		do
 			balance := balance - delta
 		ensure
-			balance = old balance - delta
+			(balance - (old balance - delta)).abs <= double_min_abs
 		end
 
 	transfer (delta: DOUBLE to: ACCOUNT)
@@ -112,8 +118,8 @@ feature -- Basic operations
 			withdraw (delta)
 			to.deposit (delta)
 		ensure
-			balance = old balance - delta
-			to.balance = old to.balance + delta
+			--balance = old balance - delta
+			(to.balance - (old to.balance + delta)).abs <= double_min_abs
 		end
 
 feature -- Public constants
