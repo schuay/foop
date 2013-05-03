@@ -6,13 +6,10 @@
 #include "clientconnection.h"
 #include "QsLog.h"
 
-#define WIDTH (32)
-#define HEIGHT (32)
-
 Server::Server(QObject *parent)
     : QTcpServer(parent)
 {
-    game.reset(new Game(WIDTH, HEIGHT));
+    game.reset(new Game(BOARD_WIDTH, BOARD_HEIGHT));
 }
 
 void Server::incomingConnection(int socketDescriptor)

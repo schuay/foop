@@ -6,6 +6,9 @@
 
 #include "snake.h"
 
+#define BOARD_WIDTH (32)
+#define BOARD_HEIGHT (32)
+
 class Board;
 typedef QSharedPointer<Board> BoardPtr;
 

@@ -8,10 +8,6 @@
 #include "gameinfoitem.h"
 #include "QsLog.h"
 
-/* TODO: Temporary settings until we actually have a board from the server. */
-#define WIDTH (32)
-#define HEIGHT (32)
-
 #define INFO_REL_HEIGHT (0.15)
 
 #define CELL_SEPARATOR (1)
@@ -20,7 +16,7 @@ Scene::Scene(QObject *parent)
     : QGraphicsScene(parent)
 {
     colorScheme.reset(new DefaultColorScheme());
-    board = QSharedPointer<Board>(new Board(WIDTH, HEIGHT));
+    board = QSharedPointer<Board>(new Board(BOARD_WIDTH, BOARD_HEIGHT));
 
     gameInfo = new GameInfoItem(colorScheme.data());
     addItem(gameInfo);
