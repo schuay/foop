@@ -1,26 +1,28 @@
 note
-	description: "Summary description for {NOTFOUND}."
+	description: "Summary description for {EXIT}."
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
 class
-	NOTFOUND
+	EXIT
+
 inherit
 	COMMAND
 feature
 	get_command : STRING
 	do
-		Result := "notfound"
+		Result := "exit"
 	end
 
 	run
 	do
-		print ("Unknown command%N")
+		print("Good bye")
+
 	end
 
 	exit_after_execution : BOOLEAN
 	do
-		Result := false
+		Result := true
 	end
 end

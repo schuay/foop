@@ -18,7 +18,7 @@
 				<exclude>^commands$</exclude>
 			</file_rule>
 			<file_rule>
-				<exclude>^commands$</exclude>
+				<exclude>^factories$</exclude>
 			</file_rule>
 		</cluster>
 	</target>

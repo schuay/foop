@@ -28,6 +28,7 @@ feature {NONE} -- Initialization
 			reader : INPUTREADER
 
 			command : COMMAND
+			exit_program : BOOLEAN
 
 		do
 			print("Hello Eiffel World!%N")
@@ -46,7 +47,18 @@ feature {NONE} -- Initialization
 
 			reader.list_commands
 
-			command := reader.get_next_command
+			from
+				exit_program := false
+	        until
+	        	exit_program = true
+	        loop
+				command := reader.get_next_command
+				command.run
+				exit_program := command.exit_after_execution
+	        end
+
+
+
 
 			print (person.to_string)
 			print (student.to_string)

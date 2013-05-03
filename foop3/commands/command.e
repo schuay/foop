@@ -7,12 +7,18 @@ note
 deferred class
 	COMMAND
 
-feature
+feature -- deferred commands
 	get_command : STRING
+	deferred
+	ensure
+		get_command.count >= 3
+	end
+
+	run
 	deferred
 	end
 
-	run : STRING
+	exit_after_execution : BOOLEAN
 	deferred
 	end
 
