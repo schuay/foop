@@ -24,10 +24,17 @@ feature {NONE} -- Initialization
 			account: ACCOUNT
 			student_account: STUDENT_ACCOUNT
 			senior_account: SENIOR_ACCOUNT
+
+			reader : INPUTREADER
+
+			command : COMMAND
+
 		do
 			print("Hello Eiffel World!%N")
 
 			-- Legal construction
+
+			create reader.make
 
 			create person.make ("Jane Doe")
 			create student.make ("Joe Doe")
@@ -36,6 +43,10 @@ feature {NONE} -- Initialization
 			create account.make (person)
 			create student_account.make (student)
 			create senior_account.make (senior)
+
+			reader.list_commands
+
+			command := reader.get_next_command
 
 			print (person.to_string)
 			print (student.to_string)
