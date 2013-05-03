@@ -14,12 +14,13 @@ class ServerConnection : public QObject
 public:
     explicit ServerConnection(QString host, int port, QObject *parent = 0);
 
+    void close();
+
 signals:
     void finished();
     void newTurn(int id, BoardPtr board);
     void gameOver(bool won);
     void setSnakeId(int);
-
 public slots:
     void run();
     void onDirectionChange(Snake::Direction direction);

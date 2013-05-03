@@ -36,7 +36,9 @@ void JsonVariantSocket::write(const QVariant &data)
 
 void JsonVariantSocket::close()
 {
-    tcpSocket->close();
+    if (tcpSocket->isValid()) {
+        tcpSocket->disconnectFromHost();
+    }
 }
 
 void JsonVariantSocket::onReadyRead()

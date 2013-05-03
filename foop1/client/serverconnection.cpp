@@ -37,6 +37,11 @@ void ServerConnection::run()
     connect(variantSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 }
 
+void ServerConnection::close()
+{
+    variantSocket->close();
+}
+
 void ServerConnection::onDirectionChange(Snake::Direction direction)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << direction;

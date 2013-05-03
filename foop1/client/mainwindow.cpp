@@ -46,10 +46,13 @@ void MainWindow::onNewGame()
     /* Clean up the old connection. */
 
     if (thread != NULL) {
+        connection->disconnect();
+
         thread->disconnect();
         thread->exit();
         thread->terminate();
-        connection->disconnect();
+
+        connection->close();
 
         thread = NULL;
         connection = NULL;
