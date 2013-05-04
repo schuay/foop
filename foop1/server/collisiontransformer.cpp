@@ -6,6 +6,53 @@
 #include "game.h"
 #include "QsLog.h"
 
+struct PartialRemoval {
+    QSharedPointer<Snake> snake;
+    QPoint point;
+};
+
+/**
+ * Checks if a snake's head collides with the body of another snake. If it collides
+ * the snake will grow and the other snake shrink.
+ *
+ * In:
+ *  Snake: the current snake
+ *  Snake: the other snake
+ * Out:
+ *  QList<PartialRemove>: the cells which should be removed from the snake
+*/
+static void handleCollisionWithOtherBody(const QSharedPointer<Snake> &snake,
+        const QSharedPointer<Snake> &otherSnake,
+        QList<PartialRemoval> &toPartialRemove)
+{
+    QPoint head = snake->getBody().last();
+
+    QList<QPoint> otherBody = otherSnake->getBody();
+    otherBody.pop_back();
+
+    /* If it collides with another snake's body, the other snake is
+     * *partially* eaten. */
+
+    for (int i = 0; i < otherBody.size(); i++) {
+        QPoint p = otherBody[i];
+
+        if (p != head) {
+            continue;
+        }
+
+        PartialRemoval partialRemoval;
+        partialRemoval.snake = otherSnake;
+        partialRemoval.point = p;
+
+        int removedElements = i + 1;
+        snake->setPendingGrowth(snake->getPendingGrowth() + removedElements);
+
+        QLOG_DEBUG() << "Detected collision with other body; gained"
+                     << removedElements << "elements";
+
+        toPartialRemove.append(partialRemoval);
+    }
+}
 
 void CollisionTransformer::handleCollisionWithSelf(const QSharedPointer<Snake> &snake,
         QList<QSharedPointer<Snake> > &toRemove)
@@ -97,39 +144,6 @@ bool CollisionTransformer::handleCollisionWithOtherHead(const QSharedPointer<Sna
         return true;
     }
     return false;
-}
-
-void CollisionTransformer::handleCollisionWithOtherBody(const QSharedPointer<Snake> &snake,
-        const QSharedPointer<Snake> &otherSnake,
-        QList<PartialRemoval> &toPartialRemove)
-{
-    QPoint head = snake->getBody().last();
-
-    QList<QPoint> otherBody = otherSnake->getBody();
-    otherBody.pop_back();
-
-    /* If it collides with another snake's body, the other snake is
-     * *partially* eaten. */
-
-    for (int i = 0; i < otherBody.size(); i++) {
-        QPoint p = otherBody[i];
-
-        if (p != head) {
-            continue;
-        }
-
-        PartialRemoval partialRemoval;
-        partialRemoval.snake = otherSnake;
-        partialRemoval.point = p;
-
-        int removedElements = i + 1;
-        snake->setPendingGrowth(snake->getPendingGrowth() + removedElements);
-
-        QLOG_DEBUG() << "Detected collision with other body; gained"
-                     << removedElements << "elements";
-
-        toPartialRemove.append(partialRemoval);
-    }
 }
 
 CollisionTransformer::CollisionTransformer()

@@ -7,11 +7,6 @@
 #include <QSharedPointer>
 #include <QList>
 
-struct PartialRemoval {
-    QSharedPointer<Snake> snake;
-    QPoint point;
-};
-
 /**
  * Handles the different collisions which are possible
  * between the snakes
@@ -64,20 +59,6 @@ private:
                                       const QSharedPointer<Snake> &otherSnake,
                                       QList<QSharedPointer<Snake> > &toRemove,
                                       int boardWidth, int boardHeight);
-
-    /**
-     * Checks if a snake's head collides with the body of another snake. If it collides
-     * the snake will grow and the other snake shrink.
-     *
-     * In:
-     *  Snake: the current snake
-     *  Snake: the other snake
-     * Out:
-     *  QList<PartialRemove>: the cells which should be removed from the snake
-    */
-    void handleCollisionWithOtherBody(const QSharedPointer<Snake> &snake,
-                                      const QSharedPointer<Snake> &otherSnake,
-                                      QList<PartialRemoval> &toPartialRemove);
 
 private:
     Game *game;
