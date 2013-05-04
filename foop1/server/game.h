@@ -43,9 +43,6 @@ signals:
      */
     void newTurn();
 
-public slots:
-    void onSnakeRemove();
-
 private slots:
     void processNewTurn();
 
