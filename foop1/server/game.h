@@ -23,17 +23,17 @@ public:
     QSharedPointer<Board> getBoard() const;
 
     /**
-     * registers a incomming connection to be able to
-     * send a gameover message to a certain player
+     * Registers a incoming connection to be able to
+     * send a gameover message to a certain player.
      *
      * In:
      *  ClientConnection: the client connection
-    */
+     */
     void registerConnection(ClientConnection *clientConnection);
 
     /**
-     * returns the client connection for the given snake
-    */
+     * Returns the client connection for the given snake.
+     */
     ClientConnection *getClientConnection(const QSharedPointer<Snake> &snake) const;
 
 signals:
