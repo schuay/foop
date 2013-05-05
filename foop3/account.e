@@ -22,12 +22,6 @@ feature {NONE} -- Initialization
 			owner := the_owner
 		end
 
-	double_min_abs: DOUBLE
-            -- the minimum deviation of two doubles to be equal
-        once
-            Result := 0.00000001
-        end
-
 feature -- Access
 
 	balance: DOUBLE
@@ -67,7 +61,7 @@ feature -- Access
 		ensure
 			overdraft_interest = the_overdraft_interest
 		end
-		
+
 feature -- Status report
 
 	to_string: STRING
@@ -93,7 +87,7 @@ feature -- Basic operations
 		do
 			balance := balance + delta
 		ensure
-			(balance - (old balance + delta)).abs <= double_min_abs
+			double_equals(balance, old balance + delta)
 		end
 
 	withdraw (delta: DOUBLE)
@@ -104,7 +98,7 @@ feature -- Basic operations
 		do
 			balance := balance - delta
 		ensure
-			(balance - (old balance - delta)).abs <= double_min_abs
+			double_equals(balance, old balance - delta)
 		end
 
 	transfer (delta: DOUBLE to: ACCOUNT)
@@ -118,8 +112,8 @@ feature -- Basic operations
 			withdraw (delta)
 			to.deposit (delta)
 		ensure
-			--balance = old balance - delta
-			(to.balance - (old to.balance + delta)).abs <= double_min_abs
+			double_equals(balance, old balance - delta)
+			double_equals(to.balance, old to.balance + delta)
 		end
 
 feature -- Public constants
@@ -135,6 +129,12 @@ feature -- Public constants
 	min_balance: DOUBLE once Result := -2000.00 end
 
 feature {NONE} -- Implementation
+
+	double_equals (lhs: DOUBLE rhs: DOUBLE): BOOLEAN
+		-- Returns true if both lhs and rhs are "almost equal". Handles floating point rounding errors in postconditions.
+		do
+			Result := (lhs - rhs).abs <= 0.00000001
+		end
 
 invariant
 	balance_within_credit_range: balance >= min_balance
