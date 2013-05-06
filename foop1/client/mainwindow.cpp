@@ -1,18 +1,27 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-
 #include <QPointer>
 
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 #include "newgamedialog.h"
 #include "QsLog.h"
 
+/**
+ * @brief MainWindow::MainWindow Inits
+ * and creates the interface elements and
+ * also the connection and thread that is used
+ * by the game
+ *
+ * connection and thread are NULL if there is
+ * no open game for this client
+ *
+ * @param parent The parent-qt-element
+ */
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    //Init private Members to 0 for checking
-    this->thread = 0;
-    this->connection = 0;
+    this->thread = NULL;
+    this->connection = NULL;
 
     ui->setupUi(this);
 
@@ -25,6 +34,12 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(view);
 }
 
+/**
+ * @brief MainWindow::onNewGame shows the
+ * new-game-dialog, closes the old game if
+ * its not finished yet, and starts a new one
+ * if connection parameters are correct
+ */
 void MainWindow::onNewGame()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
@@ -43,22 +58,18 @@ void MainWindow::onNewGame()
         return;
     }
 
-    /* Clean up the old connection. */
-
-    if (thread != NULL) {
-        connection->disconnect();
-
+    /* Clean up the old connection */
+    if (thread != NULL || connection != NULL) {
         thread->disconnect();
         thread->exit();
         thread->terminate();
-
-        connection->close();
+        connection->disconnect();
 
         thread = NULL;
         connection = NULL;
     }
 
-    /* Create our new connection. */
+    /* Create our new connection and start the new game */
 
     thread = new QThread();
 
@@ -85,6 +96,10 @@ void MainWindow::onNewGame()
     thread->start();
 }
 
+/**
+ * @brief MainWindow::onThreadFinished
+ * Close current game
+ */
 void MainWindow::onThreadFinished()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
@@ -93,6 +108,10 @@ void MainWindow::onThreadFinished()
     connection = NULL;
 }
 
+/**
+ * @brief MainWindow::onQuit
+ * Close the application
+ */
 void MainWindow::onQuit()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
@@ -100,6 +119,10 @@ void MainWindow::onQuit()
     close();
 }
 
+/**
+ * @brief MainWindow::~MainWindow
+ * Destructor for the mainwindow
+ */
 MainWindow::~MainWindow()
 {
     delete ui;

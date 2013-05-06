@@ -1,7 +1,6 @@
-#include "serverconnection.h"
-
 #include <QTcpSocket>
 
+#include "serverconnection.h"
 #include "directionmessage.h"
 #include "gameovermessage.h"
 #include "jsonvariantsocket.h"
@@ -11,6 +10,13 @@
 #include "statemessage.h"
 #include "identifymessage.h"
 
+/**
+ * @brief ServerConnection::ServerConnection
+ * Creates a connection to the given parameters
+ * @param host Hostname of the server != NULL
+ * @param port Portnumber of the server > 0
+ * @param parent Qt-element above
+ */
 ServerConnection::ServerConnection(QString host, int port, QObject *parent) :
     QObject(parent),
     host(host),
@@ -19,6 +25,11 @@ ServerConnection::ServerConnection(QString host, int port, QObject *parent) :
     qRegisterMetaType<BoardPtr>("BoardPtr");
 }
 
+/**
+ * @brief ServerConnection::run
+ * Try to connect to the server, runs
+ * game if a connection could be created
+ */
 void ServerConnection::run()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
@@ -37,11 +48,12 @@ void ServerConnection::run()
     connect(variantSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 }
 
-void ServerConnection::close()
-{
-    variantSocket->close();
-}
-
+/**
+ * @brief ServerConnection::onDirectionChange
+ * writes the choosen direction of the player to the
+ * server
+ * @param direction a valid direction of the snake
+ */
 void ServerConnection::onDirectionChange(Snake::Direction direction)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << direction;
@@ -50,6 +62,17 @@ void ServerConnection::onDirectionChange(Snake::Direction direction)
     variantSocket->write(directionMessage.toVariant());
 }
 
+/**
+ * @brief ServerConnection::onReadyRead
+ * Reads the message from the server, and
+ * choose the operation by the type of this
+ * message
+ *
+ * valid messages are:
+ *  GameOver: for the end of the game
+ *  state: for all information about the game
+ *  identify: for identifing the client (snake)
+ */
 void ServerConnection::onReadyRead()
 {
     QVariant v = variantSocket->read();
@@ -88,6 +111,4 @@ void ServerConnection::onReadyRead()
         QLOG_ERROR() << "The received message type is unknown:" << message->getType();
         return;
     }
-
-
 }

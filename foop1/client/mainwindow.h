@@ -8,6 +8,12 @@
 #include "view.h"
 #include "serverconnection.h"
 
+/**
+ *  mainwindow provides and creates the elements of
+ *  the clientside-interface and also it starts
+ *  the game of a new-game-dialog
+ */
+
 namespace Ui
 {
 class MainWindow;
@@ -21,9 +27,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private slots:
+public slots:
     void onQuit();
     void onNewGame();
+
+private slots:
     void onThreadFinished();
 
 private:

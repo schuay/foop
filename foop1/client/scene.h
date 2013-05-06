@@ -29,6 +29,11 @@ class CellItem;
 class GameInfoItem;
 class QGraphicsItemGroup;
 
+/**
+ * @brief The Scene class
+ * Provides the clientside graphic and control
+ * elements for playing the game
+ */
 class Scene : public QGraphicsScene
 {
     Q_OBJECT

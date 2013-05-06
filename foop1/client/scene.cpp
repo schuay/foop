@@ -12,6 +12,11 @@
 
 #define CELL_SEPARATOR (1)
 
+/**
+ * @brief Scene::Scene
+ * Creates and inits the game elements
+ * @param parent Qt-element above
+ */
 Scene::Scene(QObject *parent)
     : QGraphicsScene(parent)
 {
@@ -24,6 +29,7 @@ Scene::Scene(QObject *parent)
     group = new QGraphicsItemGroup();
     addItem(group);
 
+    //Adding cells to the scene
     for (int x = 0; x < board->getWidth(); x++) {
         for (int y = 0; y < board->getHeight(); y++) {
             CellItem *cellItem = new CellItem();
@@ -36,6 +42,11 @@ Scene::Scene(QObject *parent)
     updateScene();
 }
 
+/**
+ * @brief Scene::resize
+ * Resizes the game elements
+ * @param size new size
+ */
 void Scene::resize(const QSize &size)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << size;
@@ -46,6 +57,7 @@ void Scene::resize(const QSize &size)
 
     gameInfo->setWidth(size.width());
 
+    //Setting the maximum of one cellsize by height/width of the board
     const int maxXCellsize = size.width() / board->getWidth();
     const int maxYCellsize = gameHeight / board->getHeight();
 
@@ -65,11 +77,18 @@ void Scene::resize(const QSize &size)
     group->setPos(xOffset, yOffset);
 }
 
+/**
+ * @brief Scene::updateScene
+ * Creates graphic-elements (e.g. the snakes) on the game field and
+ * Registers changes on the gamefield by calling this function
+ * and display it
+ */
 void Scene::updateScene()
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__;
 
     /* How many snake cells do we need in total? */
+    //bodyMassIndex >= 0
     int bodyMassIndex = 0;
     QSharedPointer<Snake> mySnake;
 
@@ -105,6 +124,10 @@ void Scene::updateScene()
     }
 }
 
+/**
+ * @brief Scene::growSnakeCells
+ * Grows size of snake per one cell
+ */
 void Scene::growSnakeCells()
 {
     CellItem *cellItem = new CellItem();
@@ -113,6 +136,13 @@ void Scene::growSnakeCells()
     group->addToGroup(cellItem);
 }
 
+/**
+ * @brief Scene::onDirectionPress
+ * gets new direction input and sends
+ * the associated signal for handling
+ * @param direction A possible driving
+ * direction of the snake
+ */
 void Scene::onDirectionPress(Snake::Direction direction)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << direction;
@@ -120,6 +150,15 @@ void Scene::onDirectionPress(Snake::Direction direction)
     emit directionChange(direction);
 }
 
+/**
+ * @brief Scene::keyPressEvent
+ * Registers the pressing of key, and calling a
+ * handling function if the key is okay
+ * key can be: left, right, up or down
+ *
+ * @param keyEvent that is called during the
+ * game
+ */
 void Scene::keyPressEvent(QKeyEvent *keyEvent)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << keyEvent->key();
@@ -142,6 +181,13 @@ void Scene::keyPressEvent(QKeyEvent *keyEvent)
     }
 }
 
+/**
+ * @brief Scene::onNewTurn
+ * by every new turn the scene is updated, to
+ * show the new state of the game
+ * @param id Id of the snake >= 0
+ * @param board Current playing board != NULL
+ */
 void Scene::onNewTurn(int id, BoardPtr board)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << id;
@@ -150,6 +196,13 @@ void Scene::onNewTurn(int id, BoardPtr board)
     updateScene();
 }
 
+/**
+ * @brief Scene::onGameOver
+ * Shows a qt-messagebox, when the game
+ * is finished for you. you can win or loose
+ * @param won information about the game-end
+ * TRUE if you lost, FALSE if you won
+ */
 void Scene::onGameOver(bool won)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << won;
@@ -162,6 +215,11 @@ void Scene::onGameOver(bool won)
     msgBox.exec();
 }
 
+/**
+ * @brief Scene::setSnakeId
+ * Sets the unique id >= 0 of the snake
+ * @param id unique id, >= 0
+ */
 void Scene::setSnakeId(int id)
 {
     snakeId = id;

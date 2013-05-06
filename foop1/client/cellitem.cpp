@@ -1,9 +1,10 @@
-#include "cellitem.h"
-
 #include <QBrush>
 #include <QPen>
 
+#include "cellitem.h"
+
 /** How many pixels between two cells. */
+
 #define CELL_SEPARATOR (1)
 
 CellItem::CellItem(QGraphicsItem *parent)

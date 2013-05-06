@@ -8,13 +8,16 @@
 #include "board.h"
 #include "snake.h"
 
+/**
+ * @brief The ServerConnection class
+ * Provides all methods for the communication
+ * with the server during the game
+ */
 class ServerConnection : public QObject
 {
     Q_OBJECT
 public:
     explicit ServerConnection(QString host, int port, QObject *parent = 0);
-
-    void close();
 
 signals:
     void finished();

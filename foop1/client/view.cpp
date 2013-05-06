@@ -2,6 +2,11 @@
 
 #include <QResizeEvent>
 
+/**
+ * @brief View::View
+ * creates the view on the scene
+ * @param parent Qt-element above
+ */
 View::View(QWidget *parent) :
     QGraphicsView(parent)
 {
@@ -11,6 +16,11 @@ View::View(QWidget *parent) :
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
 }
 
+/**
+ * @brief View::createScene
+ * Creates a new scene of the game
+ * @return the new scene
+ */
 Scene *View::createScene()
 {
     scene = new Scene(this);
@@ -19,6 +29,11 @@ Scene *View::createScene()
     return scene;
 }
 
+/**
+ * @brief View::resizeEvent
+ * resizes the gamefield
+ * @param event Gets the resizing event
+ */
 void View::resizeEvent(QResizeEvent *event)
 {
     QGraphicsView::resizeEvent(event);

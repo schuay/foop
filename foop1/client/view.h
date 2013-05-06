@@ -5,6 +5,10 @@
 
 #include "scene.h"
 
+/**
+ * @brief The View class
+ * Provides the qt-view on the scene
+ */
 class View : public QGraphicsView
 {
 public:
