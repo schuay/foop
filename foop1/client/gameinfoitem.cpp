@@ -10,6 +10,12 @@
 #define FONT_SIZE (24)
 #define FONT_SIZE_LABEL (16)
 
+/**
+ * @brief GameInfoItem::GameInfoItem
+ * Creates the basic graphic-elements, e.g.
+ * labels, of the game field
+ * @param colorScheme the default color-scheme
+ */
 GameInfoItem::GameInfoItem(const ColorScheme *colorScheme)
     : QGraphicsItemGroup()
 {
@@ -53,24 +59,43 @@ GameInfoItem::GameInfoItem(const ColorScheme *colorScheme)
     }
 }
 
+/**
+ * @brief GameInfoItem::setWidth
+ * Sets the width
+ * @param width > 0
+ */
 void GameInfoItem::setWidth(int width)
 {
     this->width = width;
     layout();
 }
 
+/**
+ * @brief GameInfoItem::setPoints
+ * Sets the points
+ * @param points > 0
+ */
 void GameInfoItem::setPoints(int points)
 {
     this->points->setText(QString::number(points));
     layout();
 }
 
+/**
+ * @brief GameInfoItem::setCurrentPriority
+ * Sets the current priority of the snake
+ * @param priority a defined priority
+ */
 void GameInfoItem::setCurrentPriority(Snake::Priority priority)
 {
     this->currentPriority = priority;
     layout();
 }
 
+/**
+ * @brief GameInfoItem::layout
+ * Making the layout of the gamefield
+ */
 void GameInfoItem::layout()
 {
     const int priorityWidth = PRIORITY_SIZE + PRIORITY_PADDING;

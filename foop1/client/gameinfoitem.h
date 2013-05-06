@@ -9,6 +9,10 @@
 
 #define GAME_INFO_HEIGHT (64)
 
+/**
+ * @brief The GameInfoItem class
+ * Provides the graphic-qt-elements for the game field
+ */
 class GameInfoItem : public QGraphicsItemGroup
 {
 public:
