@@ -12,9 +12,16 @@ concurrent changes to this repo; ensure you always have the latest version of
 the monticello repository before adding new changesets, and don't leave changes
 on your disc without pushing them.
 
+Hello world in Squeak
+---------------------
+Open a new Workspace
+Type `(StringMorph contents: 'hello world') openInHand`
+CTRL+d
+(Taken from http://wiki.squeak.org/squeak/2230)
+
 How to start the game
 ---------------------
 
 Open a new Workspace
 Enter `SnakeGameMorph new openInWorld.`
-Middle Click -> do it
+Middle Click -> do it (or press Ctrl+d)
