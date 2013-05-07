@@ -30,9 +30,10 @@ feature {NONE} -- Initialization
 			command : COMMAND
 			exit_program : BOOLEAN
 
+			account_factory : ACCOUNT_FACTORY
+
 		do
 			print("Hello Eiffel World!%N")
-
 			-- Legal construction
 
 			create reader.make
@@ -40,6 +41,11 @@ feature {NONE} -- Initialization
 			create person.make ("Jane Doe")
 			create student.make ("Joe Doe")
 			create senior.make ("Joe Doe, Sr.")
+
+			-- Demonstration of Catcall during runtime:
+    		create account_factory
+    		-- account := account_factory.get_account
+    		-- account.set_owner (senior)
 
 			create account.make (person)
 			create student_account.make (student)
