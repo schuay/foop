@@ -5,6 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{float}
 
 \definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
 \definecolor{Gray}{gray}{0.5}
@@ -130,9 +131,12 @@ möglich diese Bedingungen zu umgehen? Wenn ja, wie?}
 
 Prinzipell ist es nicht möglich, Vorbedingungen zu Verstärken und Nachbedingungen zu schwächen. Dies wird in Eiffel dadurch sichergestellt, dass man beim Überschreiben von Methoden in Untertypen gezwungen ist, das Keyword \verb+require else+ für Vor- und \verb+ensure then+ für Nachbedingungen zu verwenden, da ansonsten der Compiler eine Fehlermeldung ausgibt.
 
-Das Keyword \verb+require else+ verknüpft die Vorbedingung des Übertyps mit der Vorbedingung des Untertyps anhand einer \textit{oder}-Bedingung.
+Das Keyword \verb+require else+ verknüpft die Vorbedingung des Übertyps mit der Vorbedingung des Untertyps anhand einer \textit{oder}-Bedingung, \lstinline|ensure then| mit und.
 
 % TODO Ich bin mir (fast) sicher, dass es auch eine Möglichkeit gibt, das zu Umgehen, aber das müssen wir noch abchecken.
+% Man kann evtl Widersprüche zu diesem Prinzip erzeugen, wenn man Vererbungshierarchien einführt
+% Irgendwie mit Kovarianz und/oder Requires in methoden
+% Ich bekomme es aber nicht hin, da ein Beispiel zu konstruieren
 
 % ------------------------------------------------------------------------------
 
@@ -145,13 +149,24 @@ Exception führt?}
 
 \vspace{3mm}
 
-% TODO
 
 \begin{comment}
 See http://docs.eiffel.com/book/method/et-inheritance#Covariance.2C_anchored_declarations.2C_and_.22catcalls.22
 \end{comment}
 
-\begin{figure}
+In der Klasse \lstinline|ACCOUNT_FACTORY| ist eine Methode \lstinline|get_account| definiert, welche ein Objekt vom Typ \lstinline|ACCOUNT| zurückgibt. Es ist daher erst zur Laufzeit bekannt, welcher Typ konkret implementiert wird. Gibt man nun in der Factory ein Objekt vom Typ \lstinline|STUDENT_ACCOUNT| zurück, so kann man nun ein Objekt vom Typ \lstinline|SENIOR| übergeben, was zu folgender Exception führt: \lstinline|Catcall detected in {ACCOUNT}.set_owner for arg#1: expected STUDENT but got SENIOR|. Es steht nämlich erst zur Laufzeit fest, welchen Typ \lstinline|account_factory| zurückliefert. Das "Cat" in Catcall steht für \textit{Changing availability or type}.
+
+\begin{figure}[H]
+\begin{lstlisting}
+    create senior.make ("Joe Doe, Sr.")
+    create account_factory
+    account := account_factory.get_account
+    account.set_owner (senior)
+\end{lstlisting}
+\caption{Demonstration eines Catcall in Eiffel}
+\end{figure}
+
+\begin{figure}[H]
 \begin{lstlisting}
 local
     account: ACCOUNT
@@ -159,10 +174,9 @@ local
 do
     create {STUDENT}person.make ("Joe")
     create {SENIOR_ACCOUNT}account.make (person)
-    -- Exception
 end
 \end{lstlisting}
-\caption{Runtime Exception ausgel\"ost durch einen catcall}
+\caption{Hier erkennt der Compiler, den fehlerhaften Typ}
 \end{figure}
 
 \vspace{3mm}
@@ -176,12 +190,11 @@ welchen Bedingungen ist das so?}
 
 \vspace{3mm}
 
-Es gibt Szenarien, in denen die Verwendung von kovarianten Eingangsparametertypen erwünscht sein kann, um Begebenheiten aus der tatsächlichen Umwelt zu modellieren. Dies wird in folgendem Beispiel verdeutlicht:
+Es gibt Szenarien, in denen die Verwendung von kovarianten Eingangsparametertypen erwünscht sein kann, um Begebenheiten aus der tatsächlichen Umwelt zu modellieren. Dies wird anhand des folgenden Beispieles unsers Programmes aus der Übung verdeutlicht:
 
-Ein \lstinline|Lkw-Lenker| ist ein Untertyp der Klasse \lstinline|Kfz-Lenker|. Die Klasse \lstinline|Kfz-Lenker| definiert eine Methode \lstinline|fahre(Fahrzeug)|, die als Eingangstype eine Klasse vom Typ \lstinline|Fahrzeug| erwartet. Der \lstinline|Lkw-Lenker| soll jedoch nur Fahzeuge vom Typ \lstinline|Lkw| lenken, welche ein Untertyp der Klasse \lstinline|Fahrzeug| ist. Definiert man nun eine Methode \lstinline|fahre(Lkw)| im Typ \lstinline|Lkw-Lenker|, dann verletzt man das Ersetzbarkeitsprinzip, weil ein \lstinline|Lkw-Lenker| nicht jeden beliebigen anderen \lstinline|Kfz-Lenker| ersetzen kann. Dennoch kann es in realistischen Umgebungsszenarien erforderlich sein, genau solche Umstände abzubilden.
+\lstinline|STUDENT| ist ein Untertyp der Klasse \lstinline|PERSON|. Die Klasse \lstinline|ACCOUNT| definiert eine Methode \lstinline|set_owner|, die als Eingangstype ein Objekt vom Typ \lstinline|PERSON| erwartet. \lstinline|STUDENT_ACCOUNT| ist ein Untertyp von \lstinline|ACCOUNT|. Es ergibt natürlich mehr Sinn, dass \lstinline|STUDENT_ACCOUNT| in der Methode \lstinline|set_owner| nur \lstinline|STUDENT| als owner akzepiert. 
 
-
-
+Dadurch verletzt man aber das Ersetzbarkeitsprinzip, weil ein \lstinline|STUDENT_ACCOUNT| nicht mehr jeden beliebigen anderen \lstinline|ACCOUNT| ersetzen kann. Dennoch kann es in realistischen Umgebungsszenarien erforderlich sein, genau solche Umstände abzubilden.
 
 %TODO
 
