@@ -11,3 +11,10 @@ monticello by clicking on '+Repository'. We need to take care not to make
 concurrent changes to this repo; ensure you always have the latest version of
 the monticello repository before adding new changesets, and don't leave changes
 on your disc without pushing them.
+
+How to start the game
+---------------------
+
+Open a new Workspace
+Enter `SnakeGameMorph new openInWorld.`
+Middle Click -> do it
