@@ -33,6 +33,11 @@ class QString;
 namespace QsLogging
 {
 
+/**
+ * @brief The Destination class
+ * Provides funcitonality for the
+ * output-destination during the logging
+ */
 class Destination
 {
 public:

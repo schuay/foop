@@ -6,6 +6,12 @@
 #include "board.h"
 #include "message.h"
 
+/**
+ * @brief The StateMessage class
+ * Provides the functionality for transfering
+ * the information about the game and its snakes
+ * between client and server
+ */
 class StateMessage : public Message
 {
 public:

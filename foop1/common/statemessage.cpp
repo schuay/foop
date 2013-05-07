@@ -10,11 +10,27 @@
 #define KEY_SNAKES ("snakes")
 #define KEY_WIDTH ("width")
 
+/**
+ * @brief StateMessage::StateMessage
+ * creates a message about the current status of the
+ * game with the information about the board and the snake id
+ * @param board information about the playing board
+ * @param id unique id of the snake
+ */
 StateMessage::StateMessage(QSharedPointer<Board> board, int id) :
     board(board), id(id)
 {
 }
 
+/**
+ * @brief StateMessage::StateMessage
+ * creates the message about the current game status
+ * from the incoming network-message-element. gets id
+ * of the clients gamer snake, width/height of the board,
+ * and the locations of all the snakes in the game
+ * @param variant network-message with the information about
+ * the game, != NULL
+ */
 StateMessage::StateMessage(const QVariant &variant)
 {
     QMap<QString, QVariant> mapVariant = variant.toMap();
@@ -47,21 +63,44 @@ StateMessage::StateMessage(const QVariant &variant)
     }
 }
 
+/**
+ * @brief StateMessage::getType
+ * returns the specific type of this message
+ * @return the defined type of this message
+ */
 int StateMessage::getType() const
 {
     return MSG_STATE;
 }
 
+/**
+ * @brief StateMessage::getId
+ * getting the id of the client's snake
+ * @return unique id of the snake
+ */
 int StateMessage::getId() const
 {
     return id;
 }
 
+/**
+ * @brief StateMessage::getBoard
+ * getting the board information of the game
+ * @return the board
+ */
 QSharedPointer<Board> StateMessage::getBoard() const
 {
     return board;
 }
 
+/**
+ * @brief StateMessage::toVariant
+ * packs all information of the clients snake and
+ * other game information into a transferable
+ * network-package for client/server communication
+ * @return the transferable networking package with
+ * the needed information about the game
+ */
 QVariant StateMessage::toVariant() const
 {
     QVariantMap v;

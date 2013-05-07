@@ -35,6 +35,12 @@ namespace QsLogging
 class Destination;
 class LoggerImpl; // d pointer
 
+/**
+ * @brief The Logger class
+ * Provides functionality for
+ * the logging-mechanism
+ */
+
 class Logger
 {
 public:

@@ -4,10 +4,19 @@
 #include <QPoint>
 #include <QQueue>
 
+/**
+ * @brief The Snake class
+ * Provides all methods and attributes
+ * that are needed for one snake during the game.
+ * The snake has one head and an added body with
+ * a changing length. The snake has also a priority,
+ * a driving direction and a unique id for identifing.
+ */
 class Snake
 {
     friend class StateMessage;
 public:
+    /* Priority of the snake during the game*/
     enum Priority {
         PRI_LOWEST,
         PRI_0 = 0,
@@ -19,7 +28,7 @@ public:
         PRI_COUNT
     };
 
-    /* The order is significant! */
+    /* 4 Possible driving directions of the snake. The order is significant! */
     enum Direction {
         DIR_UP,
         DIR_LEFT,

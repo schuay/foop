@@ -47,7 +47,7 @@ QVariant GameoverMessage::toVariant() const
 }
 
 /**
- * @brief DirectionMessage::getType
+ * @brief GameoverMessage::getType
  * returns the specific type of this message
  * @return the defined type of this message
  */

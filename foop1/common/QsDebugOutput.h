@@ -28,6 +28,11 @@
 
 class QString;
 
+/**
+ * @brief The QsDebugOutput class
+ * Provides logging mechanism for handling
+ * the output
+ */
 class QsDebugOutput
 {
 public:

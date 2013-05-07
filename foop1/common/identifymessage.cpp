@@ -39,7 +39,7 @@ QVariant IdentifyMessage::toVariant() const
 }
 
 /**
- * @brief DirectionMessage::getType
+ * @brief IdentifyMessage::getType
  * returns the specific type of this message
  * @return the defined type of this message
  */
