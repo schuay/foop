@@ -3,6 +3,11 @@
 
 #include "message.h"
 
+/**
+ * @brief The GameoverMessage class
+ * provides controls for transfering messages
+ * of the game-status between server and client
+ */
 class GameoverMessage : public Message
 {
 public:

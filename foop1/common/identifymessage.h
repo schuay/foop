@@ -19,6 +19,7 @@ public:
     QVariant toVariant() const;
 
 private:
+    //id of the snake
     int id;
 };
 

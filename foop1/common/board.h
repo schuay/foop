@@ -12,6 +12,12 @@
 class Board;
 typedef QSharedPointer<Board> BoardPtr;
 
+/**
+ * @brief The Board class
+ * provides control elements for the playingfield,
+ * e.g. setting the size of the field and adding
+ * or removing snakes from the field
+ */
 class Board
 {
     friend class StateMessage;

@@ -10,6 +10,13 @@
 
 #include "abstractvariantsocket.h"
 
+/**
+ * @brief The JsonVariantSocket class
+ * this class provides the basic control elements,
+ * e.g. reading/writing from/to the network,
+ * for the information exchange between client and server,
+ * here we used json for this network-traffic exchange
+ */
 class JsonVariantSocket : public AbstractVariantSocket
 {
     Q_OBJECT

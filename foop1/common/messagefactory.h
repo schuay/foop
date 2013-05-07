@@ -5,6 +5,11 @@
 
 #include "message.h"
 
+/**
+ * @brief The MessageFactory class
+ * provides the factory for all defined messages that are
+ * used in client/server-connection during the game
+ */
 class MessageFactory
 {
 public:

@@ -4,6 +4,11 @@
 #include "snake.h"
 #include "message.h"
 
+/**
+ * @brief The DirectionMessage class
+ * provides controls for transfering messages
+ * of the snakes directions between server and client
+ */
 class DirectionMessage : public Message
 {
 public:

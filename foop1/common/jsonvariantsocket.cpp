@@ -4,6 +4,12 @@
 
 #define EOM ("#")
 
+/**
+ * @brief JsonVariantSocket::JsonVariantSocket
+ * creates a new network socket for the information exchange
+ * @param tcpSocket the network tcpsocket that is used
+ * @param parent the parent object
+ */
 JsonVariantSocket::JsonVariantSocket(QSharedPointer<QTcpSocket> tcpSocket, QObject *parent) :
     AbstractVariantSocket(parent),
     tcpSocket(tcpSocket)
@@ -15,6 +21,12 @@ JsonVariantSocket::JsonVariantSocket(QSharedPointer<QTcpSocket> tcpSocket, QObje
     connect(tcpSocket.data(), SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 }
 
+/**
+ * @brief JsonVariantSocket::read
+ * Reads from the network-connection
+ * @return the readed element from the network,
+ * NULL if nothing is there to read
+ */
 QVariant JsonVariantSocket::read()
 {
     if (readQueue.isEmpty()) {
@@ -24,6 +36,12 @@ QVariant JsonVariantSocket::read()
     return readQueue.dequeue();
 }
 
+/**
+ * @brief JsonVariantSocket::write
+ * writes an element to the network-connection
+ * @param data, the element that is written to
+ * the network != NULL
+ */
 void JsonVariantSocket::write(const QVariant &data)
 {
     QLOG_TRACE() << __PRETTY_FUNCTION__ << data;
@@ -34,6 +52,11 @@ void JsonVariantSocket::write(const QVariant &data)
     tcpSocket->write(EOM);
 }
 
+/**
+ * @brief JsonVariantSocket::close
+ * closes the conneciton of this socket to
+ * the specific host
+ */
 void JsonVariantSocket::close()
 {
     if (tcpSocket->isValid()) {

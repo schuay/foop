@@ -6,6 +6,14 @@
 #include "gameovermessage.h"
 #include "identifymessage.h"
 
+/**
+ * @brief MessageFactory::createMessage
+ * creates the specific message that comes in
+ * from the network-connection, the type of the message
+ * is packed in every transferable network-message element
+ * @param variant transferable networkelement != NULL
+ * @return the specific message
+ */
 QSharedPointer<Message> MessageFactory::createMessage(const QVariant &variant)
 {
     bool ok;
