@@ -1,29 +1,35 @@
 note
-	description: "Summary description for {ACCOUNT}."
-	author: ""
+	-- just a description of the class
+	description: "This class provides the bank account for one person, that is here called owner. It has a balance and some interest rates"
 	date: "$Date$"
 	revision: "$Revision$"
 
 class
+	-- declaration of the class
 	ACCOUNT
 
 create
+	-- introduces those procedures which can be used to initialize instances
 	make
 
-feature {NONE} -- Initialization
+feature {NONE} -- Initialization (like a constructor)
 
 	make (the_owner: like owner)
 			-- Initialization for `Current'. Note that the expected type of the_owner
 			-- depends on owner. For subclasses with covariant types, all we need
 			-- to do is redefine owner.
+			-- with like you can use here also subclasses of owner
 		require
+			-- require defines some preconditions, here the_owner is checked for != NULL
 			the_owner /= Void
 		do
+			-- if precondition is okay, do "do"
 			owner := the_owner
 		end
 
-feature -- Access
+feature -- Access, feature defines other methods and attributes of this class
 
+	-- attributes of this class ( attributes_name: type)
 	balance: DOUBLE
 		-- The current account balance
 
@@ -36,6 +42,7 @@ feature -- Access
 	overdraft_interest: DOUBLE
 		-- Interest charge on negative balances.
 
+	-- setter-methods of this class ( method_name ( parameter_name: type) )
 	set_owner (the_owner: like owner)
 
 		require
@@ -43,6 +50,7 @@ feature -- Access
 		do
 			owner := the_owner
 		ensure
+			-- ensure defines some postcondition after the "do", that are checked
 			owner = the_owner
 		end
 
@@ -62,11 +70,12 @@ feature -- Access
 			overdraft_interest = the_overdraft_interest
 		end
 
-feature -- Status report
+feature -- Status report, just a string output for this class
 
 	to_string: STRING
 
 		local
+			-- here you can define local variables for this function
 			str: STRING
 		do
 			str := "ACCOUNT: Owner: " + owner.name + "%N"
@@ -75,10 +84,12 @@ feature -- Status report
 			str := str + "%N"
 
 			Result := str
+			-- Result stands for the return value
 		end
 
 feature -- Basic operations
 
+	-- put money on this account
 	deposit (delta: DOUBLE)
 
 		require
@@ -90,6 +101,7 @@ feature -- Basic operations
 			double_equals(balance, old balance + delta)
 		end
 
+	-- take money from this account
 	withdraw (delta: DOUBLE)
 
 		require
@@ -101,8 +113,9 @@ feature -- Basic operations
 			double_equals(balance, old balance - delta)
 		end
 
+	-- Transfer money from this account to another account
 	transfer (delta: DOUBLE to: ACCOUNT)
-		-- Transfer money from this account to another account
+
 		require
 			min_transaction: delta >= min_transaction
 			delta_positive: delta >= 0.0
@@ -137,6 +150,7 @@ feature {NONE} -- Implementation
 		end
 
 invariant
+	-- this conditions applies to all features that are defined above, its added to every post/precondition of the defined features here
 	balance_within_credit_range: balance >= min_balance
 	interest_within_range: min_interest <= interest and interest <= max_interest
 	overdraft_interest_within_range: min_overdraft_interest <= overdraft_interest and overdraft_interest <= max_overdraft_interest

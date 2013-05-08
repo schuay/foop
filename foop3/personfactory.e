@@ -1,6 +1,5 @@
 note
-	description: "Summary description for {PERSONFACTORY}."
-	author: ""
+	description: "this factory creates a specific person by type and name"
 	date: "$Date$"
 	revision: "$Revision$"
 

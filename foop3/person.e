@@ -1,6 +1,5 @@
 note
-	description: "Summary description for {PERSON}."
-	author: ""
+	description: "This class provides attributes and methods for a person, i.e. the name and a printout funktion"
 	date: "$Date$"
 	revision: "$Revision$"
 

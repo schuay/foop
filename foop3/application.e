@@ -1,5 +1,5 @@
 note
-	description : "foop2 application root class"
+	description : "foop3 application root class. starts the application."
 	date        : "$Date$"
 	revision    : "$Revision$"
 

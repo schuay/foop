@@ -1,6 +1,5 @@
 note
-	description: "Summary description for {INPUTREADER}."
-	author: ""
+	description: "Provides and reads commands for an interactive application"
 	date: "$Date$"
 	revision: "$Revision$"
 

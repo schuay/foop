@@ -1,6 +1,5 @@
 note
-	description: "Summary description for {PENSION_ACCOUNT}."
-	author: ""
+	description: "this class represents a special account for seniors, with different interest, transaction and balance ranges"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -10,6 +9,7 @@ class
 inherit
 	ACCOUNT
 		redefine
+			--this section shows which features(methods/attributes) from the upper class are redefined
 			to_string,
 
 			owner,
@@ -26,10 +26,11 @@ inherit
 		end
 
 create
+	-- make is already defined in the upper class
 	make
 
 feature -- Status report
-
+	-- implemenation of the redefined feature(method)
 	to_string: STRING
 
 		local
@@ -44,7 +45,7 @@ feature -- Access
 	owner: SENIOR assign set_owner
 		-- The owner of this account.
 
-feature -- Public constants
+feature -- redefining the public constants from the upper class
 
 	min_transaction: DOUBLE once Result := 1.0 end
 
