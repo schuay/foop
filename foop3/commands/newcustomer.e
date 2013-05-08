@@ -1,6 +1,5 @@
 note
-	description: "Summary description for {NEWCUSTOMER}."
-	author: ""
+	description: "command for creating a new person by the interactive applicaion with the commandline"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -23,6 +22,7 @@ feature
 		person : PERSON
 	do
 		print ("Name > ")
+		--getting input from the command line
 		io.read_line
 		create name.make_from_string(io.last_string)
 

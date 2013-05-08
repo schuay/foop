@@ -1,6 +1,5 @@
 note
-	description: "Summary description for {EXIT}."
-	author: ""
+	description: "the exit-commands with is called for leaving the interactive application"
 	date: "$Date$"
 	revision: "$Revision$"
 
@@ -10,6 +9,7 @@ class
 inherit
 	COMMAND
 feature
+	-- the implemented features of the abstract class command
 	get_command : STRING
 	do
 		Result := "exit"

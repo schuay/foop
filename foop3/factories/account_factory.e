@@ -1,6 +1,5 @@
 note
-	description: "Summary description for {ACCOUNT_FACTORY}."
-	author: ""
+	description: "this factory produces accounts for students"
 	date: "$Date$"
 	revision: "$Revision$"
 

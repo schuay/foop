@@ -1,6 +1,5 @@
 note
-	description: "Summary description for {NOTFOUND}."
-	author: ""
+	description: "the notfound-command for unavaible used commands"
 	date: "$Date$"
 	revision: "$Revision$"
 
