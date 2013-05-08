@@ -10,15 +10,18 @@ class
 	feature
 		commands : LINKED_LIST [COMMAND]
 		newcustomer : NEW_PERSON
+		newaccount : NEW_ACCOUNT
 		notfound : NOTFOUND
 		exit : EXIT
 	feature make
 	do
 		create newcustomer
+		create newaccount
 		create notfound
 		create exit
 		create commands.make
 		commands.extend (newcustomer)
+		commands.extend (newaccount)
 		commands.extend (exit)
 
 	end

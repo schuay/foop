@@ -1,5 +1,5 @@
 note
-	description: "Summary description for {NEW_ACCOUNT}."
+	description: "this command creates a new account with an owner"
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
@@ -18,12 +18,49 @@ feature
 
 	run
 	local
-		account_factory : ACCOUNT_FACTORY
+		accountfactory : ACCOUNT_FACTORY
+		personfactory : PERSONFACTORY
+
 		name : STRING
 		type : STRING
 		person : PERSON
+
+		strmoney : STRING
+		money : DOUBLE
+
+		account : ACCOUNT
+
 	do
-		-- TODO
+		-- Create the Owner
+		print ("Owner > ")
+		io.read_line
+		create name.make_from_string(io.last_string)
+
+		print ("Type (senior or student) > ")
+		io.read_line
+
+		create type.make_from_string(io.last_string)
+
+		create personfactory
+		person := personfactory.by_type(type, name)
+
+		print ("Created new Owner" + type + " named " + name + "%N")
+
+		--create the account
+		create accountfactory
+		account := accountfactory.with_owner(person)
+
+		print ("How much money > ")
+		io.read_line
+
+		create strmoney.make_from_string(io.last_string)
+		money := strmoney.to_double
+
+		--add money
+		account.deposit(money)
+
+		print ("New account: " + account.to_string)
+
 
 
 	end
