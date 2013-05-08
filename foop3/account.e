@@ -1,4 +1,5 @@
 note
+	-- The following comment is a comment describing the description of this class.
 	-- just a description of the class
 	description: "This class provides the bank account for one person, that is here called owner. It has a balance and some interest rates"
 	date: "$Date$"
